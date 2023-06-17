@@ -11,5 +11,23 @@ config_version=5
 [application]
 
 config/name="r e a p e r"
+run/main_scene="res://World.tscn"
 config/features=PackedStringArray("4.0", "Forward Plus")
 config/icon="res://icon.svg"
+
+[display]
+
+window/size/viewport_width=450
+window/size/viewport_height=800
+window/stretch/mode="canvas_items"
+
+[input]
+
+drag={
+"deadzone": 0.5,
+"events": []
+}
+
+[input_devices]
+
+pointing/emulate_touch_from_mouse=true

@@ -1,0 +1,43 @@
+[gd_scene load_steps=6 format=3 uid="uid://c8doygvwhqw4g"]
+
+[ext_resource type="Texture2D" uid="uid://2qoxv1v4enue" path="res://art/apothecary-background.png" id="1_6acr6"]
+[ext_resource type="Script" path="res://cutscene.gd" id="2_dy3dn"]
+[ext_resource type="Texture2D" uid="uid://brp473ctokb1r" path="res://art/apothecary.png" id="3_brss2"]
+[ext_resource type="Texture2D" uid="uid://vdsbpumjppgt" path="res://art/apothecary-foreground.png" id="4_fmny8"]
+[ext_resource type="FontFile" uid="uid://dk4wq8haqxpbi" path="res://fonts/arial.ttf" id="5_kocpw"]
+
+[node name="Apothecary-background" type="Sprite2D"]
+position = Vector2(231, 430)
+scale = Vector2(0.324445, 0.324445)
+texture = ExtResource("1_6acr6")
+script = ExtResource("2_dy3dn")
+
+[node name="Apothecary" type="Sprite2D" parent="."]
+position = Vector2(25.7813, 4.6875)
+texture = ExtResource("3_brss2")
+
+[node name="Apothecary-foreground" type="Sprite2D" parent="."]
+position = Vector2(11.7188, 0)
+scale = Vector2(1.02604, 1.02604)
+texture = ExtResource("4_fmny8")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="."]
+offset_left = -684.245
+offset_top = 360.616
+offset_right = 677.755
+offset_bottom = 465.616
+theme_override_colors/default_color = Color(1, 1, 0, 1)
+theme_override_colors/font_selected_color = Color(1, 1, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_fonts/normal_font = ExtResource("5_kocpw")
+theme_override_fonts/bold_font = ExtResource("5_kocpw")
+theme_override_fonts/italics_font = ExtResource("5_kocpw")
+theme_override_fonts/bold_italics_font = ExtResource("5_kocpw")
+theme_override_fonts/mono_font = ExtResource("5_kocpw")
+theme_override_font_sizes/normal_font_size = 64
+theme_override_font_sizes/bold_font_size = 16
+theme_override_font_sizes/italics_font_size = 16
+theme_override_font_sizes/bold_italics_font_size = 16
+theme_override_font_sizes/mono_font_size = 16
+bbcode_enabled = true
+text = "What the fuck do you want"

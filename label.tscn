@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://dvi1mn6rm3v3d"]
+
+[node name="Label" type="Label"]
+offset_right = 40.0
+offset_bottom = 23.0
+text = "What the hell do you want?"
