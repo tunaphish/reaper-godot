@@ -577,13 +577,14 @@ animations = [{
 }]
 
 [node name="Player" type="CharacterBody2D"]
-position = Vector2(205, 365)
+position = Vector2(225, 552)
 script = ExtResource("1_8t34f")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-position = Vector2(2, -1)
-scale = Vector2(3.10938, 3.10938)
+position = Vector2(-0.999992, -0.999985)
+scale = Vector2(2.14844, 2.14844)
 sprite_frames = SubResource("SpriteFrames_ccd2h")
 animation = &"idle-up-neutral"
 
 [node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(-1, -152)

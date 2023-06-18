@@ -21,7 +21,7 @@ const ANIMATION_STRING_FORMAT = "%s-%s";
 
 const ACCELERATION = 3000;
 const DRAG = 3;
-const DEAD_ZONE = 400
+const DEAD_ZONE = 200
 
 var isTouching = false; 
 var directionVector = Vector2(0,0);
