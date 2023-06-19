@@ -588,3 +588,7 @@ animation = &"idle-up-neutral"
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(-1, -152)
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+position = Vector2(1, 0)
+polygon = PackedVector2Array(-19, 32, 17, 31, 19, -35, -21, -33)

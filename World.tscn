@@ -1,13 +1,34 @@
-[gd_scene load_steps=3 format=3 uid="uid://dboohhtwnepge"]
+[gd_scene load_steps=4 format=3 uid="uid://dboohhtwnepge"]
 
-[ext_resource type="Texture2D" uid="uid://fqy1lq5bs4r" path="res://backgrounds/6N83Of.png" id="1_s5qqm"]
+[ext_resource type="PackedScene" uid="uid://bho4cgor81p47" path="res://building.tscn" id="2_3w72g"]
+[ext_resource type="Texture2D" uid="uid://cw3md4f13wehv" path="res://city.png" id="2_705ka"]
 [ext_resource type="PackedScene" uid="uid://coolb4tdn3hwc" path="res://Player.tscn" id="2_824ku"]
 
 [node name="World" type="Node2D"]
 
-[node name="6n83Of" type="Sprite2D" parent="."]
-position = Vector2(182, 424)
-scale = Vector2(3.924, 3.924)
-texture = ExtResource("1_s5qqm")
+[node name="City" type="Sprite2D" parent="."]
+position = Vector2(1201, -44)
+scale = Vector2(0.648992, 0.648992)
+texture = ExtResource("2_705ka")
 
 [node name="Player" parent="." instance=ExtResource("2_824ku")]
+
+[node name="Container" type="Container" parent="."]
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Node2D" parent="Container" instance=ExtResource("2_3w72g")]
+position = Vector2(461.15, 84.5004)
+scale = Vector2(0.648992, 0.648992)
+
+[node name="Node2D2" parent="Container" instance=ExtResource("2_3w72g")]
+position = Vector2(164, 266)
+scale = Vector2(0.42119, 0.42119)
+
+[node name="Node2D3" parent="Container" instance=ExtResource("2_3w72g")]
+position = Vector2(-183, 440)
+scale = Vector2(0.648992, 0.648992)
+
+[node name="Node2D4" parent="Container" instance=ExtResource("2_3w72g")]
+position = Vector2(-427, 593)
+scale = Vector2(0.42119, 0.42119)
