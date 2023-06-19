@@ -135,16 +135,16 @@ layer = 1
 [node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground"]
 motion_scale = Vector2(2, 2)
 
-[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer"]
-position = Vector2(743, 533)
+[node name="Wires" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer"]
+position = Vector2(527, 723)
 texture = ExtResource("4_jd7b8")
 
-[node name="Sprite2D2" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer"]
+[node name="TrafficLight" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer"]
 visible = false
-position = Vector2(1943, -723)
+position = Vector2(1937, -901)
 texture = ExtResource("6_amxx1")
 
-[node name="Sprite2D3" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer"]
+[node name="Lamp" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer"]
 visible = false
-position = Vector2(1207, 457)
+position = Vector2(1581, 108)
 texture = ExtResource("5_6s6da")
