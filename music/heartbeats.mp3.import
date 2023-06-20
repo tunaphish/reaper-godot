@@ -2,18 +2,14 @@
 
 importer="mp3"
 type="AudioStreamMP3"
-uid="uid://cstg83vrxk5eh"
-path="res://.godot/imported/heartbeats.mp3-9b0828b3ce8d67e4125b97c6119fe17c.mp3str"
+path="res://.import/heartbeats.mp3-9b0828b3ce8d67e4125b97c6119fe17c.mp3str"
 
 [deps]
 
 source_file="res://music/heartbeats.mp3"
-dest_files=["res://.godot/imported/heartbeats.mp3-9b0828b3ce8d67e4125b97c6119fe17c.mp3str"]
+dest_files=[ "res://.import/heartbeats.mp3-9b0828b3ce8d67e4125b97c6119fe17c.mp3str" ]
 
 [params]
 
 loop=false
 loop_offset=0
-bpm=0
-beat_count=0
-bar_beats=4

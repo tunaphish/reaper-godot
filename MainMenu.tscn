@@ -1,35 +1,30 @@
-[gd_scene load_steps=5 format=3 uid="uid://dii7mds2j1ycm"]
+[gd_scene load_steps=4 format=2]
 
-[ext_resource type="Script" path="res://MainMenu.gd" id="1_7h0o4"]
-[ext_resource type="Texture2D" uid="uid://c7imdb5pfs4np" path="res://backgrounds/main-menu.png" id="1_pbstk"]
-[ext_resource type="AudioStream" uid="uid://f21wuj3yhhdh" path="res://music/intro.mp3" id="2_t1r54"]
-[ext_resource type="Theme" uid="uid://cbdks58ufepvy" path="res://theme.tres" id="4_44rr8"]
+[ext_resource path="res://backgrounds/main-menu.png" type="Texture" id=1]
+[ext_resource path="res://music/intro.mp3" type="AudioStream" id=2]
+[ext_resource path="res://MainMenu.gd" type="Script" id=3]
 
-[node name="MainMenu" type="Node2D"]
-script = ExtResource("1_7h0o4")
-
-[node name="Background" type="Sprite2D" parent="."]
-position = Vector2(224, 399)
-texture = ExtResource("1_pbstk")
-
-[node name="BackgroundMusic" type="AudioStreamPlayer2D" parent="."]
-stream = ExtResource("2_t1r54")
-autoplay = true
+[node name="Main-menu" type="Sprite"]
+position = Vector2( 225, 399 )
+texture = ExtResource( 1 )
+script = ExtResource( 3 )
 
 [node name="Button" type="Button" parent="."]
-offset_left = 147.0
-offset_top = 110.0
-offset_right = 308.0
-offset_bottom = 172.0
-theme = ExtResource("4_44rr8")
+margin_left = -64.0
+margin_top = -287.0
+margin_right = 41.0
+margin_bottom = -267.0
 text = "start the game"
-flat = true
 
 [node name="Label" type="Label" parent="."]
-offset_left = 188.0
-offset_top = 92.0
-offset_right = 261.0
-offset_bottom = 118.0
+margin_left = -44.0
+margin_top = -309.0
+margin_right = 17.0
+margin_bottom = -295.0
 text = "r e a p e r"
 
-[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 2 )
+autoplay = true
+
+[connection signal="pressed" from="Button" to="." method="_on_Button_pressed"]

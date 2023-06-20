@@ -2,18 +2,14 @@
 
 importer="mp3"
 type="AudioStreamMP3"
-uid="uid://ddg6rg6uv1tq7"
-path="res://.godot/imported/smirk.mp3-092424d278e029f43d7a4fa7466219cf.mp3str"
+path="res://.import/smirk.mp3-092424d278e029f43d7a4fa7466219cf.mp3str"
 
 [deps]
 
 source_file="res://sounds/smirk.mp3"
-dest_files=["res://.godot/imported/smirk.mp3-092424d278e029f43d7a4fa7466219cf.mp3str"]
+dest_files=[ "res://.import/smirk.mp3-092424d278e029f43d7a4fa7466219cf.mp3str" ]
 
 [params]
 
 loop=false
 loop_offset=0
-bpm=0
-beat_count=0
-bar_beats=4

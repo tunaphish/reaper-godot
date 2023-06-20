@@ -1,14 +1,13 @@
 [remap]
 
 importer="wav"
-type="AudioStreamWAV"
-uid="uid://bgn181xtolaes"
-path="res://.godot/imported/debuff.wav-7efac10f27c45e1ab87f05d74a7d5972.sample"
+type="AudioStreamSample"
+path="res://.import/debuff.wav-7efac10f27c45e1ab87f05d74a7d5972.sample"
 
 [deps]
 
 source_file="res://sounds/debuff.wav"
-dest_files=["res://.godot/imported/debuff.wav-7efac10f27c45e1ab87f05d74a7d5972.sample"]
+dest_files=[ "res://.import/debuff.wav-7efac10f27c45e1ab87f05d74a7d5972.sample" ]
 
 [params]
 

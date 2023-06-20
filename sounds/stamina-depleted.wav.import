@@ -1,14 +1,13 @@
 [remap]
 
 importer="wav"
-type="AudioStreamWAV"
-uid="uid://ccu0aflard3y8"
-path="res://.godot/imported/stamina-depleted.wav-90fcff5cc73a7492f3f305c1e6faf2b7.sample"
+type="AudioStreamSample"
+path="res://.import/stamina-depleted.wav-90fcff5cc73a7492f3f305c1e6faf2b7.sample"
 
 [deps]
 
 source_file="res://sounds/stamina-depleted.wav"
-dest_files=["res://.godot/imported/stamina-depleted.wav-90fcff5cc73a7492f3f305c1e6faf2b7.sample"]
+dest_files=[ "res://.import/stamina-depleted.wav-90fcff5cc73a7492f3f305c1e6faf2b7.sample" ]
 
 [params]
 

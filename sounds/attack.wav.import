@@ -1,14 +1,13 @@
 [remap]
 
 importer="wav"
-type="AudioStreamWAV"
-uid="uid://cndhu5538p05i"
-path="res://.godot/imported/attack.wav-f70f20667a2b255e2a05eb23aec1449c.sample"
+type="AudioStreamSample"
+path="res://.import/attack.wav-f70f20667a2b255e2a05eb23aec1449c.sample"
 
 [deps]
 
 source_file="res://sounds/attack.wav"
-dest_files=["res://.godot/imported/attack.wav-f70f20667a2b255e2a05eb23aec1449c.sample"]
+dest_files=[ "res://.import/attack.wav-f70f20667a2b255e2a05eb23aec1449c.sample" ]
 
 [params]
 

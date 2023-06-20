@@ -1,150 +1,100 @@
-[gd_scene load_steps=7 format=3 uid="uid://dboohhtwnepge"]
+[gd_scene load_steps=5 format=2]
 
-[ext_resource type="PackedScene" uid="uid://bho4cgor81p47" path="res://building.tscn" id="2_3w72g"]
-[ext_resource type="Texture2D" uid="uid://cw3md4f13wehv" path="res://city.png" id="2_705ka"]
-[ext_resource type="PackedScene" uid="uid://coolb4tdn3hwc" path="res://Player.tscn" id="2_824ku"]
-[ext_resource type="Texture2D" uid="uid://1pdtnue60sb" path="res://objects/telephone-wires.png" id="4_jd7b8"]
-[ext_resource type="Texture2D" uid="uid://dllynhrbjkajc" path="res://objects/traffic-light.png" id="5_6s6da"]
-[ext_resource type="Texture2D" uid="uid://cr1sqsjl3whcq" path="res://objects/street-lamp.png" id="6_amxx1"]
+[ext_resource path="res://backgrounds/city.png" type="Texture" id=1]
+[ext_resource path="res://Building.tscn" type="PackedScene" id=2]
+[ext_resource path="res://objects/telephone-wires.png" type="Texture" id=3]
+[ext_resource path="res://Player.tscn" type="PackedScene" id=4]
 
 [node name="World" type="Node2D"]
 
-[node name="City" type="Sprite2D" parent="."]
-z_index = -1
-position = Vector2(1201, -44)
-scale = Vector2(0.648992, 0.648992)
-texture = ExtResource("2_705ka")
+[node name="City" type="Sprite" parent="."]
+position = Vector2( 1021.63, -951.375 )
+scale = Vector2( 0.479966, 0.479966 )
+texture = ExtResource( 1 )
+offset = Vector2( 437.53, 1648.03 )
 
-[node name="Player" parent="." instance=ExtResource("2_824ku")]
+[node name="Player" parent="." instance=ExtResource( 4 )]
+position = Vector2( 4, -119 )
 
 [node name="Container" type="Container" parent="."]
-offset_right = 40.0
-offset_bottom = 40.0
+margin_left = 898.625
+margin_top = -555.375
+margin_right = 938.625
+margin_bottom = -515.375
+rect_pivot_offset = Vector2( -713.625, -607.625 )
 
-[node name="Node2D23" parent="Container" instance=ExtResource("2_3w72g")]
-position = Vector2(-657, -594)
-scale = Vector2(0.648992, 0.648992)
+[node name="Building9" parent="Container" instance=ExtResource( 2 )]
+position = Vector2( -1346.63, -1251.62 )
+scale = Vector2( 2.87391, 2.87391 )
 
-[node name="Node2D24" parent="Container" instance=ExtResource("2_3w72g")]
-position = Vector2(-308.15, -372)
-scale = Vector2(0.648992, 0.648992)
+[node name="Building" parent="Container" instance=ExtResource( 2 )]
+position = Vector2( -985.625, -1023.62 )
+scale = Vector2( 2.87391, 2.87391 )
 
-[node name="Node2D25" parent="Container" instance=ExtResource("2_3w72g")]
-position = Vector2(82.8503, -156)
-scale = Vector2(0.648992, 0.648992)
+[node name="Building2" parent="Container" instance=ExtResource( 2 )]
+position = Vector2( -1301.63, -831.625 )
+scale = Vector2( 2.87391, 2.87391 )
 
-[node name="Node2D" parent="Container" instance=ExtResource("2_3w72g")]
-position = Vector2(461.15, 84.5004)
-scale = Vector2(0.648992, 0.648992)
+[node name="Building3" parent="Container" instance=ExtResource( 2 )]
+position = Vector2( -33.6254, -347.625 )
+scale = Vector2( 2.87391, 2.87391 )
 
-[node name="Node2D2" parent="Container" instance=ExtResource("2_3w72g")]
-position = Vector2(164, 266)
-scale = Vector2(0.42119, 0.42119)
+[node name="Building4" parent="Container" instance=ExtResource( 2 )]
+position = Vector2( -461.625, -123.625 )
+scale = Vector2( 2.87391, 2.87391 )
 
-[node name="Node2D3" parent="Container" instance=ExtResource("2_3w72g")]
-position = Vector2(-183, 440)
-scale = Vector2(0.648992, 0.648992)
+[node name="Building5" parent="Container" instance=ExtResource( 2 )]
+position = Vector2( -821.625, 80.3751 )
+scale = Vector2( 2.87391, 2.87391 )
 
-[node name="Node2D4" parent="Container" instance=ExtResource("2_3w72g")]
-position = Vector2(-427, 593)
-scale = Vector2(0.42119, 0.42119)
+[node name="Building6" parent="Container" instance=ExtResource( 2 )]
+position = Vector2( -1141.63, 312.375 )
+scale = Vector2( 2.87391, 2.87391 )
 
-[node name="Node2D5" parent="Container" instance=ExtResource("2_3w72g")]
-position = Vector2(1483.15, 850)
-scale = Vector2(0.648992, 0.648992)
+[node name="Building7" parent="Container" instance=ExtResource( 2 )]
+position = Vector2( 380.375, -138.625 )
+scale = Vector2( 2.87391, 2.87391 )
 
-[node name="Node2D6" parent="Container" instance=ExtResource("2_3w72g")]
-position = Vector2(1186, 1031.5)
-scale = Vector2(0.42119, 0.42119)
+[node name="Building8" parent="Container" instance=ExtResource( 2 )]
+position = Vector2( 803.375, 85.3751 )
+scale = Vector2( 2.87391, 2.87391 )
 
-[node name="Node2D7" parent="Container" instance=ExtResource("2_3w72g")]
-position = Vector2(839, 1205.5)
-scale = Vector2(0.648992, 0.648992)
+[node name="Building10" parent="Container" instance=ExtResource( 2 )]
+position = Vector2( -1194.63, -2250.62 )
+scale = Vector2( 2.87391, 2.87391 )
 
-[node name="Node2D8" parent="Container" instance=ExtResource("2_3w72g")]
-position = Vector2(595, 1358.5)
-scale = Vector2(0.42119, 0.42119)
+[node name="Building11" parent="Container" instance=ExtResource( 2 )]
+position = Vector2( -780.625, -2041.62 )
+scale = Vector2( 2.87391, 2.87391 )
 
-[node name="Node2D9" parent="Container" instance=ExtResource("2_3w72g")]
-position = Vector2(1832, 1072)
-scale = Vector2(0.648992, 0.648992)
+[node name="Building12" parent="Container" instance=ExtResource( 2 )]
+position = Vector2( -357.625, -1817.62 )
+scale = Vector2( 2.87391, 2.87391 )
 
-[node name="Node2D10" parent="Container" instance=ExtResource("2_3w72g")]
-position = Vector2(595, 1358.5)
-scale = Vector2(0.42119, 0.42119)
+[node name="Building13" parent="Container" instance=ExtResource( 2 )]
+position = Vector2( 90.3748, -1574.62 )
+scale = Vector2( 2.87391, 2.87391 )
 
-[node name="Node2D11" parent="Container" instance=ExtResource("2_3w72g")]
-position = Vector2(2223, 1288)
-scale = Vector2(0.648992, 0.648992)
+[node name="Building14" parent="Container" instance=ExtResource( 2 )]
+position = Vector2( 504.375, -1365.62 )
+scale = Vector2( 2.87391, 2.87391 )
 
-[node name="Node2D12" parent="Container" instance=ExtResource("2_3w72g")]
-position = Vector2(595, 1358.5)
-scale = Vector2(0.42119, 0.42119)
+[node name="Building15" parent="Container" instance=ExtResource( 2 )]
+position = Vector2( 927.375, -1141.62 )
+scale = Vector2( 2.87391, 2.87391 )
 
-[node name="Node2D13" parent="Container" instance=ExtResource("2_3w72g")]
-position = Vector2(2658, 1494)
-scale = Vector2(0.648992, 0.648992)
-
-[node name="Node2D14" parent="Container" instance=ExtResource("2_3w72g")]
-position = Vector2(295, -1375)
-scale = Vector2(0.648992, 0.648992)
-
-[node name="Node2D15" parent="Container" instance=ExtResource("2_3w72g")]
-position = Vector2(643.85, -1153)
-scale = Vector2(0.648992, 0.648992)
-
-[node name="Node2D16" parent="Container" instance=ExtResource("2_3w72g")]
-position = Vector2(1034.85, -937)
-scale = Vector2(0.648992, 0.648992)
-
-[node name="Node2D17" parent="Container" instance=ExtResource("2_3w72g")]
-position = Vector2(1419, -702)
-scale = Vector2(0.648992, 0.648992)
-
-[node name="Node2D18" parent="Container" instance=ExtResource("2_3w72g")]
-position = Vector2(1767.85, -480)
-scale = Vector2(0.648992, 0.648992)
-
-[node name="Node2D19" parent="Container" instance=ExtResource("2_3w72g")]
-position = Vector2(2158.85, -264)
-scale = Vector2(0.648992, 0.648992)
-
-[node name="Node2D20" parent="Container" instance=ExtResource("2_3w72g")]
-position = Vector2(2543, -16)
-scale = Vector2(0.648992, 0.648992)
-
-[node name="Node2D21" parent="Container" instance=ExtResource("2_3w72g")]
-position = Vector2(2891.85, 206)
-scale = Vector2(0.648992, 0.648992)
-
-[node name="Node2D22" parent="Container" instance=ExtResource("2_3w72g")]
-position = Vector2(3282.85, 422)
-scale = Vector2(0.648992, 0.648992)
-
-[node name="Node2D26" parent="Container" instance=ExtResource("2_3w72g")]
-position = Vector2(268, 1542)
-scale = Vector2(0.648992, 0.648992)
-
-[node name="Node2D27" parent="Container" instance=ExtResource("2_3w72g")]
-position = Vector2(-113, 1758)
-scale = Vector2(0.648992, 0.648992)
+[node name="Building16" parent="Container" instance=ExtResource( 2 )]
+position = Vector2( -1605.63, -636.625 )
+scale = Vector2( 2.87391, 2.87391 )
 
 [node name="ParallaxBackground" type="ParallaxBackground" parent="."]
-layer = 1
+layer = 0
+scroll_offset = Vector2( 2, 2 )
 
 [node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground"]
-motion_scale = Vector2(2, 2)
+motion_scale = Vector2( 2, 2 )
 
-[node name="Wires" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer"]
-position = Vector2(527, 723)
-texture = ExtResource("4_jd7b8")
-
-[node name="TrafficLight" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer"]
-visible = false
-position = Vector2(1937, -901)
-texture = ExtResource("6_amxx1")
-
-[node name="Lamp" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer"]
-visible = false
-position = Vector2(1581, 108)
-texture = ExtResource("5_6s6da")
+[node name="Sprite" type="Sprite" parent="ParallaxBackground/ParallaxLayer"]
+position = Vector2( 1350, 65 )
+scale = Vector2( 0.855892, 0.855892 )
+texture = ExtResource( 3 )

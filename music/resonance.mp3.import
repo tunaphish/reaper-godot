@@ -2,18 +2,14 @@
 
 importer="mp3"
 type="AudioStreamMP3"
-uid="uid://bcnafx3v6kd4f"
-path="res://.godot/imported/resonance.mp3-516a4fc5877c9c9c891b5719471675e8.mp3str"
+path="res://.import/resonance.mp3-516a4fc5877c9c9c891b5719471675e8.mp3str"
 
 [deps]
 
 source_file="res://music/resonance.mp3"
-dest_files=["res://.godot/imported/resonance.mp3-516a4fc5877c9c9c891b5719471675e8.mp3str"]
+dest_files=[ "res://.import/resonance.mp3-516a4fc5877c9c9c891b5719471675e8.mp3str" ]
 
 [params]
 
 loop=false
 loop_offset=0
-bpm=0
-beat_count=0
-bar_beats=4

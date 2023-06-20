@@ -1,14 +1,13 @@
 [remap]
 
 importer="wav"
-type="AudioStreamWAV"
-uid="uid://dh88rxtendpeg"
-path="res://.godot/imported/choice-hover.wav-749c57268bff1ec77ad27a09f2fdd335.sample"
+type="AudioStreamSample"
+path="res://.import/choice-hover.wav-749c57268bff1ec77ad27a09f2fdd335.sample"
 
 [deps]
 
 source_file="res://sounds/choice-hover.wav"
-dest_files=["res://.godot/imported/choice-hover.wav-749c57268bff1ec77ad27a09f2fdd335.sample"]
+dest_files=[ "res://.import/choice-hover.wav-749c57268bff1ec77ad27a09f2fdd335.sample" ]
 
 [params]
 

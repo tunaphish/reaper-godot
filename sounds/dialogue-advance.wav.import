@@ -1,14 +1,13 @@
 [remap]
 
 importer="wav"
-type="AudioStreamWAV"
-uid="uid://c3qnx5y5gcyyb"
-path="res://.godot/imported/dialogue-advance.wav-81f20fe4ecc8c777a599ad534bf87911.sample"
+type="AudioStreamSample"
+path="res://.import/dialogue-advance.wav-81f20fe4ecc8c777a599ad534bf87911.sample"
 
 [deps]
 
 source_file="res://sounds/dialogue-advance.wav"
-dest_files=["res://.godot/imported/dialogue-advance.wav-81f20fe4ecc8c777a599ad534bf87911.sample"]
+dest_files=[ "res://.import/dialogue-advance.wav-81f20fe4ecc8c777a599ad534bf87911.sample" ]
 
 [params]
 
