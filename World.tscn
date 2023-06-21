@@ -1,9 +1,13 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://backgrounds/city.png" type="Texture" id=1]
 [ext_resource path="res://Building.tscn" type="PackedScene" id=2]
 [ext_resource path="res://objects/telephone-wires.png" type="Texture" id=3]
 [ext_resource path="res://Player.tscn" type="PackedScene" id=4]
+[ext_resource path="res://FlowerBuilding.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Barrier1.tscn" type="PackedScene" id=6]
+[ext_resource path="res://Barrier2.tscn" type="PackedScene" id=7]
+[ext_resource path="res://objects/traffic-light.png" type="Texture" id=8]
 
 [node name="World" type="Node2D"]
 
@@ -14,7 +18,19 @@ texture = ExtResource( 1 )
 offset = Vector2( 437.53, 1648.03 )
 
 [node name="Player" parent="." instance=ExtResource( 4 )]
-position = Vector2( 4, -119 )
+position = Vector2( 123, -249 )
+
+[node name="Barrier1" parent="." instance=ExtResource( 6 )]
+position = Vector2( 153, 295 )
+scale = Vector2( 0.56, 0.56 )
+
+[node name="Barrier3" parent="." instance=ExtResource( 7 )]
+position = Vector2( 2188, 31 )
+scale = Vector2( 0.505519, 0.505519 )
+
+[node name="Barrier4" parent="." instance=ExtResource( 7 )]
+position = Vector2( 173, -1140 )
+scale = Vector2( 0.505519, 0.505519 )
 
 [node name="Container" type="Container" parent="."]
 margin_left = 898.625
@@ -68,23 +84,27 @@ position = Vector2( -780.625, -2041.62 )
 scale = Vector2( 2.87391, 2.87391 )
 
 [node name="Building12" parent="Container" instance=ExtResource( 2 )]
-position = Vector2( -357.625, -1817.62 )
+position = Vector2( -407.625, -1817.62 )
 scale = Vector2( 2.87391, 2.87391 )
 
 [node name="Building13" parent="Container" instance=ExtResource( 2 )]
-position = Vector2( 90.3748, -1574.62 )
+position = Vector2( -25.6251, -1594.62 )
 scale = Vector2( 2.87391, 2.87391 )
 
 [node name="Building14" parent="Container" instance=ExtResource( 2 )]
-position = Vector2( 504.375, -1365.62 )
-scale = Vector2( 2.87391, 2.87391 )
-
-[node name="Building15" parent="Container" instance=ExtResource( 2 )]
-position = Vector2( 927.375, -1141.62 )
+position = Vector2( 328.375, -1385.63 )
 scale = Vector2( 2.87391, 2.87391 )
 
 [node name="Building16" parent="Container" instance=ExtResource( 2 )]
 position = Vector2( -1605.63, -636.625 )
+scale = Vector2( 2.87391, 2.87391 )
+
+[node name="FlowerBuilding" parent="Container" instance=ExtResource( 5 )]
+position = Vector2( 1186.38, -392.625 )
+scale = Vector2( 0.873911, 0.873911 )
+
+[node name="Building15" parent="Container" instance=ExtResource( 2 )]
+position = Vector2( 1143.38, -900.625 )
 scale = Vector2( 2.87391, 2.87391 )
 
 [node name="ParallaxBackground" type="ParallaxBackground" parent="."]
@@ -94,7 +114,11 @@ scroll_offset = Vector2( 2, 2 )
 [node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground"]
 motion_scale = Vector2( 2, 2 )
 
-[node name="Sprite" type="Sprite" parent="ParallaxBackground/ParallaxLayer"]
-position = Vector2( 1350, 65 )
+[node name="Wires" type="Sprite" parent="ParallaxBackground/ParallaxLayer"]
+position = Vector2( 1296, 31 )
 scale = Vector2( 0.855892, 0.855892 )
 texture = ExtResource( 3 )
+
+[node name="Traffic-light" type="Sprite" parent="ParallaxBackground/ParallaxLayer"]
+position = Vector2( 2453, -2028 )
+texture = ExtResource( 8 )
