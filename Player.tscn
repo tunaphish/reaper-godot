@@ -17,20 +17,20 @@ animations = [ {
 } ]
 
 [node name="Player" type="KinematicBody2D"]
-position = Vector2( 2, -2 )
+position = Vector2( 7, -6 )
 script = ExtResource( 2 )
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
-position = Vector2( 221.75, 634.25 )
+position = Vector2( 2.34426, -5.7775 )
 scale = Vector2( 2.26563, 2.26563 )
 frames = SubResource( 1 )
 animation = "idle"
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
-position = Vector2( 223.565, 633.794 )
+position = Vector2( 4.15927, -6.23356 )
 scale = Vector2( 2.36231, 2.36231 )
 polygon = PoolVector2Array( -11, -16, -11, 15, 9, 15, 9, -16 )
 
 [node name="Camera2D" type="Camera2D" parent="."]
-position = Vector2( 222, 398 )
+position = Vector2( 0, -192 )
 current = true

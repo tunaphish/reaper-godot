@@ -18,7 +18,7 @@ texture = ExtResource( 1 )
 offset = Vector2( 437.53, 1648.03 )
 
 [node name="Player" parent="." instance=ExtResource( 4 )]
-position = Vector2( 123, -249 )
+position = Vector2( 375, 385 )
 
 [node name="Barrier1" parent="." instance=ExtResource( 6 )]
 position = Vector2( 153, 295 )
@@ -48,7 +48,7 @@ position = Vector2( -985.625, -1023.62 )
 scale = Vector2( 2.87391, 2.87391 )
 
 [node name="Building2" parent="Container" instance=ExtResource( 2 )]
-position = Vector2( -1301.63, -831.625 )
+position = Vector2( -1298.63, -834.625 )
 scale = Vector2( 2.87391, 2.87391 )
 
 [node name="Building3" parent="Container" instance=ExtResource( 2 )]
@@ -96,7 +96,7 @@ position = Vector2( 328.375, -1385.63 )
 scale = Vector2( 2.87391, 2.87391 )
 
 [node name="Building16" parent="Container" instance=ExtResource( 2 )]
-position = Vector2( -1605.63, -636.625 )
+position = Vector2( -1614.63, -645.625 )
 scale = Vector2( 2.87391, 2.87391 )
 
 [node name="FlowerBuilding" parent="Container" instance=ExtResource( 5 )]
@@ -115,7 +115,7 @@ scroll_offset = Vector2( 2, 2 )
 motion_scale = Vector2( 2, 2 )
 
 [node name="Wires" type="Sprite" parent="ParallaxBackground/ParallaxLayer"]
-position = Vector2( 1296, 31 )
+position = Vector2( 1395, -175 )
 scale = Vector2( 0.855892, 0.855892 )
 texture = ExtResource( 3 )
 
