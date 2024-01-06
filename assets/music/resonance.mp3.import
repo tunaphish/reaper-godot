@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/resonance.mp3-b44d1ef299eda179d7ed39b158e70547.mp3str"
+
+[deps]
+
+source_file="res://assets/music/resonance.mp3"
+dest_files=[ "res://.import/resonance.mp3-b44d1ef299eda179d7ed39b158e70547.mp3str" ]
+
+[params]
+
+loop=false
+loop_offset=0

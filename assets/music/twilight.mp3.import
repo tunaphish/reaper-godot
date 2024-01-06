@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/twilight.mp3-4f65950f8233337ac4aa287e06d7def8.mp3str"
+
+[deps]
+
+source_file="res://assets/music/twilight.mp3"
+dest_files=[ "res://.import/twilight.mp3-4f65950f8233337ac4aa287e06d7def8.mp3str" ]
+
+[params]
+
+loop=false
+loop_offset=0

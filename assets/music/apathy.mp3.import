@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/apathy.mp3-1efe569e32b54f6d4d176b8090b854f8.mp3str"
+
+[deps]
+
+source_file="res://assets/music/apathy.mp3"
+dest_files=[ "res://.import/apathy.mp3-1efe569e32b54f6d4d176b8090b854f8.mp3str" ]
+
+[params]
+
+loop=false
+loop_offset=0

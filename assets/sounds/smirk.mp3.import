@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/smirk.mp3-859ba34f9d7ab0ad7ca1066b07f4d3e0.mp3str"
+
+[deps]
+
+source_file="res://assets/sounds/smirk.mp3"
+dest_files=[ "res://.import/smirk.mp3-859ba34f9d7ab0ad7ca1066b07f4d3e0.mp3str" ]
+
+[params]
+
+loop=false
+loop_offset=0

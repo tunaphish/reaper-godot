@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/soundlessly.mp3-e227098f28a0a6b4a47d9c2bdd1caf07.mp3str"
+
+[deps]
+
+source_file="res://assets/music/soundlessly.mp3"
+dest_files=[ "res://.import/soundlessly.mp3-e227098f28a0a6b4a47d9c2bdd1caf07.mp3str" ]
+
+[params]
+
+loop=false
+loop_offset=0

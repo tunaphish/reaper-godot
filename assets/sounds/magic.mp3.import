@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/magic.mp3-86d595558298ca2daaa7bfe8573fefe1.mp3str"
+
+[deps]
+
+source_file="res://assets/sounds/magic.mp3"
+dest_files=[ "res://.import/magic.mp3-86d595558298ca2daaa7bfe8573fefe1.mp3str" ]
+
+[params]
+
+loop=false
+loop_offset=0
