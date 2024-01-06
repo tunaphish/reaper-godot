@@ -1,0 +1,13 @@
+[gd_resource type="Resource" load_steps=3 format=2]
+
+[ext_resource path="res://entities/enemy/boss/boss.png" type="Texture" id=1]
+[ext_resource path="res://entities/enemy/enemy.gd" type="Script" id=2]
+
+[resource]
+script = ExtResource( 2 )
+name = "Boss"
+health = 10
+maxHealth = 10
+stamina = 10
+maxStamina = 10
+sprite = ExtResource( 1 )

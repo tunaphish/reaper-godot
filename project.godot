@@ -13,9 +13,27 @@ _global_script_classes=[ {
 "class": "Actor",
 "language": "GDScript",
 "path": "res://entities/actor.gd"
+}, {
+"base": "Resource",
+"class": "Battle",
+"language": "GDScript",
+"path": "res://entities/battle/battle.gd"
+}, {
+"base": "Actor",
+"class": "Enemy",
+"language": "GDScript",
+"path": "res://entities/enemy/enemy.gd"
+}, {
+"base": "Actor",
+"class": "Member",
+"language": "GDScript",
+"path": "res://entities/member/member.gd"
 } ]
 _global_script_class_icons={
-"Actor": ""
+"Actor": "",
+"Battle": "",
+"Enemy": "",
+"Member": ""
 }
 
 [application]
