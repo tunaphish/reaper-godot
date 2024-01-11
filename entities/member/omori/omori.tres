@@ -6,8 +6,10 @@
 [resource]
 script = ExtResource( 1 )
 name = "Omori"
-health = 5
+health = 5.0
 maxHealth = 10
-stamina = 3
+stamina = 0.0
 maxStamina = 10
+magic = 5
+maxMagic = 100
 avatar = ExtResource( 2 )

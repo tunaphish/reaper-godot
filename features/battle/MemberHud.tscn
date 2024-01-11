@@ -26,12 +26,18 @@ margin_bottom = 189.0
 alignment = 2
 
 [node name="HealthBar" type="ProgressBar" parent="Resources"]
-margin_top = 150.0
+margin_top = 132.0
 margin_right = 128.0
-margin_bottom = 164.0
+margin_bottom = 146.0
 value = 20.0
 
 [node name="StaminaBar" type="ProgressBar" parent="Resources"]
+margin_top = 150.0
+margin_right = 128.0
+margin_bottom = 164.0
+value = 1.0
+
+[node name="MagicBar" type="ProgressBar" parent="Resources"]
 margin_top = 168.0
 margin_right = 128.0
 margin_bottom = 182.0
