@@ -39,7 +39,7 @@ _global_script_class_icons={
 [application]
 
 config/name="reaper"
-run/main_scene="res://features/world/World.tscn"
+run/main_scene="res://features/battle/Battle.tscn"
 
 [display]
 
