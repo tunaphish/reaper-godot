@@ -1,0 +1,44 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://features/battle/visual/EnemyHud.gd" type="Script" id=1]
+[ext_resource path="res://entities/member/aubrey/aubrey.png" type="Texture" id=2]
+
+[node name="EnemyHud" type="PanelContainer"]
+margin_right = 142.0
+margin_bottom = 196.0
+size_flags_horizontal = 3
+script = ExtResource( 1 )
+
+[node name="AvatarButton" type="TextureButton" parent="."]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 135.0
+margin_bottom = 189.0
+texture_normal = ExtResource( 2 )
+expand = true
+stretch_mode = 5
+
+[node name="Resources" type="VBoxContainer" parent="."]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 135.0
+margin_bottom = 189.0
+alignment = 2
+
+[node name="HealthBar" type="ProgressBar" parent="Resources"]
+margin_top = 132.0
+margin_right = 128.0
+margin_bottom = 146.0
+value = 20.0
+
+[node name="StaminaBar" type="ProgressBar" parent="Resources"]
+margin_top = 150.0
+margin_right = 128.0
+margin_bottom = 164.0
+value = 1.0
+
+[node name="MagicBar" type="ProgressBar" parent="Resources"]
+margin_top = 168.0
+margin_right = 128.0
+margin_bottom = 182.0
+value = 1.0

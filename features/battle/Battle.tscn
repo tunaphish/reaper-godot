@@ -14,15 +14,21 @@ margin_top = 7.0
 margin_right = 443.0
 margin_bottom = 793.0
 
-[node name="Stage" type="Panel" parent="BattleContainer"]
+[node name="EnemyBar" type="HBoxContainer" parent="BattleContainer"]
 margin_right = 436.0
-margin_bottom = 586.0
+margin_bottom = 155.0
+size_flags_vertical = 3
+
+[node name="Stage" type="Panel" parent="BattleContainer"]
+margin_top = 159.0
+margin_right = 436.0
+margin_bottom = 626.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 size_flags_stretch_ratio = 3.0
 
 [node name="PartyBar" type="HBoxContainer" parent="BattleContainer"]
-margin_top = 590.0
+margin_top = 630.0
 margin_right = 436.0
 margin_bottom = 786.0
 size_flags_vertical = 3

@@ -2,18 +2,26 @@ extends PanelContainer
 
 const TICK = 1
 var battleEntity: Battle
-var memberHudScene = preload("res://features/battle/MemberHud.tscn");
+const memberHudScene = preload("res://features/battle/visual/MemberHud.tscn");
+const enemyHudScene = preload("res://features/battle/visual/EnemyHud.tscn");
 var timer: float = 0
 
 func _ready():
 	if !battleEntity:
 		battleEntity = preload("res://entities/battle/testBattle.tres")
 
-	var partyBarNode = get_node("BattleContainer/PartyBar")
+	var partyBarNode = $BattleContainer/PartyBar
 	for member in battleEntity.party:
 		var memberHud = memberHudScene.instance()
 		memberHud.memberEntity = member
 		partyBarNode.add_child(memberHud);
+	
+	var enemyBarNode = $BattleContainer/EnemyBar
+	for enemy in battleEntity.enemies:
+		var enemyHud = enemyHudScene.instance()
+		enemyHud.enemyEntity = enemy
+		enemyBarNode.add_child(enemyHud)
+		
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -24,8 +32,10 @@ func _process(delta):
 	
 	for member in battleEntity.party:
 		member.setStamina(member.getStamina()+1)
-		member.setHealth(member.getHealth()-1)
-		member.setMagic(member.getMagic()*2)
+	for enemy in battleEntity.enemies:
+		enemy.setStamina(enemy.getStamina()+1)
+
+
 
 	timer = 0
 	
