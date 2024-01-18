@@ -6,10 +6,11 @@
 [resource]
 script = ExtResource( 2 )
 name = "Boss"
-health = 30
+health = 30.0
 maxHealth = 30
 stamina = 0.0
 maxStamina = 30
-magic = 30
+staminaRegenRate = 3
+magic = 30.0
 maxMagic = 30
 sprite = ExtResource( 1 )

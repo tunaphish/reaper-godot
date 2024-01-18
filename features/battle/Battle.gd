@@ -31,11 +31,9 @@ func _process(delta):
 		return
 	
 	for member in battleEntity.party:
-		member.setStamina(member.getStamina()+1)
+		member.setStamina(member.getStamina()+member.staminaRegenRate)
 	for enemy in battleEntity.enemies:
-		enemy.setStamina(enemy.getStamina()+1)
-
-
+		enemy.setStamina(enemy.getStamina()+enemy.staminaRegenRate)
 
 	timer = 0
 	

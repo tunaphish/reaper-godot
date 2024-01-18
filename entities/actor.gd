@@ -6,6 +6,7 @@ export(int) var health setget setHealth, getHealth
 export(int) var maxHealth = INF
 export(int) var stamina setget setStamina, getStamina
 export(int) var maxStamina = INF
+export(int) var staminaRegenRate
 export(int) var magic setget setMagic, getMagic
 export(int) var maxMagic = INF
 
