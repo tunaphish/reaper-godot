@@ -13,4 +13,5 @@ maxStamina = 30
 staminaRegenRate = 3
 magic = 30.0
 maxMagic = 30
+actions = [  ]
 sprite = ExtResource( 1 )

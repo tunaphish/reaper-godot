@@ -10,9 +10,19 @@ config_version=4
 
 _global_script_classes=[ {
 "base": "Resource",
+"class": "Action",
+"language": "GDScript",
+"path": "res://entities/action/action.gd"
+}, {
+"base": "Resource",
 "class": "Actor",
 "language": "GDScript",
 "path": "res://entities/actor.gd"
+}, {
+"base": "Action",
+"class": "Attack",
+"language": "GDScript",
+"path": "res://entities/action/attack/attack.gd"
 }, {
 "base": "Resource",
 "class": "Battle",
@@ -30,7 +40,9 @@ _global_script_classes=[ {
 "path": "res://entities/member/member.gd"
 } ]
 _global_script_class_icons={
+"Action": "",
 "Actor": "",
+"Attack": "",
 "Battle": "",
 "Enemy": "",
 "Member": ""

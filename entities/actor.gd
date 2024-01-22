@@ -10,6 +10,8 @@ export(int) var staminaRegenRate
 export(int) var magic setget setMagic, getMagic
 export(int) var maxMagic = INF
 
+export(Array, Resource) var actions
+
 signal healthUpdated()
 signal staminaUpdated()
 signal magicUpdated()

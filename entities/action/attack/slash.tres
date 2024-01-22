@@ -1,0 +1,11 @@
+[gd_resource type="Resource" load_steps=2 format=2]
+
+[ext_resource path="res://entities/action/attack/attack.gd" type="Script" id=1]
+
+[resource]
+script = ExtResource( 1 )
+name = "Slash"
+description = "Basic attack"
+staminaCost = 3
+magicCost = 0
+test = ""
