@@ -44,5 +44,3 @@ margin_right = 128.0
 margin_bottom = 128.0
 mouse_filter = 1
 value = 1.0
-
-[connection signal="pressed" from="AvatarButton" to="AvatarButton" method="_on_AvatarButton_pressed"]

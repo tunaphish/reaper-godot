@@ -1,0 +1,11 @@
+[gd_resource type="Resource" load_steps=2 format=2]
+
+[ext_resource path="res://entities/action/action.gd" type="Script" id=1]
+
+[resource]
+script = ExtResource( 1 )
+name = "Ankle Slice"
+description = "Also deals damage to stamina"
+staminaCost = 1
+magicCost = 1
+targetType = 1

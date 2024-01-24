@@ -1,10 +1,17 @@
 class_name Action extends Resource
 
+enum TargetType {
+	SELF,
+	SINGLE,
+	AOE,
+	ALL
+}
+
 export (String) var name
 export (String) var description
 export (int) var staminaCost
 export (int) var magicCost
+export (TargetType) var targetType
 
-func trigger_action(battleEntity: Battle, caster: Actor, targets: Array) -> void:
-	print("base action triggered")
-	pass 
+func get_execution_name():
+	return name.to_lower().replace(' ', '_')

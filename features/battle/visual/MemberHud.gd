@@ -1,6 +1,7 @@
 extends PanelContainer
 
 var memberEntity: Member
+var actionExections = preload("res://entities/action/actionExecutions.gd").new()
 
 func _ready():
 	if (!memberEntity):
@@ -25,7 +26,9 @@ func _ready():
 	avatarButton.connect("pressed", self, "_on_avatarButton_pressed")
 	
 func _on_avatarButton_pressed():
-	print('hi')
+	for action in memberEntity.actions:
+		var actionExecution = action.get_execution_name()
+		#actionExections.call(actionExecution)
 
 func _on_memberEntity_healthUpdated():
 	$AvatarButton/Resources/HealthBar.value = memberEntity.health
