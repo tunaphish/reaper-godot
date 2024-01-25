@@ -8,6 +8,7 @@ script = ExtResource( 2 )
 name = "Boss"
 health = 30.0
 maxHealth = 30
+tickingHealth = 0
 stamina = 0.0
 maxStamina = 30
 staminaRegenRate = 3
