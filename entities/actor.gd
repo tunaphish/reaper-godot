@@ -30,6 +30,8 @@ func getTickingHealth():
 	
 func setTickingHealth(value):
 	tickingHealth = clamp(value, 0, maxHealth)
+	#setHealth(getHealth()-value)
+	#emit_signal("healthUpdated");
 	emit_signal("tickingHealthUpdated")
 	
 func setStamina(value):

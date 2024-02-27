@@ -23,17 +23,23 @@ func _ready():
 		enemyBarNode.add_child(enemyHud)
 		
 
+func getActors(): 
+	return battleEntity.party + battleEntity.enemies
+
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	timer += delta
 	if (timer < TICK):
 		return
+		
+	getActors();
 	
-	for member in battleEntity.party:
-		member.setStamina(member.getStamina()+member.staminaRegenRate)
-	for enemy in battleEntity.enemies:
-		enemy.setStamina(enemy.getStamina()+enemy.staminaRegenRate)
-
+	for actor in getActors():
+		actor.setStamina(actor.getStamina()+actor.staminaRegenRate)
+		if (actor.getTickingHealth() > 0):
+			actor.setTickingHealth(actor.getTickingHealth()-1);
+			actor.setHealth(actor.getHealth()-1);
+			
 	timer = 0
 	

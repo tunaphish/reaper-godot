@@ -7,9 +7,9 @@
 [resource]
 script = ExtResource( 1 )
 name = "Aubrey"
-health = 10.0
+health = 5.0
 maxHealth = 10
-tickingHealth = 0
+tickingHealth = 5
 stamina = 0.0
 maxStamina = 10
 staminaRegenRate = 1
