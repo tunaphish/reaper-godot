@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/apothecary-background.png-a27ce975d6dea097c8d2599aad12781f.stex"
+path="res://.import/keshi-happy.png-eb558aea8bc095b0ab05b0820bb79e52.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/art/apothecary-background.png"
-dest_files=[ "res://.import/apothecary-background.png-a27ce975d6dea097c8d2599aad12781f.stex" ]
+source_file="res://assets/characters/keshi/keshi-happy.png"
+dest_files=[ "res://.import/keshi-happy.png-eb558aea8bc095b0ab05b0820bb79e52.stex" ]
 
 [params]
 

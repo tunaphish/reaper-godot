@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/city.png-c4bf80379049b3e54ab1910218d0353e.stex"
+path="res://.import/keshi-sad.png-426a28c214b53cb9d2d8b5b5c6f7ac51.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/backgrounds/city.png"
-dest_files=[ "res://.import/city.png-c4bf80379049b3e54ab1910218d0353e.stex" ]
+source_file="res://assets/characters/keshi/keshi-sad.png"
+dest_files=[ "res://.import/keshi-sad.png-426a28c214b53cb9d2d8b5b5c6f7ac51.stex" ]
 
 [params]
 

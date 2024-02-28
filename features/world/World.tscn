@@ -1,6 +1,6 @@
 [gd_scene load_steps=9 format=2]
 
-[ext_resource path="res://assets/backgrounds/city.png" type="Texture" id=1]
+[ext_resource path="res://assets/city.png" type="Texture" id=1]
 [ext_resource path="res://features/world/building.tscn" type="PackedScene" id=2]
 [ext_resource path="res://assets/objects/telephone-wires.png" type="Texture" id=3]
 [ext_resource path="res://features/world/Player.tscn" type="PackedScene" id=4]
