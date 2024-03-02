@@ -36,8 +36,7 @@ func _process(delta):
 	for actor in getActors():
 		actor.setStamina(actor.getStamina()+actor.staminaRegenRate)
 		if (actor.getTickingHealth() > 0):
-			actor.setTickingHealth(actor.getTickingHealth()-1);
-			actor.setHealth(actor.getHealth()-1);
+			actor.tickHealth()
 			
 	timer = 0
 	

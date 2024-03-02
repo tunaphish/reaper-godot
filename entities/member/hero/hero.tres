@@ -6,13 +6,13 @@
 [resource]
 script = ExtResource( 1 )
 name = "Hero"
-health = 100
+health = 100.0
 maxHealth = 100
 tickingHealth = 0
-stamina = 0
+stamina = -50
 maxStamina = 100
 staminaRegenRate = 10
-magic = 100
+magic = 100.0
 maxMagic = 100
 actions = [  ]
 avatar = ExtResource( 2 )

@@ -1,15 +1,16 @@
 tool
 class_name Actor extends Resource
 
+# max values set to 10000000 due to initialization bug with clamp and internal references
 export(String) var name
 export(int) var health setget setHealth, getHealth
-export(int) var maxHealth = INF
+export(int) var maxHealth = 1000000
 export(int) var tickingHealth setget setTickingHealth, getTickingHealth
 export(int) var stamina setget setStamina, getStamina
-export(int) var maxStamina = INF
+export(int) var maxStamina = 1000000
 export(int) var staminaRegenRate
 export(int) var magic setget setMagic, getMagic
-export(int) var maxMagic = INF
+export(int) var maxMagic = 1000000
 
 export(Array, Resource) var actions
 
@@ -30,12 +31,15 @@ func getTickingHealth():
 	
 func setTickingHealth(value):
 	tickingHealth = clamp(value, 0, maxHealth)
-	#setHealth(getHealth()-value)
-	#emit_signal("healthUpdated");
 	emit_signal("tickingHealthUpdated")
+
+const GLOBAL_TICK_RATE = 5
+func tickHealth():
+	setTickingHealth(tickingHealth-GLOBAL_TICK_RATE)
+	health = clamp(health-min(GLOBAL_TICK_RATE, tickingHealth), 0, maxHealth)
 	
 func setStamina(value):
-	stamina = clamp(value, -INF, maxStamina)
+	stamina = clamp(value, -1000000, maxStamina)
 	emit_signal("staminaUpdated")
 
 func getStamina():
@@ -51,5 +55,7 @@ func getMagic():
 func execute_action(action: Action):
 	setStamina(getStamina()-action.staminaCost)
 	setMagic(getMagic()-action.magicCost)
-	# TODO drain health if no magic available
+	if action.magicCost > magic:
+		setHealth(getHealth()-(magic-action.magicCost))
+
 	pass
