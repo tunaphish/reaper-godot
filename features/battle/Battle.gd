@@ -26,8 +26,6 @@ func _ready():
 func getActors(): 
 	return battleEntity.party + battleEntity.enemies
 
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	timer += delta
 	if (timer < TICK):
