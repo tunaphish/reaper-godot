@@ -33,7 +33,7 @@ func setTickingHealth(value):
 	tickingHealth = clamp(value, 0, maxHealth)
 	emit_signal("tickingHealthUpdated")
 
-const GLOBAL_TICK_RATE = 5
+const GLOBAL_TICK_RATE = 1
 func tickHealth():
 	setTickingHealth(tickingHealth-GLOBAL_TICK_RATE)
 	health = clamp(health-min(GLOBAL_TICK_RATE, tickingHealth), 0, maxHealth)

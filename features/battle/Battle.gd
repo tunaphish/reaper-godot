@@ -1,6 +1,6 @@
 extends PanelContainer
 
-const TICK = 1
+const TICK = .06 #15ish ticks per second
 var battleEntity: Battle
 const memberHudScene = preload("res://features/battle/visual/MemberHud.tscn");
 const enemyHudScene = preload("res://features/battle/visual/EnemyHud.tscn");
@@ -21,7 +21,6 @@ func _ready():
 		var enemyHud = enemyHudScene.instance()
 		enemyHud.enemyEntity = enemy
 		enemyBarNode.add_child(enemyHud)
-		
 
 func getActors(): 
 	return battleEntity.party + battleEntity.enemies

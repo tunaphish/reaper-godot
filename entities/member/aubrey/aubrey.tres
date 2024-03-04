@@ -1,8 +1,10 @@
-[gd_resource type="Resource" load_steps=4 format=2]
+[gd_resource type="Resource" load_steps=6 format=2]
 
 [ext_resource path="res://entities/member/member.gd" type="Script" id=1]
 [ext_resource path="res://entities/member/aubrey/aubrey.png" type="Texture" id=2]
 [ext_resource path="res://entities/action/attack.tres" type="Resource" id=3]
+[ext_resource path="res://entities/action/ankle_slice.tres" type="Resource" id=4]
+[ext_resource path="res://entities/action/assault.tres" type="Resource" id=5]
 
 [resource]
 script = ExtResource( 1 )
@@ -12,8 +14,8 @@ maxHealth = 100
 tickingHealth = 10
 stamina = 0.0
 maxStamina = 100
-staminaRegenRate = 10
+staminaRegenRate = 1
 magic = 100.0
 maxMagic = 100
-actions = [ ExtResource( 3 ) ]
+actions = [ ExtResource( 3 ), ExtResource( 4 ), ExtResource( 5 ) ]
 avatar = ExtResource( 2 )
