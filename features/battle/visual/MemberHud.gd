@@ -1,7 +1,9 @@
 extends PanelContainer
 
 var memberEntity: Member
+var battleEntity: Battle
 var actionExections = preload("res://entities/action/actionExecutions.gd").new()
+var actionMenuScene = preload("res://features/battle/visual/ActionMenu.tscn")
 
 onready var healthBar = $AvatarButton/Resources/HealthTickingBar/HealthBar
 onready var healthLabel = $AvatarButton/Resources/HealthTickingBar/HealthLabel
@@ -10,6 +12,7 @@ onready 	var staminaBar = $AvatarButton/Resources/StaminaBar
 onready var staminaLabel = $AvatarButton/Resources/StaminaBar/StaminaLabel
 onready 	var magicBar = $AvatarButton/Resources/MagicBar
 onready var magicLabel = $AvatarButton/Resources/MagicBar/MagicLabel
+onready 	var avatarButton = $AvatarButton
 
 const LABEL_FORMAT_STRING = "%s / %s"
 
@@ -33,6 +36,7 @@ func _ready():
 	healthTickingBar.max_value = memberEntity.maxHealth
 	healthTickingBar.value = memberEntity.health
 	memberEntity.connect("tickingHealthUpdated", self, "_on_memberEntity_healthTickingUpdated")
+	memberEntity.connect("healthTicked", self, "_on_memberEntity_healthTicked")
 
 	staminaBar.max_value = memberEntity.maxStamina
 	renderStaminaBar()
@@ -43,7 +47,7 @@ func _ready():
 	magicLabel.text = LABEL_FORMAT_STRING % [memberEntity.magic, memberEntity.maxMagic]
 	memberEntity.connect("magicUpdated", self, "_on_memberEntity_magicUpdated")
 	
-	var avatarButton = $AvatarButton
+
 	avatarButton.texture_normal = memberEntity.avatar
 	avatarButton.connect("pressed", self, "_on_avatarButton_pressed")
 
@@ -52,9 +56,15 @@ func _on_memberEntity_healthUpdated():
 	healthLabel.text = LABEL_FORMAT_STRING % [memberEntity.health, memberEntity.maxHealth]
 
 func _on_memberEntity_healthTickingUpdated():
+	healthBar.value = memberEntity.health - memberEntity.tickingHealth
+	healthLabel.text = LABEL_FORMAT_STRING % [memberEntity.health, memberEntity.maxHealth]
 	healthTickingBar.value = memberEntity.health 
 	healthLabel.text = LABEL_FORMAT_STRING % [memberEntity.health, memberEntity.maxHealth]
-	
+
+func _on_memberEntity_healthTicked():
+	healthTickingBar.value = memberEntity.health 
+	healthLabel.text = LABEL_FORMAT_STRING % [memberEntity.health, memberEntity.maxHealth]
+
 func _on_memberEntity_staminaUpdated():
 	renderStaminaBar()
 
@@ -63,7 +73,17 @@ func _on_memberEntity_magicUpdated():
 	magicLabel.text = LABEL_FORMAT_STRING % [memberEntity.magic, memberEntity.maxMagic]
 
 func _on_avatarButton_pressed():
-	for action in memberEntity.actions:
-		pass
-		#var actionExecution = action.get_execution_name()
-		#actionExections.call(actionExecution)
+	create_action_menu()
+	#for action in memberEntity.actions:
+	#	var actionExecution = action.get_execution_name()
+		# spawn a menu
+		#actionExections.call(actionExecution, battleEntity, memberEntity, [memberEntity]) # update to actual targets
+		
+const INITIAL_ACTION_MENU_POSITION = Vector2(290,580);
+func create_action_menu(): 
+	var actionMenu = actionMenuScene.instance()
+	print(avatarButton.rect_position)
+	actionMenu.actions = memberEntity.actions
+	add_child(actionMenu)
+	actionMenu.set_popup_position()
+

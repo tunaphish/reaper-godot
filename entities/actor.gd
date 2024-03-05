@@ -18,6 +18,7 @@ signal healthUpdated()
 signal tickingHealthUpdated();
 signal staminaUpdated()
 signal magicUpdated()
+signal healthTicked()
 
 func setHealth(value):
 	health = clamp(value, 0, maxHealth)
@@ -35,8 +36,9 @@ func setTickingHealth(value):
 
 const GLOBAL_TICK_RATE = 1
 func tickHealth():
-	setTickingHealth(tickingHealth-GLOBAL_TICK_RATE)
+	tickingHealth = clamp(tickingHealth-min(GLOBAL_TICK_RATE, tickingHealth), 0, maxHealth)
 	health = clamp(health-min(GLOBAL_TICK_RATE, tickingHealth), 0, maxHealth)
+	emit_signal("healthTicked")
 	
 func setStamina(value):
 	stamina = clamp(value, -1000000, maxStamina)

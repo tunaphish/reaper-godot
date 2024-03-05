@@ -14,6 +14,7 @@ func _ready():
 	for member in battleEntity.party:
 		var memberHud = memberHudScene.instance()
 		memberHud.memberEntity = member
+		memberHud.battleEntity = battleEntity
 		partyBarNode.add_child(memberHud);
 	
 	var enemyBarNode = $BattleContainer/EnemyBar
