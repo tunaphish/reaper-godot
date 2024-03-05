@@ -85,5 +85,5 @@ func create_action_menu():
 	print(avatarButton.rect_position)
 	actionMenu.actions = memberEntity.actions
 	add_child(actionMenu)
-	actionMenu.set_popup_position()
+	actionMenu.set_popup_position(INITIAL_ACTION_MENU_POSITION)
 
