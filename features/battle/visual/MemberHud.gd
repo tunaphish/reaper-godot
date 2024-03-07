@@ -1,21 +1,19 @@
 extends PanelContainer
 
 var memberEntity: Member
-var battleEntity: Battle
-var actionExections = preload("res://entities/action/actionExecutions.gd").new()
-var actionMenuScene = preload("res://features/battle/visual/ActionMenu.tscn")
 
 onready var healthBar = $AvatarButton/Resources/HealthTickingBar/HealthBar
 onready var healthLabel = $AvatarButton/Resources/HealthTickingBar/HealthLabel
-onready 	var healthTickingBar = $AvatarButton/Resources/HealthTickingBar
-onready 	var staminaBar = $AvatarButton/Resources/StaminaBar
+onready var healthTickingBar = $AvatarButton/Resources/HealthTickingBar
+onready var staminaBar = $AvatarButton/Resources/StaminaBar
 onready var staminaLabel = $AvatarButton/Resources/StaminaBar/StaminaLabel
-onready 	var magicBar = $AvatarButton/Resources/MagicBar
+onready var magicBar = $AvatarButton/Resources/MagicBar
 onready var magicLabel = $AvatarButton/Resources/MagicBar/MagicLabel
-onready 	var avatarButton = $AvatarButton
+onready var avatarButton = $AvatarButton
+
+signal memberPressed(memberEntity)
 
 const LABEL_FORMAT_STRING = "%s / %s"
-
 const NEGATIVE_STAMINA_COLOR = Color.yellow 
 const POSITIVE_STAMINA_COLOR = Color.green
 func renderStaminaBar(): 
@@ -46,7 +44,6 @@ func _ready():
 	magicBar.value = memberEntity.magic
 	magicLabel.text = LABEL_FORMAT_STRING % [memberEntity.magic, memberEntity.maxMagic]
 	memberEntity.connect("magicUpdated", self, "_on_memberEntity_magicUpdated")
-	
 
 	avatarButton.texture_normal = memberEntity.avatar
 	avatarButton.connect("pressed", self, "_on_avatarButton_pressed")
@@ -73,17 +70,4 @@ func _on_memberEntity_magicUpdated():
 	magicLabel.text = LABEL_FORMAT_STRING % [memberEntity.magic, memberEntity.maxMagic]
 
 func _on_avatarButton_pressed():
-	create_action_menu()
-	#for action in memberEntity.actions:
-	#	var actionExecution = action.get_execution_name()
-		# spawn a menu
-		#actionExections.call(actionExecution, battleEntity, memberEntity, [memberEntity]) # update to actual targets
-		
-const INITIAL_ACTION_MENU_POSITION = Vector2(290,580);
-func create_action_menu(): 
-	var actionMenu = actionMenuScene.instance()
-	print(avatarButton.rect_position)
-	actionMenu.actions = memberEntity.actions
-	add_child(actionMenu)
-	actionMenu.set_popup_position(INITIAL_ACTION_MENU_POSITION)
-
+	emit_signal("memberPressed", memberEntity)

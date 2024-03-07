@@ -1,0 +1,11 @@
+[gd_resource type="Resource" load_steps=5 format=2]
+
+[ext_resource path="res://entities/folder/cleric.tres" type="Resource" id=1]
+[ext_resource path="res://entities/folder/folder.gd" type="Script" id=2]
+[ext_resource path="res://entities/action/attack.tres" type="Resource" id=3]
+[ext_resource path="res://entities/action/stanch.tres" type="Resource" id=4]
+
+[resource]
+script = ExtResource( 2 )
+name = "Act"
+options = [ ExtResource( 3 ), ExtResource( 4 ), ExtResource( 1 ) ]

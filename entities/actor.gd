@@ -12,7 +12,7 @@ export(int) var staminaRegenRate
 export(int) var magic setget setMagic, getMagic
 export(int) var maxMagic = 1000000
 
-export(Array, Resource) var actions
+export(Resource) var folder
 
 signal healthUpdated()
 signal tickingHealthUpdated();
