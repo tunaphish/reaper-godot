@@ -1,6 +1,7 @@
 extends Control
 
 onready var popupMenu = $PopupMenu
+onready var selectSound = $Select
 var folder : Resource
 
 signal menuClosed()
@@ -16,6 +17,7 @@ func _ready():
 	popupMenu.connect("popup_hide", self, "_on_PopupMenu_popup_hide")
 	popupMenu.connect("id_pressed", self, "_on_id_pressed")
 	popupMenu.popup()
+	selectSound.play()
 
 func _on_PopupMenu_popup_hide():
 	emit_signal("menuClosed")

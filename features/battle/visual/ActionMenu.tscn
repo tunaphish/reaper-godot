@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://features/battle/visual/ActionMenu.gd" type="Script" id=1]
+[ext_resource path="res://assets/sounds/choice-select.wav" type="AudioStream" id=2]
 
 [node name="ActionMenu" type="Control"]
 anchor_right = 1.0
@@ -13,3 +14,6 @@ margin_right = 40.0
 margin_bottom = 40.0
 hide_on_item_selection = false
 hide_on_checkable_item_selection = false
+
+[node name="Select" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 2 )
