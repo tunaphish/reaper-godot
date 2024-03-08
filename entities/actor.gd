@@ -59,5 +59,3 @@ func execute_action(action: Action):
 	setMagic(getMagic()-action.magicCost)
 	if action.magicCost > magic:
 		setHealth(getHealth()-(magic-action.magicCost))
-
-	pass

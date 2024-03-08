@@ -8,4 +8,4 @@ name = "Attack"
 description = "Simple attack"
 staminaCost = 3
 magicCost = 0
-targetType = 0
+targetType = 1

@@ -6,7 +6,6 @@ func attack(battle: Battle, caster: Actor, targets: Array):
 	
 func second_wind(battle: Battle, caster: Actor, targets: Array): 
 	caster.setStamina(caster.maxStamina)
-	pass
 
 const STANCH_POTENCY = 20
 func stanch(battle: Battle, caster: Actor, targets: Array): 

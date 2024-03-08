@@ -5,6 +5,7 @@ enum TargetType {
 	SINGLE,
 	AOE,
 	ALL
+	# Multi Target? Select Target multiple times.. 
 }
 
 export (String) var name
