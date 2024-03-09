@@ -1,0 +1,71 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://assets/ui/progress.png" type="Texture" id=1]
+[ext_resource path="res://features/battle/visual/Resources.gd" type="Script" id=2]
+
+[node name="Resources" type="VBoxContainer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_right = -322.0
+alignment = 2
+script = ExtResource( 2 )
+
+[node name="Container" type="VBoxContainer" parent="."]
+margin_top = 750.0
+margin_right = 128.0
+margin_bottom = 800.0
+alignment = 2
+
+[node name="HealthTickingBar" type="TextureProgress" parent="Container"]
+margin_right = 128.0
+margin_bottom = 14.0
+value = 20.0
+texture_under = ExtResource( 1 )
+texture_progress = ExtResource( 1 )
+tint_under = Color( 0.670588, 0.670588, 0.670588, 1 )
+tint_progress = Color( 0.894118, 0.913725, 0.533333, 1 )
+
+[node name="HealthBar" type="TextureProgress" parent="Container/HealthTickingBar"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+value = 20.0
+texture_progress = ExtResource( 1 )
+tint_progress = Color( 0.913725, 0.533333, 0.533333, 1 )
+
+[node name="HealthLabel" type="Label" parent="Container/HealthTickingBar"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+text = "Test"
+align = 2
+
+[node name="StaminaBar" type="TextureProgress" parent="Container"]
+margin_top = 18.0
+margin_right = 128.0
+margin_bottom = 32.0
+value = 20.0
+texture_under = ExtResource( 1 )
+texture_progress = ExtResource( 1 )
+tint_under = Color( 0.670588, 0.670588, 0.670588, 1 )
+tint_progress = Color( 0.533333, 0.913725, 0.592157, 1 )
+
+[node name="StaminaLabel" type="Label" parent="Container/StaminaBar"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+text = "Test"
+align = 2
+
+[node name="MagicBar" type="TextureProgress" parent="Container"]
+margin_top = 36.0
+margin_right = 128.0
+margin_bottom = 50.0
+value = 20.0
+texture_under = ExtResource( 1 )
+texture_progress = ExtResource( 1 )
+tint_under = Color( 0.670588, 0.670588, 0.670588, 1 )
+tint_progress = Color( 0.533333, 0.592157, 0.913725, 1 )
+
+[node name="MagicLabel" type="Label" parent="Container/MagicBar"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+text = "Test"
+align = 2

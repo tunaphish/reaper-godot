@@ -1,32 +1,14 @@
 extends PanelContainer
 
 var enemyEntity: Enemy
+const Resources = preload("res://features/battle/visual/Resources.tscn")
+
+func setup(initEnemyEntity: Enemy):
+	enemyEntity = initEnemyEntity
+	return self
 
 func _ready():
-	if (!enemyEntity):
-		enemyEntity = load("res://entities/enemy/boss/boss.tres")
 	var avatarButton = $AvatarButton
 	avatarButton.texture_normal = enemyEntity.sprite
-	var healthBar = $Resources/HealthBar
-	healthBar.max_value = enemyEntity.maxHealth
-	healthBar.value = enemyEntity.health
-	enemyEntity.connect("healthUpdated", self, "_on_enemyEntity_healthUpdated")
-	
-	var staminaBar = $Resources/StaminaBar
-	staminaBar.max_value = enemyEntity.maxStamina
-	staminaBar.value = enemyEntity.stamina
-	enemyEntity.connect("staminaUpdated", self, "_on_enemyEntity_staminaUpdated")
-
-	var magicBar = $Resources/MagicBar
-	magicBar.max_value = enemyEntity.maxMagic
-	magicBar.value = enemyEntity.magic
-	enemyEntity.connect("magicUpdated", self, "_on_enemyEntity_magicUpdated")
-
-func _on_enemyEntity_healthUpdated():
-	$Resources/HealthBar.value = enemyEntity.health
-
-func _on_enemyEntity_staminaUpdated():
-	$Resources/StaminaBar.value = enemyEntity.stamina
-
-func _on_enemyEntity_magicUpdated():
-	$Resources/MagicBar.value = enemyEntity.magic
+	var resources = Resources.instance().setup(enemyEntity)
+	avatarButton.add_child(resources)

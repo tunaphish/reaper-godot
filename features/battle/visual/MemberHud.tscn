@@ -1,8 +1,7 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://features/battle/visual/MemberHud.gd" type="Script" id=1]
 [ext_resource path="res://entities/member/aubrey/aubrey.png" type="Texture" id=2]
-[ext_resource path="res://assets/ui/progress.png" type="Texture" id=3]
 
 [node name="MemberHud" type="PanelContainer"]
 margin_right = 142.0
@@ -19,63 +18,3 @@ margin_bottom = 189.0
 texture_normal = ExtResource( 2 )
 expand = true
 stretch_mode = 4
-
-[node name="Resources" type="VBoxContainer" parent="AvatarButton"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-alignment = 2
-
-[node name="HealthTickingBar" type="TextureProgress" parent="AvatarButton/Resources"]
-margin_top = 132.0
-margin_right = 128.0
-margin_bottom = 146.0
-value = 20.0
-texture_under = ExtResource( 3 )
-texture_progress = ExtResource( 3 )
-tint_under = Color( 0.670588, 0.670588, 0.670588, 1 )
-tint_progress = Color( 0.894118, 0.913725, 0.533333, 1 )
-
-[node name="HealthBar" type="TextureProgress" parent="AvatarButton/Resources/HealthTickingBar"]
-margin_right = 128.0
-margin_bottom = 14.0
-value = 20.0
-texture_progress = ExtResource( 3 )
-tint_progress = Color( 0.913725, 0.533333, 0.533333, 1 )
-
-[node name="HealthLabel" type="Label" parent="AvatarButton/Resources/HealthTickingBar"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-text = "Test"
-align = 2
-
-[node name="StaminaBar" type="TextureProgress" parent="AvatarButton/Resources"]
-margin_top = 150.0
-margin_right = 128.0
-margin_bottom = 164.0
-value = 20.0
-texture_under = ExtResource( 3 )
-texture_progress = ExtResource( 3 )
-tint_under = Color( 0.670588, 0.670588, 0.670588, 1 )
-tint_progress = Color( 0.533333, 0.913725, 0.592157, 1 )
-
-[node name="StaminaLabel" type="Label" parent="AvatarButton/Resources/StaminaBar"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-text = "Test"
-align = 2
-
-[node name="MagicBar" type="TextureProgress" parent="AvatarButton/Resources"]
-margin_top = 168.0
-margin_right = 128.0
-margin_bottom = 182.0
-value = 20.0
-texture_under = ExtResource( 3 )
-texture_progress = ExtResource( 3 )
-tint_under = Color( 0.670588, 0.670588, 0.670588, 1 )
-tint_progress = Color( 0.533333, 0.592157, 0.913725, 1 )
-
-[node name="MagicLabel" type="Label" parent="AvatarButton/Resources/MagicBar"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-text = "Test"
-align = 2

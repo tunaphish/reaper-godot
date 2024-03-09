@@ -1,7 +1,7 @@
 extends PanelContainer
 
-const memberHudScene = preload("res://features/battle/visual/MemberHud.tscn")
-const enemyHudScene = preload("res://features/battle/visual/EnemyHud.tscn")
+const MemberHud = preload("res://features/battle/visual/MemberHud.tscn")
+const EnemyHud = preload("res://features/battle/visual/EnemyHud.tscn")
 const ActionMenu = preload("res://features/battle/visual/ActionMenu.tscn")
 
 onready var closeSound = $Close 
@@ -21,15 +21,13 @@ func setup(initBattleEntity: Battle, initBattle):
 
 	var partyBarNode = $VStack/PartyBar
 	for member in battleEntity.party:
-		var memberHud = memberHudScene.instance()
-		memberHud.memberEntity = member
+		var memberHud = MemberHud.instance().setup(member)
 		partyBarNode.add_child(memberHud);
 		memberHud.connect("memberPressed", self, "_on_memberPressed")
 	
 	var enemyBarNode = $VStack/EnemyBar
 	for enemy in battleEntity.enemies:
-		var enemyHud = enemyHudScene.instance()
-		enemyHud.enemyEntity = enemy
+		var enemyHud = EnemyHud.instance().setup(enemy)
 		enemyBarNode.add_child(enemyHud)
 	
 	return self

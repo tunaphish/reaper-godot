@@ -23,8 +23,6 @@ func heal(battle: Battle, caster: Actor, targets: Array):
 	target.setHealth(target.getHealth()+HEAL_POTENCY)
 	
 func drain(battle: Battle, caster: Actor, targets: Array): 
-	# need to update this for combos and overall damage dealt, 
-	# might need to be passed context?
 	var target = targets[0]
 	target.setTickingHealth(target.getTickingHealth()+ATTACK_POTENCY)
 	caster.setHealth(caster.getHealth()+ATTACK_POTENCY)
