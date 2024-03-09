@@ -15,7 +15,7 @@ var potentialTargets
 var caster
 var action
 var targets
-const TICK = .06 #15ish ticks per second
+const TICK = .25 #4 ticks per second
 var timer: float = 0
 signal actionExecuted()
 func _process(delta):
@@ -23,12 +23,11 @@ func _process(delta):
 	if (timer < TICK):
 		return
 	timer = 0
-	print(caster, action, targets)
 	if (caster and action and targets):
 		var actionExecution = action.get_execution_name()
+		actionExections.call(actionExecution, battleEntity, caster, targets) 
 		caster.setStamina(caster.getStamina() - action.staminaCost)
 		caster.setMagic(caster.getMagic() - action.magicCost)
-		actionExections.call(actionExecution, battleEntity, caster, targets) 
 		emit_signal("actionExecuted")
 
 
@@ -63,17 +62,16 @@ func onActionPressed(id):
 	var option = menuOptions.back().options[id]
 	if option is Action:
 		setAction(option)
-		if option.targetType == TargetType.AOE:
-			potentialTargets = getActors() # update this later
+		if option.targetType == TargetType.AOE: # figure this out later
+			potentialTargets = getActors() 
 			emit_signal("potentialTargetsUpdated")
 		elif option.targetType == TargetType.SINGLE:
 			potentialTargets = getActors()
 			emit_signal("potentialTargetsUpdated")
 		elif option.targetType == TargetType.SELF:
 			targets = [self]
-		# self
-		# AOE or SINGlE auto-selects targets
-			# open a target menu 
+		elif option.targetType == TargetType.ALL:
+			targets = getActors()
 	if option is Folder: 
 		appendMenuOptions(option)
 

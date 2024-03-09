@@ -59,4 +59,4 @@ func shadow_strike(battle: Battle, caster: Actor, targets: Array):
 	
 func erupt(battle: Battle, caster: Actor, targets: Array): 
 	for target in targets:
-		target.setTickingHealth(target.getTickingHealth())
+		target.setTickingHealth(target.getTickingHealth()+ATTACK_POTENCY)
