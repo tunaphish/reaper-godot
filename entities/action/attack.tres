@@ -6,6 +6,6 @@
 script = ExtResource( 1 )
 name = "Attack"
 description = "Simple attack"
-staminaCost = 3
+staminaCost = 25
 magicCost = 0
 targetType = 1

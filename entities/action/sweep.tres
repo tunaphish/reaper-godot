@@ -6,6 +6,6 @@
 script = ExtResource( 1 )
 name = "Sweep"
 description = "Attack that hits multiple targets"
-staminaCost = 2
+staminaCost = 50
 magicCost = 0
 targetType = 2

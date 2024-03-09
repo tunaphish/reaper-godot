@@ -6,6 +6,6 @@
 script = ExtResource( 1 )
 name = "Drain"
 description = "Heal self for damage dealt"
-staminaCost = 1
-magicCost = 1
+staminaCost = 25
+magicCost = 25
 targetType = 1

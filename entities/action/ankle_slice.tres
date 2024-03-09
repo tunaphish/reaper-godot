@@ -6,6 +6,6 @@
 script = ExtResource( 1 )
 name = "Ankle Slice"
 description = "Also deals damage to stamina"
-staminaCost = 1
-magicCost = 1
+staminaCost = 25
+magicCost = 25
 targetType = 1

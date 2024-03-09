@@ -6,6 +6,6 @@
 script = ExtResource( 1 )
 name = "Heal"
 description = "Restores Health"
-staminaCost = 1
-magicCost = 2
+staminaCost = 25
+magicCost = 25
 targetType = 1

@@ -6,6 +6,6 @@
 script = ExtResource( 1 )
 name = "Stanch"
 description = "Restores temp damage"
-staminaCost = 2
+staminaCost = 50
 magicCost = 0
 targetType = 0

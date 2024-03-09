@@ -7,5 +7,5 @@ script = ExtResource( 1 )
 name = "Second Wind"
 description = "Restores stamina"
 staminaCost = 0
-magicCost = 2
+magicCost = 25
 targetType = 0
