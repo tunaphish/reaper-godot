@@ -3,8 +3,10 @@ extends PanelContainer
 const MemberHud = preload("res://features/battle/visual/MemberHud.tscn")
 const EnemyHud = preload("res://features/battle/visual/EnemyHud.tscn")
 const ActionMenu = preload("res://features/battle/visual/ActionMenu.tscn")
+const defaultSound = preload("res://assets/sounds/attack.wav")
 
 onready var closeSound = $Close 
+onready var actionSoundPlayer = $ActionSoundPlayer
 
 var battleEntity: Battle
 var battle
@@ -55,8 +57,8 @@ func createActionMenu():
 	actionMenu.connect("menuClosed", self, "_on_menuClosed")
 
 func onActionExecuted(): 
-	# shake targets
-	
+	actionSoundPlayer.stream = battle.action.sound
+	actionSoundPlayer.play()
 	closeMenus()
 
 func closeMenus():

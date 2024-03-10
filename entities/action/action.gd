@@ -13,6 +13,7 @@ export (String) var description
 export (int) var staminaCost
 export (int) var magicCost
 export (TargetType) var targetType
+export (Resource) var sound
 
 func get_execution_name():
 	return name.to_lower().replace(' ', '_')
