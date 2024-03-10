@@ -26,13 +26,15 @@ func _process(delta):
 	if (caster and action and targets):
 		var actionExecution = action.get_execution_name()
 		actionExections.call(actionExecution, battleEntity, caster, targets) 
-		caster.setStamina(caster.getStamina() - action.staminaCost)
-		caster.setMagic(caster.getMagic() - action.magicCost)
+		caster.updateStamina(-action.staminaCost)
+		caster.updateMagic(-action.magicCost)
+		if action.magicCost > caster.magic:
+			caster.updateHealth(caster.magic-action.magicCost)
 		emit_signal("actionExecuted")
 
 
 	for actor in getActors():
-		actor.setStamina(actor.getStamina()+actor.staminaRegenRate)
+		actor.updateStamina(actor.staminaRegenRate)
 		if (actor.getTickingHealth() > 0):
 			actor.tickHealth()
 

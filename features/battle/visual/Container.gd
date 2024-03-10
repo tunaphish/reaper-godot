@@ -17,7 +17,7 @@ func setup(initBattleEntity: Battle, initBattle):
 
 	battle.connect("menuOptionsAppended", self, "createActionMenu")
 	battle.connect("potentialTargetsUpdated", self, "createTargetMenu")
-	battle.connect("actionExecuted", self, "closeMenus")
+	battle.connect("actionExecuted", self, "onActionExecuted") 
 
 	var partyBarNode = $VStack/PartyBar
 	for member in battleEntity.party:
@@ -53,6 +53,11 @@ func createActionMenu():
 	actionMenu.set_popup_position(INITIAL_ACTION_MENU_POSITION - (Vector2(10,10) * menus.size())) # needs to be updated in case menu sizes increase or some thang
 	actionMenu.connect("id_pressed", battle, "onActionPressed")
 	actionMenu.connect("menuClosed", self, "_on_menuClosed")
+
+func onActionExecuted(): 
+	# shake targets
+	
+	closeMenus()
 
 func closeMenus():
 	for menu in menus:

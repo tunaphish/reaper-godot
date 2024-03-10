@@ -20,48 +20,47 @@ func setup(initActor: Actor):
 
 func _ready():	
 	healthBar.max_value = actor.maxHealth
-	healthBar.value = actor.health - actor.tickingHealth
-	healthLabel.text = LABEL_FORMAT_STRING % [actor.health, actor.maxHealth]
-	actor.connect("healthUpdated", self, "_on_actor_healthUpdated")
+	renderHealth()
+	actor.connect("healthUpdated", self, "onHealthUpdated")
 
 	healthTickingBar.max_value = actor.maxHealth
 	healthTickingBar.value = actor.health
-	actor.connect("tickingHealthUpdated", self, "_on_actor_healthTickingUpdated")
-	actor.connect("healthTicked", self, "_on_actor_healthTicked")
+	actor.connect("tickingHealthUpdated", self, "onHealthTickingUpdated")
+	actor.connect("healthTicked", self, "onHealthTicked")
 
 	staminaBar.max_value = actor.maxStamina
 	staminaBar.value = actor.stamina
 	renderStaminaBar()
-	actor.connect("staminaUpdated", self, "_on_actor_staminaUpdated")
+	actor.connect("staminaUpdated", self, "onStaminaUpdated")
 
 	magicBar.max_value = actor.maxMagic
 	magicBar.value = actor.magic
 	magicLabel.text = LABEL_FORMAT_STRING % [actor.magic, actor.maxMagic]
-	actor.connect("magicUpdated", self, "_on_actor_magicUpdated")
+	actor.connect("magicUpdated", self, "onMagicUpdated")
 
+func onHealthUpdated(_value):
+	renderHealth()
+
+func onHealthTickingUpdated(_value):
+	renderHealth()
+
+func onHealthTicked():
+	healthTickingBar.value = actor.health 
+	healthLabel.text = LABEL_FORMAT_STRING % [actor.health, actor.maxHealth]
+
+func onStaminaUpdated(_value):
+	renderStaminaBar()
+
+func onMagicUpdated(_value):
+	magicBar.value = actor.magic
+	magicLabel.text = LABEL_FORMAT_STRING % [actor.magic, actor.maxMagic]
 
 func renderStaminaBar(): 
 	staminaBar.value = abs(actor.stamina)
 	staminaBar.tint_progress = POSITIVE_STAMINA_COLOR if actor.stamina > 0 else NEGATIVE_STAMINA_COLOR
 	staminaLabel.text = LABEL_FORMAT_STRING % [actor.stamina, actor.maxStamina]	
 
-func _on_actor_healthUpdated():
+func renderHealth():
 	healthBar.value = actor.health - actor.tickingHealth
-	healthLabel.text = LABEL_FORMAT_STRING % [actor.health, actor.maxHealth]
-
-func _on_actor_healthTickingUpdated():
-	healthBar.value = actor.health - actor.tickingHealth
-	healthLabel.text = LABEL_FORMAT_STRING % [actor.health, actor.maxHealth]
 	healthTickingBar.value = actor.health 
 	healthLabel.text = LABEL_FORMAT_STRING % [actor.health, actor.maxHealth]
-
-func _on_actor_healthTicked():
-	healthTickingBar.value = actor.health 
-	healthLabel.text = LABEL_FORMAT_STRING % [actor.health, actor.maxHealth]
-
-func _on_actor_staminaUpdated():
-	renderStaminaBar()
-
-func _on_actor_magicUpdated():
-	magicBar.value = actor.magic
-	magicLabel.text = LABEL_FORMAT_STRING % [actor.magic, actor.maxMagic]

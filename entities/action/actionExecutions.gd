@@ -1,60 +1,60 @@
 
 const ATTACK_POTENCY = 20
-func attack(battle: Battle, caster: Actor, targets: Array): 
+func attack(_battle: Battle, _caster: Actor, targets: Array): 
 	var target = targets[0]
-	target.setTickingHealth(target.getTickingHealth()+ATTACK_POTENCY)
+	target.updateTickingHealth(ATTACK_POTENCY)
 	
-func second_wind(battle: Battle, caster: Actor, targets: Array): 
+func second_wind(_battle: Battle, caster: Actor, _targets: Array): 
 	caster.setStamina(caster.maxStamina)
 
 const STANCH_POTENCY = 20
-func stanch(battle: Battle, caster: Actor, targets: Array): 
-	caster.setTickingHealth(caster.getTickingHealth()-STANCH_POTENCY)
+func stanch(_battle: Battle, caster: Actor, _targets: Array): 
+	caster.updateTickingHealth(-STANCH_POTENCY)
 
 const ANKLE_SLICE_POTENCY = 40
-func ankle_slice(battle: Battle, caster: Actor, targets: Array): 
+func ankle_slice(_battle: Battle, _caster: Actor, targets: Array): 
 	var target = targets[0]
-	target.setTickingHealth(target.getTickingHealth()+ATTACK_POTENCY)
-	target.setStamina(target.getStamina()-ANKLE_SLICE_POTENCY);
+	target.updateTickingHealth(ATTACK_POTENCY)
+	target.updateStamina(-ANKLE_SLICE_POTENCY);
 
 const HEAL_POTENCY = 40
-func heal(battle: Battle, caster: Actor, targets: Array):
+func heal(_battle: Battle, _caster: Actor, targets: Array):
 	var target = targets[0] 
-	target.setHealth(target.getHealth()+HEAL_POTENCY)
+	target.updateHealth(HEAL_POTENCY)
 	
-func drain(battle: Battle, caster: Actor, targets: Array): 
+func drain(_battle: Battle, caster: Actor, targets: Array): 
 	var target = targets[0]
-	target.setTickingHealth(target.getTickingHealth()+ATTACK_POTENCY)
-	caster.setHealth(caster.getHealth()+ATTACK_POTENCY)
+	target.updateTickingHealth(ATTACK_POTENCY)
+	caster.updateHealth(ATTACK_POTENCY)
 	
 const REVENGE_POTENCY = 60
-func revenge(battle: Battle, caster: Actor, targets: Array): 
+func revenge(_battle: Battle, caster: Actor, targets: Array): 
 	var target = targets[0]
 	if (caster.getTickingHealth() == caster.getHealth()):
-		target.setTickingHealth(target.getTickingHealth()+REVENGE_POTENCY)
+		target.updateTickingHealth(REVENGE_POTENCY)
 	else:
-		target.setTickingHealth(target.getTickingHealth()+ATTACK_POTENCY)
+		target.updateTickingHealth(ATTACK_POTENCY)
 
-func sweep(battle: Battle, caster: Actor, targets: Array): 
+func sweep(_battle: Battle, _caster: Actor, targets: Array): 
 	for target in targets:
-		target.setTickingHealth(target.getTickingHealth())
+		target.updateTickingHealth(ATTACK_POTENCY)
 
-func assault(battle: Battle, caster: Actor, targets: Array):
+func assault(_battle: Battle, caster: Actor, targets: Array):
 	var target = targets[0]
-	target.setTickingHealth(target.getTickingHealth()+20)
-	caster.setTickingHealth(caster.getTickingHealth()+10);
+	target.updateTickingHealth(ANKLE_SLICE_POTENCY)
+	caster.updateTickingHealth(caster.getTickingHealth()+ATTACK_POTENCY);
 	
-func exert(battle: Battle, caster: Actor, targets: Array):
+func exert(_battle: Battle, caster: Actor, targets: Array):
 	var target = targets[0]
-	caster.setStamina(0)
-	target.setTickingHealth(target.getTickingHealth()+3);
+	caster.updateStamina(0)
+	target.updateTickingHealth(target.getTickingHealth()+3);
 	
-func shadow_strike(battle: Battle, caster: Actor, targets: Array):
+func shadow_strike(_battle: Battle, _caster: Actor, targets: Array):
 	# need to figure out how to apply and convey traits on magic attacks
 	var target = targets[0]
-	target.setTickingHealth(target.getTickingHealth()+ATTACK_POTENCY)
-	target.setTickingHealth(target.getTickingHealth()+ATTACK_POTENCY);
+	target.updateTickingHealth(ATTACK_POTENCY)
+	target.updateTickingHealth(ATTACK_POTENCY);
 	
-func erupt(battle: Battle, caster: Actor, targets: Array): 
+func erupt(_battle: Battle, _caster: Actor, targets: Array): 
 	for target in targets:
-		target.setTickingHealth(target.getTickingHealth()+ATTACK_POTENCY)
+		target.updateTickingHealth(ATTACK_POTENCY)

@@ -15,6 +15,10 @@ func _ready():
 	avatarButton.connect("pressed", self, "onAvatarButtonPressed")
 	var resources = Resources.instance().setup(memberEntity)
 	avatarButton.add_child(resources)
+	memberEntity.connect("healthUpdated", self, "onHealthUpdated")
 
+func onHealthUpdated():
+	pass
+	
 func onAvatarButtonPressed():
 	emit_signal("memberPressed", memberEntity)

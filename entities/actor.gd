@@ -14,15 +14,14 @@ export(int) var maxMagic = 1000000
 
 export(Resource) var folder
 
-signal healthUpdated()
-signal tickingHealthUpdated();
-signal staminaUpdated()
-signal magicUpdated()
+signal healthUpdated(value)
+signal tickingHealthUpdated(value);
+signal staminaUpdated(value)
+signal magicUpdated(value)
 signal healthTicked()
 
 func setHealth(value):
 	health = clamp(value, 0, maxHealth)
-	emit_signal("healthUpdated")
 	
 func getHealth():
 	return health
@@ -30,9 +29,16 @@ func getHealth():
 func getTickingHealth():
 	return tickingHealth
 	
+func updateHealth(value):
+	setHealth(value+getHealth())
+	emit_signal("healthUpdated", value)
+
 func setTickingHealth(value):
 	tickingHealth = clamp(value, 0, maxHealth)
-	emit_signal("tickingHealthUpdated")
+
+func updateTickingHealth(value):
+	setTickingHealth(value+getTickingHealth())
+	emit_signal("tickingHealthUpdated", value)
 
 const GLOBAL_TICK_RATE = 1
 func tickHealth():
@@ -42,20 +48,28 @@ func tickHealth():
 	
 func setStamina(value):
 	stamina = clamp(value, -1000000, maxStamina)
-	emit_signal("staminaUpdated")
 
 func getStamina():
 	return stamina
 
+func updateStamina(value):
+	setStamina(value+getStamina())
+	emit_signal("staminaUpdated", value)
+
 func setMagic(value):
 	magic = clamp(value, 0, maxMagic)
-	emit_signal("magicUpdated")
+	
 
 func getMagic():
 	return magic
+
+func updateMagic(value):
+	setMagic(value+getMagic())
+	emit_signal("magicUpdated", value)
 	
 func execute_action(action: Action):
 	setStamina(getStamina()-action.staminaCost)
 	setMagic(getMagic()-action.magicCost)
-	if action.magicCost > magic:
-		setHealth(getHealth()-(magic-action.magicCost))
+
+
+# handle health when tick damage is maxed out or not
