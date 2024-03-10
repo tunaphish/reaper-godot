@@ -1,6 +1,7 @@
-[gd_resource type="Resource" load_steps=2 format=2]
+[gd_resource type="Resource" load_steps=3 format=2]
 
 [ext_resource path="res://entities/action/action.gd" type="Script" id=1]
+[ext_resource path="res://assets/sounds/attack.wav" type="AudioStream" id=2]
 
 [resource]
 script = ExtResource( 1 )
@@ -9,3 +10,4 @@ description = "Attack that hits multiple targets"
 staminaCost = 50
 magicCost = 0
 targetType = 2
+sound = ExtResource( 2 )
