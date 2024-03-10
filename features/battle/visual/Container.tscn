@@ -18,19 +18,17 @@ margin_bottom = 793.0
 
 [node name="EnemyBar" type="HBoxContainer" parent="VStack"]
 margin_right = 436.0
-margin_bottom = 155.0
+margin_bottom = 171.0
 size_flags_vertical = 3
 
-[node name="Stage" type="Panel" parent="VStack"]
-margin_top = 159.0
+[node name="StageContainer" type="Control" parent="VStack"]
+margin_top = 175.0
 margin_right = 436.0
-margin_bottom = 626.0
-size_flags_horizontal = 3
-size_flags_vertical = 3
-size_flags_stretch_ratio = 3.0
+margin_bottom = 611.0
+rect_min_size = Vector2( 0, 436 )
 
 [node name="PartyBar" type="HBoxContainer" parent="VStack"]
-margin_top = 630.0
+margin_top = 615.0
 margin_right = 436.0
 margin_bottom = 786.0
 size_flags_vertical = 3

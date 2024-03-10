@@ -3,8 +3,13 @@ extends PanelContainer
 const MemberHud = preload("res://features/battle/visual/MemberHud.tscn")
 const EnemyHud = preload("res://features/battle/visual/EnemyHud.tscn")
 const ActionMenu = preload("res://features/battle/visual/ActionMenu.tscn")
+const Stage = preload("res://features/battle/visual/stage.tscn")
+
 const defaultSound = preload("res://assets/sounds/attack.wav")
 
+onready var enemyBarNode = $VStack/EnemyBar
+onready var stageContainer = $VStack/StageContainer
+onready var partyBarNode = $VStack/PartyBar
 onready var closeSound = $Close 
 onready var actionSoundPlayer = $ActionSoundPlayer
 
@@ -16,23 +21,24 @@ var menus = []
 func setup(initBattleEntity: Battle, initBattle):
 	battleEntity = initBattleEntity
 	battle = initBattle
+	return self
 
+func _ready():
 	battle.connect("menuOptionsAppended", self, "createActionMenu")
 	battle.connect("potentialTargetsUpdated", self, "createTargetMenu")
 	battle.connect("actionExecuted", self, "onActionExecuted") 
 
-	var partyBarNode = $VStack/PartyBar
 	for member in battleEntity.party:
 		var memberHud = MemberHud.instance().setup(member)
 		partyBarNode.add_child(memberHud);
 		memberHud.connect("memberPressed", self, "_on_memberPressed")
 	
-	var enemyBarNode = $VStack/EnemyBar
 	for enemy in battleEntity.enemies:
 		var enemyHud = EnemyHud.instance().setup(enemy)
 		enemyBarNode.add_child(enemyHud)
 	
-	return self
+	var stage = Stage.instance().setup(battleEntity)
+	stageContainer.add_child(stage)
 
 func _on_memberPressed(memberEntity): 
 	battle.setCaster(memberEntity)
