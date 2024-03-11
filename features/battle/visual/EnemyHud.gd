@@ -2,7 +2,8 @@ extends PanelContainer
 
 var enemy: Enemy
 const Resources = preload("res://features/battle/visual/Resources.tscn")
-onready var nameLabel = $Name
+onready var vstack = $VStack
+onready var nameLabel = $VStack/Name
 
 func setup(initEnemy: Enemy):
 	enemy = initEnemy
@@ -11,4 +12,4 @@ func setup(initEnemy: Enemy):
 func _ready():
 	nameLabel.text = enemy.name
 	var resources = Resources.instance().setup(enemy)
-	add_child(resources)
+	vstack.add_child(resources)

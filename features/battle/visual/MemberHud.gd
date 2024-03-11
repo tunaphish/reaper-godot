@@ -1,8 +1,9 @@
 extends PanelContainer
 
 var memberEntity: Member
-onready var avatarButton = $AvatarButton
-onready var avatar = $AvatarButton/Avatar
+onready var vstack = $VStack
+onready var avatarButton = $VStack/AvatarButton
+onready var avatar = $VStack/AvatarButton/Avatar
 const Resources = preload("res://features/battle/visual/Resources.tscn")
 
 signal memberPressed(memberEntity)
@@ -15,7 +16,7 @@ func _ready():
 	avatar.texture = memberEntity.avatar
 	avatarButton.connect("pressed", self, "onAvatarButtonPressed")
 	var resources = Resources.instance().setup(memberEntity)
-	avatarButton.add_child(resources)
+	vstack.add_child(resources)
 	memberEntity.connect("healthUpdated", self, "onHealthUpdated")
 	memberEntity.connect("tickingHealthUpdated", self, "onTickingHealthUpdated")
 
