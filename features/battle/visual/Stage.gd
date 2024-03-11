@@ -16,13 +16,19 @@ func _ready():
 	background.texture = battle.background
 	foreground.texture = battle.foreground
 	actor.texture = enemy.sprite
-	connect("mouse_entered", self, "_on_mouse_entered")
-	connect("mouse_exited", self, "_on_mouse_exited")
-	
-func _on_mouse_entered():
+	connect("mouse_entered", self, "onMouseEntered")
+	connect("mouse_exited", self, "onMouseExited")
+	#applyShaderMaterials(testShader)
+
+func applyShaderMaterials(testShader): 
+	var sprites = [background, actor, foreground]
+	for sprite in sprites: 
+		sprite.material = testShader
+
+func onMouseEntered():
 	isHover = true
 
-func _on_mouse_exited():
+func onMouseExited():
 	isHover = false
 		
 func _process(delta):
