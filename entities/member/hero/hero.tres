@@ -15,5 +15,6 @@ maxStamina = 100
 staminaRegenRate = 1
 magic = 100.0
 maxMagic = 100
+state = 0
 folder = ExtResource( 3 )
 avatar = ExtResource( 2 )

@@ -1,5 +1,6 @@
 extends PanelContainer
 
+var State = preload("res://entities/actor.gd").State
 const MemberHud = preload("res://features/battle/visual/MemberHud.tscn")
 const EnemyHud = preload("res://features/battle/visual/EnemyHud.tscn")
 const ActionMenu = preload("res://features/battle/visual/ActionMenu.tscn")
@@ -10,8 +11,10 @@ const defaultSound = preload("res://assets/sounds/attack.wav")
 onready var enemyBarNode = $VStack/EnemyBar
 onready var stageContainer = $VStack/StageContainer
 onready var partyBarNode = $VStack/PartyBar
+
 onready var closeSound = $Close 
 onready var actionSoundPlayer = $ActionSoundPlayer
+onready var menuDisabled = $MenuDisabled
 
 var battleEntity: Battle
 var battle
@@ -41,6 +44,9 @@ func _ready():
 	stageContainer.add_child(stage)
 
 func _on_memberPressed(memberEntity): 
+	if memberEntity.state != State.NORMAL:
+		menuDisabled.play()
+		return
 	battle.setCaster(memberEntity)
 	battle.appendMenuOptions(memberEntity.folder)
 

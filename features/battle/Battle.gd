@@ -1,5 +1,6 @@
 extends Node
 
+var State = preload("res://entities/actor.gd").State
 const battleEntity: Battle = preload("res://entities/battle/testBattle.tres")
 const Container = preload("res://features/battle/visual/Container.tscn");
 
@@ -31,12 +32,20 @@ func _process(delta):
 		if action.magicCost > caster.magic:
 			caster.updateHealth(caster.magic-action.magicCost)
 		emit_signal("actionExecuted")
-
-
+	var actors = getActors()
 	for actor in getActors():
 		actor.updateStamina(actor.staminaRegenRate)
 		if (actor.getTickingHealth() > 0):
 			actor.tickHealth()
+		setState(actor)
+
+func setState(actor: Resource):
+	if actor.health == 0:
+		actor.setState(State.DEAD)
+	elif actor.stamina < 0:
+		actor.setState(State.EXHAUSTED)
+	else: 
+		actor.setState(State.NORMAL)
 
 func clearSelections():
 	caster = null

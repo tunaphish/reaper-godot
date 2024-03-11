@@ -1,7 +1,16 @@
 tool
 class_name Actor extends Resource
 
-# max values set to 10000000 due to initialization bug with clamp and internal references
+enum State {
+	NORMAL,
+	DEAD,
+	EXHAUSTED,
+	GUARD,
+	CASTING, 
+	ATTACKING, 
+} 
+
+# max values set to 10000000 due to initialization bug with clamp and internal references, not Inf because those are floats
 export(String) var name
 export(int) var health setget setHealth, getHealth
 export(int) var maxHealth = 1000000
@@ -11,6 +20,7 @@ export(int) var maxStamina = 1000000
 export(int) var staminaRegenRate
 export(int) var magic setget setMagic, getMagic
 export(int) var maxMagic = 1000000
+export(State) var state  = State.NORMAL setget setState, getState 
 
 export(Resource) var folder
 
@@ -19,6 +29,7 @@ signal tickingHealthUpdated(value);
 signal staminaUpdated(value)
 signal magicUpdated(value)
 signal healthTicked()
+signal stateSet(value)
 
 func setHealth(value):
 	health = clamp(value, 0, maxHealth)
@@ -71,5 +82,10 @@ func execute_action(action: Action):
 	setStamina(getStamina()-action.staminaCost)
 	setMagic(getMagic()-action.magicCost)
 
+func setState(value: int): #State as enums can't be used as types...
+	state = value
+	emit_signal("stateSet", value)
 
+func getState():
+	return state
 # handle health when tick damage is maxed out or not

@@ -2,6 +2,9 @@ extends VBoxContainer
 
 var actor: Actor
 
+var State = preload("res://entities/actor.gd").State
+
+onready var stateLabel = $Container/StateLabel
 onready var healthBar = $Container/HealthTickingBar/HealthBar
 onready var healthLabel = $Container/HealthTickingBar/HealthLabel
 onready var healthTickingBar = $Container/HealthTickingBar
@@ -19,6 +22,9 @@ func setup(initActor: Actor):
 	return self
 
 func _ready():	
+	stateLabel.text = convertState(actor.state)
+	actor.connect("stateSet", self, "onStateSet")
+
 	healthBar.max_value = actor.maxHealth
 	renderHealth()
 	actor.connect("healthUpdated", self, "onHealthUpdated")
@@ -37,6 +43,18 @@ func _ready():
 	magicBar.value = actor.magic
 	magicLabel.text = LABEL_FORMAT_STRING % [actor.magic, actor.maxMagic]
 	actor.connect("magicUpdated", self, "onMagicUpdated")
+
+func onStateSet(value):
+	stateLabel.text = convertState(value)
+
+func convertState(state): 
+	match state:
+		State.NORMAL: return "Normal"
+		State.DEAD: return "Dead"
+		State.EXHAUSTED: return "Exhausted"
+		State.CASTING: return "Casting"
+		State.GUARD: return "Guard"
+		State.ATTACKING: return "Attacking"
 
 func onHealthUpdated(_value):
 	renderHealth()
