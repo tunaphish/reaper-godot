@@ -18,12 +18,24 @@ func _ready():
 	actor.texture = enemy.sprite
 	connect("mouse_entered", self, "onMouseEntered")
 	connect("mouse_exited", self, "onMouseExited")
-	#applyShaderMaterials(testShader)
+	enemy.connect("healthUpdated", self, "onHealthUpdated")
+	enemy.connect("tickingHealthUpdated", self, "onTickingHealthUpdated")
 
-func applyShaderMaterials(testShader): 
-	var sprites = [background, actor, foreground]
-	for sprite in sprites: 
-		sprite.material = testShader
+func onHealthUpdated(value):
+	if (value < 0):
+		shakeSprite()
+
+func onTickingHealthUpdated(value):
+	if (value > 0):
+		shakeSprite()
+
+func shakeSprite(duration = 0.03, magnitude = 10, frequency = 10):
+	var shakeTween = create_tween()
+	var initPosition = actor.position
+	for i in frequency:
+		var randomVector2 = Vector2(rand_range(-magnitude, magnitude), rand_range(-magnitude, magnitude))
+		shakeTween.tween_property(actor, "position", initPosition + randomVector2, duration)
+	shakeTween.tween_property(actor, "position", initPosition, duration)
 
 func onMouseEntered():
 	isHover = true
