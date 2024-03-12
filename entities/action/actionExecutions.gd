@@ -1,3 +1,4 @@
+var State = preload("res://entities/actor.gd").State
 
 const ATTACK_POTENCY = 20
 func attack(_battle: Battle, _caster: Actor, targets: Array): 
@@ -58,3 +59,6 @@ func shadow_strike(_battle: Battle, _caster: Actor, targets: Array):
 func erupt(_battle: Battle, _caster: Actor, targets: Array): 
 	for target in targets:
 		target.updateTickingHealth(ATTACK_POTENCY)
+
+func guard(_battle: Battle, caster: Actor, _targets: Array): 
+	caster.setState(State.GUARD)

@@ -1,5 +1,6 @@
 extends PanelContainer
 
+var State = preload("res://entities/actor.gd").State
 var memberEntity: Member
 onready var vstack = $VStack
 onready var avatarButton = $VStack/AvatarButton
@@ -37,4 +38,6 @@ func shakeSprite(duration = 0.03, magnitude = 10, frequency = 10):
 	shakeTween.tween_property(avatar, "rect_position", initPosition, duration)
 	
 func onAvatarButtonPressed():
+	if memberEntity.state == State.GUARD:
+		memberEntity.setState(State.NORMAL)
 	emit_signal("memberPressed", memberEntity)

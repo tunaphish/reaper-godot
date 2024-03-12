@@ -48,10 +48,16 @@ func setTickingHealth(value):
 	tickingHealth = clamp(value, 0, maxHealth)
 
 func updateTickingHealth(value):
+	if value > 0 and state == State.GUARD:
+		updateStamina(-value)
+		emit_signal("staminaUpdated", value)
+		return
+	if value > 0 and state == State.EXHAUSTED:
+		value *= 2
 	setTickingHealth(value+getTickingHealth())
 	emit_signal("tickingHealthUpdated", value)
 
-const GLOBAL_TICK_RATE = 1
+const GLOBAL_TICK_RATE = 2
 func tickHealth():
 	tickingHealth = clamp(tickingHealth-min(GLOBAL_TICK_RATE, tickingHealth), 0, maxHealth)
 	health = clamp(health-min(GLOBAL_TICK_RATE, tickingHealth), 0, maxHealth)
@@ -82,7 +88,7 @@ func execute_action(action: Action):
 	setStamina(getStamina()-action.staminaCost)
 	setMagic(getMagic()-action.magicCost)
 
-func setState(value: int): #State as enums can't be used as types...
+func setState(value: int): # State as enums can't be used as types...
 	state = value
 	emit_signal("stateSet", value)
 

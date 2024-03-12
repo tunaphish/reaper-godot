@@ -32,9 +32,10 @@ func _process(delta):
 		if action.magicCost > caster.magic:
 			caster.updateHealth(caster.magic-action.magicCost)
 		emit_signal("actionExecuted")
-	var actors = getActors()
+
 	for actor in getActors():
-		actor.updateStamina(actor.staminaRegenRate)
+		if (actor.state != State.GUARD):
+			actor.updateStamina(actor.staminaRegenRate)
 		if (actor.getTickingHealth() > 0):
 			actor.tickHealth()
 		setState(actor)
@@ -42,10 +43,16 @@ func _process(delta):
 func setState(actor: Resource):
 	if actor.health == 0:
 		actor.setState(State.DEAD)
-	elif actor.stamina < 0:
+		return
+	if actor.stamina < 0:
 		actor.setState(State.EXHAUSTED)
-	else: 
+		return
+	if actor.state == State.DEAD and actor.health > 0: 
 		actor.setState(State.NORMAL)
+		return 
+	if actor.state == State.EXHAUSTED and actor.stamina > 0:
+		actor.setState(State.NORMAL)
+
 
 func clearSelections():
 	caster = null
