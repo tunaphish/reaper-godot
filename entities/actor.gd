@@ -59,8 +59,9 @@ func updateTickingHealth(value):
 
 const GLOBAL_TICK_RATE = 2
 func tickHealth():
-	tickingHealth = clamp(tickingHealth-min(GLOBAL_TICK_RATE, tickingHealth), 0, maxHealth)
-	health = clamp(health-min(GLOBAL_TICK_RATE, tickingHealth), 0, maxHealth)
+	var tick = min(GLOBAL_TICK_RATE, tickingHealth)
+	tickingHealth = clamp(tickingHealth-tick, 0, maxHealth)
+	health = clamp(health-tick, 0, maxHealth)
 	emit_signal("healthTicked")
 	
 func setStamina(value):

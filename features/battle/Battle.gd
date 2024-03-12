@@ -24,6 +24,12 @@ func _process(delta):
 	if (timer < TICK):
 		return
 	timer = 0
+
+	if enemiesAreDead():
+		pass
+	if partyIsDead():
+		pass
+
 	if (caster and action and targets):
 		var actionExecution = action.get_execution_name()
 		actionExections.call(actionExecution, battleEntity, caster, targets) 
@@ -34,7 +40,7 @@ func _process(delta):
 		emit_signal("actionExecuted")
 
 	for actor in getActors():
-		if (actor.state != State.GUARD):
+		if (actor.state != State.GUARD and actor.state != State.DEAD):
 			actor.updateStamina(actor.staminaRegenRate)
 		if (actor.getTickingHealth() > 0):
 			actor.tickHealth()
@@ -96,3 +102,14 @@ func onActionPressed(id):
 func onPotentialTargetPressed(id):
 	targets = [potentialTargets[id]]	
 	
+func enemiesAreDead():
+	for enemy in battleEntity.enemies:
+		if enemy.state != State.DEAD:
+			return false
+	return true
+
+func partyIsDead():
+	for member in battleEntity.party:
+		if member.state != State.DEAD:
+			return false
+	return true
