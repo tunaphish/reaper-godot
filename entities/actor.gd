@@ -21,6 +21,7 @@ export(int) var staminaRegenRate
 export(int) var magic setget setMagic, getMagic
 export(int) var maxMagic = 1000000
 export(State) var state  = State.NORMAL setget setState, getState 
+export(Resource) var queuedAction setget setQueuedAction, getQueuedAction
 
 export(Resource) var folder
 
@@ -96,3 +97,11 @@ func setState(value: int): # State as enums can't be used as types...
 func getState():
 	return state
 # handle health when tick damage is maxed out or not
+
+func getQueuedAction():
+	return queuedAction
+
+signal actionQueued()
+func setQueuedAction(action: Resource):
+	queuedAction = action 
+	emit_signal("actionQueued")

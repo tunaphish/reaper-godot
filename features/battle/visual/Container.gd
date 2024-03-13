@@ -30,11 +30,13 @@ func _ready():
 	battle.connect("menuOptionsAppended", self, "createActionMenu")
 	battle.connect("potentialTargetsUpdated", self, "createTargetMenu")
 	battle.connect("actionExecuted", self, "onActionExecuted") 
+	battle.connect("actionQueued", self, "onActionQueued")
+	battle.connect("openDisabledMenu", self, "onOpenDisabledMenu")
 
 	for member in battleEntity.party:
 		var memberHud = MemberHud.instance().setup(member)
 		partyBarNode.add_child(memberHud);
-		memberHud.connect("memberPressed", self, "_on_memberPressed")
+		memberHud.connect("memberPressed", self, "onMemberPressed")
 	
 	for enemy in battleEntity.enemies:
 		var enemyHud = EnemyHud.instance().setup(enemy)
@@ -43,12 +45,11 @@ func _ready():
 	var stage = Stage.instance().setup(battleEntity)
 	stageContainer.add_child(stage)
 
-func _on_memberPressed(memberEntity): 
-	if memberEntity.state != State.NORMAL:
-		menuDisabled.play()
-		return
-	battle.setCaster(memberEntity)
-	battle.appendMenuOptions(memberEntity.folder)
+func onMemberPressed(memberEntity):
+	battle.openInitialMenu(memberEntity)
+
+func onOpenDisabledMenu():
+	menuDisabled.play()
 
 # Bug 1: Clicking outside modal closes all popups
 # Bug 2: Nested menus still clickable
@@ -68,10 +69,12 @@ func createActionMenu():
 	actionMenu.connect("id_pressed", battle, "onActionPressed")
 	actionMenu.connect("menuClosed", self, "_on_menuClosed")
 
-func onActionExecuted(): 
-	actionSoundPlayer.stream = battle.action.sound
-	actionSoundPlayer.play()
+func onActionQueued():
 	closeMenus()
+
+func onActionExecuted(action): 
+	actionSoundPlayer.stream = action.sound
+	actionSoundPlayer.play()
 
 func closeMenus():
 	for menu in menus:
