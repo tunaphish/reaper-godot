@@ -15,7 +15,7 @@ export (int) var staminaCost
 export (int) var magicCost
 export (TargetType) var targetType
 export (Resource) var sound
-export (int) var castTimeInMs = 1000
+export (int) var castTimeInMs = 2000
 
 func get_execution_name():
 	return name.to_lower().replace(' ', '_')

@@ -61,6 +61,5 @@ func shakeSprite(duration = 0.03, magnitude = 10, frequency = 10):
 func onAvatarButtonPressed():
 	emit_signal("memberPressed", memberEntity)
 
-
 # func onActionQueued():
 # 	print(memberEntity.queuedAction.name)
