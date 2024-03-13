@@ -54,6 +54,8 @@ func queueAction():
 
 signal actionExecuted(action)
 func executeAction(queuedAction, queuedBattleEntity, queuedCaster, queuedTargets):
+	if queuedCaster.state != State.CASTING: 
+		return
 	var actionExecution = queuedAction.get_execution_name()
 	actionExections.call(actionExecution, queuedBattleEntity, queuedCaster, queuedTargets) 
 	queuedCaster.setState(State.NORMAL)
@@ -63,6 +65,7 @@ func executeAction(queuedAction, queuedBattleEntity, queuedCaster, queuedTargets
 func setState(actor: Resource):
 	if actor.health == 0:
 		actor.setState(State.DEAD)
+		actor.setQueuedAction(null)
 		return
 	if actor.stamina < 0 and actor.state != State.CASTING:
 		actor.setState(State.EXHAUSTED)

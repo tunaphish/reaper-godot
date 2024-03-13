@@ -27,18 +27,17 @@ func _ready():
 func _process(delta):
 	renderCastingWindow(delta)
 
-const INITIAL_SIZE = Vector2(128, 0) 
-const FINAL_SIZE = Vector2(128, 182)
+var initialSize = Vector2(128,182) #hacky hardcoded vals
 var timer 
 func renderCastingWindow(delta): 
 	if not memberEntity.queuedAction: 
 		timer = null 
-		castWindow.rect_size = INITIAL_SIZE
+		castWindow.rect_size = Vector2.ZERO
 		return 
 	if not timer and memberEntity.queuedAction:
 		timer = 0
 	if timer and timer < memberEntity.queuedAction.castTimeInMs:
-		var newSize = Vector2(128, clamp(FINAL_SIZE.y * (timer*1000/memberEntity.queuedAction.castTimeInMs), 0, FINAL_SIZE.y))
+		var newSize = Vector2(128, clamp(initialSize.y * (timer*1000/memberEntity.queuedAction.castTimeInMs), 0, initialSize.y))
 		castWindow.rect_size = newSize
 	timer += delta
 
