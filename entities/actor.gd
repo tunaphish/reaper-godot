@@ -55,8 +55,12 @@ func updateTickingHealth(value):
 		return
 	if value > 0 and state == State.EXHAUSTED:
 		value *= 2
-	setTickingHealth(value+getTickingHealth())
+	var newTickingHealth = value+getTickingHealth()
+	setTickingHealth(newTickingHealth)
 	emit_signal("tickingHealthUpdated", value)
+	if newTickingHealth > getHealth():
+		updateHealth(-(newTickingHealth-health)) 
+
 
 const GLOBAL_TICK_RATE = 2
 func tickHealth():
