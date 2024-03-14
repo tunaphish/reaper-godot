@@ -62,10 +62,12 @@ func executeAction(queuedAction, queuedBattleEntity, queuedCaster, queuedTargets
 	queuedCaster.setQueuedAction(null)
 	emit_signal("actionExecuted", queuedAction)
 
+signal actorDied()
 func setState(actor: Resource):
-	if actor.health == 0:
+	if actor.state != State.DEAD and actor.health == 0:
 		actor.setState(State.DEAD)
 		actor.setQueuedAction(null)
+		emit_signal("actorDied")
 		return
 	if actor.stamina < 0 and actor.state != State.CASTING:
 		actor.setState(State.EXHAUSTED)

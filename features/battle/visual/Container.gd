@@ -14,7 +14,8 @@ onready var partyBarNode = $VStack/PartyBar
 
 onready var closeSound = $Close 
 onready var actionSoundPlayer = $ActionSoundPlayer
-onready var menuDisabled = $MenuDisabled
+onready var menuDisabledSound = $MenuDisabled
+onready var deathSound = $Death
 
 var battleEntity: Battle
 var battle
@@ -32,6 +33,7 @@ func _ready():
 	battle.connect("actionExecuted", self, "onActionExecuted") 
 	battle.connect("actionQueued", self, "onActionQueued")
 	battle.connect("openDisabledMenu", self, "onOpenDisabledMenu")
+	battle.connect("actorDied", self, "onActorDied")
 
 	for member in battleEntity.party:
 		var memberHud = MemberHud.instance().setup(member)
@@ -49,7 +51,10 @@ func onMemberPressed(memberEntity):
 	battle.openInitialMenu(memberEntity)
 
 func onOpenDisabledMenu():
-	menuDisabled.play()
+	menuDisabledSound.play()
+
+func onActorDied():
+	deathSound.play()
 
 # Bug 1: Clicking outside modal closes all popups
 # Bug 2: Nested menus still clickable
