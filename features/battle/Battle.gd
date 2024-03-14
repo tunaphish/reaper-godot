@@ -46,7 +46,7 @@ func _process(delta):
 
 signal actionQueued()
 func queueAction():
-	var actionTimer = get_tree().create_timer(action.castTimeInMs/1000)
+	var actionTimer = get_tree().create_timer(action.castTimeInMs/1000.0)
 	actionTimer.connect("timeout", self, "executeAction", [action, battleEntity, caster, targets])
 	caster.setState(State.CASTING)
 	caster.setQueuedAction(action)
