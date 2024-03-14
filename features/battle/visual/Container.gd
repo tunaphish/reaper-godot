@@ -56,8 +56,7 @@ func onOpenDisabledMenu():
 func onActorDied():
 	deathSound.play()
 
-# Bug 1: Clicking outside modal closes all popups
-# Bug 2: Nested menus still clickable
+
 const INITIAL_ACTION_MENU_POSITION = Vector2(290,580);
 func createActionMenu():
 	var options = battle.menuOptions.back().options
@@ -70,7 +69,7 @@ func createActionMenu():
 	var actionMenu = ActionMenu.instance().setup(optionLabels)
 	add_child(actionMenu)
 	menus.append(actionMenu)
-	actionMenu.set_popup_position(INITIAL_ACTION_MENU_POSITION - (Vector2(10,10) * menus.size())) # needs to be updated in case menu sizes increase or some thang
+	actionMenu.set_popup_position(INITIAL_ACTION_MENU_POSITION - (Vector2(10,10) * menus.size())) 
 	actionMenu.connect("id_pressed", battle, "onActionPressed")
 	actionMenu.connect("menuClosed", self, "_on_menuClosed")
 
@@ -93,7 +92,7 @@ func createTargetMenu():
 	var actionMenu = ActionMenu.instance().setup(optionLabels)
 	add_child(actionMenu)
 	menus.append(actionMenu)
-	actionMenu.set_popup_position(INITIAL_ACTION_MENU_POSITION - (Vector2(10,10) * menus.size())) # needs to be updated in case menu sizes increase or some thang
+	actionMenu.set_popup_position(INITIAL_ACTION_MENU_POSITION - (Vector2(10,10) * menus.size()))
 	actionMenu.connect("id_pressed", battle, "onPotentialTargetPressed")
 	actionMenu.connect("menuClosed", self, "_on_menuClosed")
 

@@ -21,13 +21,11 @@ func _ready():
 	vstack.add_child(resources)
 	memberEntity.connect("healthUpdated", self, "onHealthUpdated")
 	memberEntity.connect("tickingHealthUpdated", self, "onTickingHealthUpdated")
-	#memberEntity.connect("actionQueued", self, "onActionQueued")
-
 
 func _process(delta):
 	renderCastingWindow(delta)
 
-var initialSize = Vector2(128,182) #hacky hardcoded vals
+var initialSize = Vector2(128,182) 
 var timer 
 func renderCastingWindow(delta): 
 	if not memberEntity.queuedAction: 
@@ -59,6 +57,3 @@ func shakeSprite(duration = 0.03, magnitude = 10, frequency = 10):
 	
 func onAvatarButtonPressed():
 	emit_signal("memberPressed", memberEntity)
-
-# func onActionQueued():
-# 	print(memberEntity.queuedAction.name)

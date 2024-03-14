@@ -29,16 +29,14 @@ func _input(event):
 		target = get_global_mouse_position()
 
 
-func _physics_process(delta):
+func _physics_process(_delta):
 	velocity = position.direction_to(target) * speed
 	direction = get_direction(velocity);
-	# look_at(target)
 	if position.distance_to(target) > 5:
 		$AnimatedSprite.play(ANIM_STR_FORMAT % [action, direction])
-		# set animation
 		move_and_slide(velocity)
 
-func get_direction(velocity):
+func get_direction(_velocity):
 	var angle = velocity.angle();
 	var direction = DIRECTION.downNeutral
 	var angle_degrees = angle * 180.0 / PI

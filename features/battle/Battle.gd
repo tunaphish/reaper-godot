@@ -105,7 +105,7 @@ func onActionPressed(id):
 	var option = menuOptions.back().options[id]
 	if option is Action:
 		setAction(option)
-		if option.targetType == TargetType.AOE: # figure this out later
+		if option.targetType == TargetType.AOE:
 			potentialTargets = getActors() 
 			emit_signal("potentialTargetsUpdated")
 		elif option.targetType == TargetType.SINGLE:

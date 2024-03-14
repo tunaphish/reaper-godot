@@ -100,7 +100,6 @@ func setState(value: int): # State as enums can't be used as types...
 
 func getState():
 	return state
-# handle health when tick damage is maxed out or not
 
 func getQueuedAction():
 	return queuedAction

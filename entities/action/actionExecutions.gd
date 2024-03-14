@@ -51,7 +51,6 @@ func exert(_battle: Battle, caster: Actor, targets: Array):
 	target.updateTickingHealth(target.getTickingHealth()+3);
 	
 func shadow_strike(_battle: Battle, _caster: Actor, targets: Array):
-	# need to figure out how to apply and convey traits on magic attacks
 	var target = targets[0]
 	target.updateTickingHealth(ATTACK_POTENCY)
 	target.updateTickingHealth(ATTACK_POTENCY);

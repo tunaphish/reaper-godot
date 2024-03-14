@@ -12,7 +12,7 @@ func setup(initBattle: Battle):
 	return self
 
 func _ready():
-	var enemy = battle.enemies[0] # fix for multiple enemies
+	var enemy = battle.enemies[0] 
 	background.texture = battle.background
 	foreground.texture = battle.foreground
 	actor.texture = enemy.sprite
