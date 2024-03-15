@@ -98,6 +98,9 @@ func setQueuedAction(action: Resource):
 
 signal attackBlocked()
 func receiveDamage(value):
+	if state == State.CASTING && queuedAction.name == 'Guard':
+		emit_signal("attackBlocked") 
+		return
 	if value > 0 and state == State.GUARD:
 		updateStamina(-value)
 		emit_signal("staminaUpdated", value)

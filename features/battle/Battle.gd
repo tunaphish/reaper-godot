@@ -60,7 +60,7 @@ func executeAction(queuedAction, queuedBattleEntity, queuedCaster, queuedTargets
 	queuedCaster.setState(State.NORMAL)
 	actionExections.call(actionExecution, queuedBattleEntity, queuedCaster, queuedTargets) 
 	queuedCaster.setQueuedAction(null)
-	#emit_signal("actionExecuted", queuedAction)
+	emit_signal("actionExecuted", queuedAction)
 
 signal actorDied()
 func setState(actor: Resource):
