@@ -11,5 +11,5 @@ staminaCost = 25
 magicCost = 0
 targetType = 0
 sound = ExtResource( 2 )
-castTimeInMs = 2000
+castTimeInMs = 1000
 queueState = 7

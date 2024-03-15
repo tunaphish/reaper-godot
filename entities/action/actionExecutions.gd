@@ -72,3 +72,6 @@ func haymaker(_battle: Battle, _caster: Actor, targets: Array):
 
 func evade(_battle: Battle, _caster: Actor, _targets: Array): 
 	return
+
+func counter(_battle: Battle, caster: Actor, _targets: Array): 
+	caster.setState(State.COUNTER)

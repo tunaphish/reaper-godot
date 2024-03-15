@@ -33,12 +33,16 @@ func _process(delta):
 		queueAction()
 
 	for actor in getActors():
-		if (actor.state != State.GUARD and actor.state != State.DEAD and actor.state != State.CASTING):
-			actor.updateStamina(actor.staminaRegenRate)
-		if (actor.getTickingHealth() > 0):
-			actor.tickHealth()
-		setState(actor)
+		updateStats(actor)
 
+func updateStats(actor):
+	if actor.state == State.COUNTER:
+		actor.updateStamina(-1)
+	elif (actor.state != State.GUARD and actor.state != State.DEAD and actor.state != State.CASTING):
+		actor.updateStamina(actor.staminaRegenRate)
+	if (actor.getTickingHealth() > 0):
+		actor.tickHealth()
+	setState(actor)
 
 signal actionQueued()
 func queueAction():
@@ -56,6 +60,12 @@ signal actionExecuted(action)
 func executeAction(queuedAction, queuedBattleEntity, queuedCaster, queuedTargets):
 	if queuedCaster.state != State.CASTING: 
 		return
+
+	for i in range(queuedTargets.size()):
+		var target = queuedTargets[i]
+		if !queuedAction.isMagicalAction() and target.state == State.COUNTER:
+			queuedTargets[i] = queuedCaster
+
 	var actionExecution = queuedAction.get_execution_name()
 	queuedCaster.setState(State.NORMAL)
 	actionExections.call(actionExecution, queuedBattleEntity, queuedCaster, queuedTargets) 
@@ -112,7 +122,7 @@ func onActionPressed(id):
 			potentialTargets = getActors()
 			emit_signal("potentialTargetsUpdated")
 		elif option.targetType == TargetType.SELF:
-			targets = [self]
+			targets = [caster]
 		elif option.targetType == TargetType.ALL:
 			targets = getActors()
 	if option is Folder: 
@@ -134,10 +144,12 @@ func partyIsDead():
 	return true
 
 signal openDisabledMenu()
+var disabledStates = [State.DEAD, State.EXHAUSTED, State.CASTING]
+var defensiveStates = [State.GUARD, State.COUNTER, State.REFLECT]
 func openInitialMenu(memberEntity: Resource):
-	if memberEntity.state == State.GUARD:
+	if defensiveStates.has(memberEntity.state):
 		memberEntity.setState(State.NORMAL)
-	if memberEntity.state != State.NORMAL:
+	if disabledStates.has(memberEntity.state):
 		emit_signal("openDisabledMenu")
 		return
 	setCaster(memberEntity)

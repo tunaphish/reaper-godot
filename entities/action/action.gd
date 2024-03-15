@@ -20,3 +20,6 @@ export (State) var queueState = State.CASTING
 
 func get_execution_name():
 	return name.to_lower().replace(' ', '_')
+
+func isMagicalAction():
+	return magicCost > 0

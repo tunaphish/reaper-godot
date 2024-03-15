@@ -12,3 +12,4 @@ magicCost = 0
 targetType = 0
 sound = ExtResource( 2 )
 castTimeInMs = 400
+queueState = 3

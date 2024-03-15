@@ -9,7 +9,7 @@ enum State {
 	ATTACK, 
 	GUARD,
 	PERFECTGUARD,
-	DODGE,
+	DODGE, 
 	COUNTER, 
 	REFLECT
 } 
