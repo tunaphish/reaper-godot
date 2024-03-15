@@ -30,10 +30,6 @@ func _process(delta):
 		pass
 
 	if (caster and action and targets):
-		caster.updateStamina(-action.staminaCost)
-		caster.updateMagic(-action.magicCost)
-		if action.magicCost > caster.magic:
-			caster.updateHealth(caster.magic-action.magicCost)
 		queueAction()
 
 	for actor in getActors():
@@ -46,6 +42,10 @@ func _process(delta):
 
 signal actionQueued()
 func queueAction():
+	caster.updateStamina(-action.staminaCost)
+	caster.updateMagic(-action.magicCost)
+	if action.magicCost > caster.magic:
+		caster.updateHealth(caster.magic-action.magicCost)
 	var actionTimer = get_tree().create_timer(action.castTimeInMs/1000.0)
 	actionTimer.connect("timeout", self, "executeAction", [action, battleEntity, caster, targets])
 	caster.setState(State.CASTING)
@@ -57,10 +57,10 @@ func executeAction(queuedAction, queuedBattleEntity, queuedCaster, queuedTargets
 	if queuedCaster.state != State.CASTING: 
 		return
 	var actionExecution = queuedAction.get_execution_name()
-	actionExections.call(actionExecution, queuedBattleEntity, queuedCaster, queuedTargets) 
 	queuedCaster.setState(State.NORMAL)
+	actionExections.call(actionExecution, queuedBattleEntity, queuedCaster, queuedTargets) 
 	queuedCaster.setQueuedAction(null)
-	emit_signal("actionExecuted", queuedAction)
+	#emit_signal("actionExecuted", queuedAction)
 
 signal actorDied()
 func setState(actor: Resource):

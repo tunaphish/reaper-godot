@@ -7,7 +7,10 @@ enum State {
 	EXHAUSTED,
 	GUARD,
 	CASTING, 
-	ATTACKING, 
+	ATTACK, 
+	DODGE,
+	COUNTER, 
+	REFLECT
 } 
 
 # max values set to 10000000 due to initialization bug with clamp and internal references, not Inf because those are floats
@@ -49,18 +52,8 @@ func setTickingHealth(value):
 	tickingHealth = clamp(value, 0, maxHealth)
 
 func updateTickingHealth(value):
-	if value > 0 and state == State.GUARD:
-		updateStamina(-value)
-		emit_signal("staminaUpdated", value)
-		return
-	if value > 0 and state == State.EXHAUSTED:
-		value *= 2
-	var newTickingHealth = value+getTickingHealth()
-	setTickingHealth(newTickingHealth)
+	setTickingHealth(value)
 	emit_signal("tickingHealthUpdated", value)
-	if newTickingHealth > getHealth():
-		updateHealth(-(newTickingHealth-health)) 
-
 
 const GLOBAL_TICK_RATE = 2
 func tickHealth():
@@ -81,7 +74,6 @@ func updateStamina(value):
 
 func setMagic(value):
 	magic = clamp(value, 0, maxMagic)
-	
 
 func getMagic():
 	return magic
@@ -89,10 +81,7 @@ func getMagic():
 func updateMagic(value):
 	setMagic(value+getMagic())
 	emit_signal("magicUpdated", value)
-	
-func execute_action(action: Action):
-	setStamina(getStamina()-action.staminaCost)
-	setMagic(getMagic()-action.magicCost)
+
 
 func setState(value: int): # State as enums can't be used as types...
 	state = value
@@ -104,7 +93,20 @@ func getState():
 func getQueuedAction():
 	return queuedAction
 
-signal actionQueued()
 func setQueuedAction(action: Resource):
 	queuedAction = action 
-	emit_signal("actionQueued")
+
+signal attackBlocked()
+func receiveDamage(value):
+	if value > 0 and state == State.GUARD:
+		updateStamina(-value)
+		emit_signal("staminaUpdated", value)
+		emit_signal("attackBlocked")
+		return
+	if value > 0 and state == State.EXHAUSTED:
+		value *= 2
+	var newTickingHealth = value+getTickingHealth()
+	setTickingHealth(newTickingHealth)
+	emit_signal("tickingHealthUpdated", value)
+	if newTickingHealth > getHealth():
+		updateHealth(-(newTickingHealth-health)) 

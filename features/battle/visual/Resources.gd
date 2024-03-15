@@ -12,6 +12,7 @@ onready var staminaBar = $Container/StaminaBar
 onready var staminaLabel = $Container/StaminaBar/StaminaLabel
 onready var magicBar = $Container/MagicBar
 onready var magicLabel = $Container/MagicBar/MagicLabel
+onready var blockSound =$Block
 
 const LABEL_FORMAT_STRING = "%s / %s"
 const NEGATIVE_STAMINA_COLOR = Color.yellow 
@@ -44,6 +45,8 @@ func _ready():
 	magicLabel.text = LABEL_FORMAT_STRING % [actor.magic, actor.maxMagic]
 	actor.connect("magicUpdated", self, "onMagicUpdated")
 
+	actor.connect("attackBlocked", self, "onAttackBlocked")
+
 func onStateSet(value):
 	stateLabel.text = convertState(value)
 
@@ -53,8 +56,11 @@ func convertState(state):
 		State.DEAD: return "Dead"
 		State.EXHAUSTED: return "Exhausted"
 		State.CASTING: return "Casting"
+		State.ATTACK: return "Attack"
 		State.GUARD: return "Guard"
-		State.ATTACKING: return "Attacking"
+		State.DODGE: return "Dodge"
+		State.COUNTER: return "Counter"
+		State.REFLECT: return "Reflect"
 
 func onHealthUpdated(_value):
 	renderHealth()
@@ -82,3 +88,6 @@ func renderHealth():
 	healthBar.value = actor.health - actor.tickingHealth
 	healthTickingBar.value = actor.health 
 	healthLabel.text = LABEL_FORMAT_STRING % [actor.health, actor.maxHealth]
+
+func onAttackBlocked():
+	blockSound.play()
