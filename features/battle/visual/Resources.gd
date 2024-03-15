@@ -58,6 +58,7 @@ func convertState(state):
 		State.CASTING: return "Casting"
 		State.ATTACK: return "Attack"
 		State.GUARD: return "Guard"
+		State.PERFECTGUARD: return "Perfect"
 		State.DODGE: return "Dodge"
 		State.COUNTER: return "Counter"
 		State.REFLECT: return "Reflect"

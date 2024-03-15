@@ -62,10 +62,13 @@ func erupt(_battle: Battle, _caster: Actor, targets: Array):
 func guard(_battle: Battle, caster: Actor, _targets: Array): 
 	caster.setState(State.GUARD)
 
-func jab(_battle: Battle, caster: Actor, targets: Array): 
+func jab(_battle: Battle, _caster: Actor, targets: Array): 
 	var target = targets[0]
 	target.receiveDamage(7)
 
-func haymaker(_battle: Battle, caster: Actor, targets: Array): 
+func haymaker(_battle: Battle, _caster: Actor, targets: Array): 
 	var target = targets[0]
 	target.receiveDamage(50)
+
+func evade(_battle: Battle, _caster: Actor, _targets: Array): 
+	return

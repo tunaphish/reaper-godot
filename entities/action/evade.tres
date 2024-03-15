@@ -5,11 +5,11 @@
 
 [resource]
 script = ExtResource( 1 )
-name = "Guard"
-description = "Switch to Guard State"
-staminaCost = 10
+name = "Evade"
+description = "Ignores all enemy actions while casting"
+staminaCost = 25
 magicCost = 0
 targetType = 0
 sound = ExtResource( 2 )
-castTimeInMs = 250
-queueState = 6
+castTimeInMs = 2000
+queueState = 7

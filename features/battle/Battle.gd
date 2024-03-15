@@ -48,7 +48,7 @@ func queueAction():
 		caster.updateHealth(caster.magic-action.magicCost)
 	var actionTimer = get_tree().create_timer(action.castTimeInMs/1000.0)
 	actionTimer.connect("timeout", self, "executeAction", [action, battleEntity, caster, targets])
-	caster.setState(State.CASTING)
+	caster.setState(action.queueState)
 	caster.setQueuedAction(action)
 	emit_signal("actionQueued")
 

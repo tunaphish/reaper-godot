@@ -5,9 +5,10 @@ enum State {
 	NORMAL,
 	DEAD,
 	EXHAUSTED,
-	GUARD,
 	CASTING, 
 	ATTACK, 
+	GUARD,
+	PERFECTGUARD,
 	DODGE,
 	COUNTER, 
 	REFLECT
@@ -98,7 +99,7 @@ func setQueuedAction(action: Resource):
 
 signal attackBlocked()
 func receiveDamage(value):
-	if state == State.CASTING && queuedAction.name == 'Guard':
+	if state == State.PERFECTGUARD || state == State.DODGE:
 		emit_signal("attackBlocked") 
 		return
 	if value > 0 and state == State.GUARD:
