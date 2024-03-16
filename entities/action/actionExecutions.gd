@@ -83,4 +83,9 @@ func resurrect(_battle: Battle, _caster: Actor, targets: Array):
 	var target = targets[0]
 	if target.state == State.DEAD:
 		target.updateHealth(20)
+
+func gloves_up(_battle: Battle, caster: Actor, targets: Array): 
+	var target = targets[0]
+	target.receiveDamage(ATTACK_POTENCY)
+	caster.setState(State.GUARD)
 	
