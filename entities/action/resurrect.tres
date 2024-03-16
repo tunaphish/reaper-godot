@@ -1,0 +1,15 @@
+[gd_resource type="Resource" load_steps=3 format=2]
+
+[ext_resource path="res://entities/action/action.gd" type="Script" id=1]
+[ext_resource path="res://assets/sounds/resurrect.mp3" type="AudioStream" id=2]
+
+[resource]
+script = ExtResource( 1 )
+name = "Resurrect"
+description = "Resurrects dead allies"
+staminaCost = 0
+magicCost = 25
+targetType = 1
+sound = ExtResource( 2 )
+castTimeInMs = 2000
+queueState = 3

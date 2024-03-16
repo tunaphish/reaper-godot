@@ -78,3 +78,9 @@ func counter(_battle: Battle, caster: Actor, _targets: Array):
 
 func reflect(_battle: Battle, caster: Actor, _targets: Array): 
 	caster.setState(State.REFLECT)
+
+func resurrect(_battle: Battle, _caster: Actor, targets: Array): 
+	var target = targets[0]
+	if target.state == State.DEAD:
+		target.updateHealth(20)
+	
