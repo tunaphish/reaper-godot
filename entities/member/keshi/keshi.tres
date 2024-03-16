@@ -1,18 +1,18 @@
 [gd_resource type="Resource" load_steps=4 format=2]
 
 [ext_resource path="res://entities/member/member.gd" type="Script" id=1]
-[ext_resource path="res://entities/member/aubrey/aubrey.png" type="Texture" id=2]
-[ext_resource path="res://entities/member/aubrey/aubreyInitFolder.tres" type="Resource" id=3]
+[ext_resource path="res://entities/member/keshi/hero.png" type="Texture" id=2]
+[ext_resource path="res://entities/member/keshi/keshiInitFolder.tres" type="Resource" id=3]
 
 [resource]
 script = ExtResource( 1 )
-name = "Aubrey"
-health = 75
+name = "Keshi"
+health = 50
 maxHealth = 100
 tickingHealth = 0
-stamina = 0.0
-maxStamina = 200
-staminaRegenRate = 1
+stamina = 0
+maxStamina = 100
+staminaRegenRate = 2
 magic = 100
 maxMagic = 100
 state = 0

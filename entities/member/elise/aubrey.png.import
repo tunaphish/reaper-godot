@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/hero.png-85f4c5479425ede80fbb4168c431e45f.stex"
+path="res://.import/aubrey.png-5b0e51fe62551fcdea0c10cde6e5b988.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://entities/member/hero/hero.png"
-dest_files=[ "res://.import/hero.png-85f4c5479425ede80fbb4168c431e45f.stex" ]
+source_file="res://entities/member/elise/aubrey.png"
+dest_files=[ "res://.import/aubrey.png-5b0e51fe62551fcdea0c10cde6e5b988.stex" ]
 
 [params]
 

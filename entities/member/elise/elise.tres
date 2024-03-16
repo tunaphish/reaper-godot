@@ -1,19 +1,19 @@
 [gd_resource type="Resource" load_steps=4 format=2]
 
 [ext_resource path="res://entities/member/member.gd" type="Script" id=1]
-[ext_resource path="res://entities/member/omori/omori.png" type="Texture" id=2]
-[ext_resource path="res://entities/member/omori/omoriInitFolder.tres" type="Resource" id=3]
+[ext_resource path="res://entities/member/elise/aubrey.png" type="Texture" id=2]
+[ext_resource path="res://entities/member/elise/eliseInitFolder.tres" type="Resource" id=3]
 
 [resource]
 script = ExtResource( 1 )
-name = "Omori"
-health = 20
+name = "Elise"
+health = 75
 maxHealth = 100
 tickingHealth = 0
-stamina = 50
-maxStamina = 100
+stamina = 0.0
+maxStamina = 200
 staminaRegenRate = 1
-magic = 0
+magic = 100
 maxMagic = 100
 state = 0
 folder = ExtResource( 3 )
