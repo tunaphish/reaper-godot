@@ -36,6 +36,8 @@ func _process(delta):
 		updateStats(actor)
 
 func updateStats(actor):
+	if actor.state == State.REFLECT:
+		actor.updateMagic(-1)
 	if actor.state == State.COUNTER:
 		actor.updateStamina(-1)
 	elif (actor.state != State.GUARD and actor.state != State.DEAD and actor.state != State.CASTING):
@@ -64,6 +66,8 @@ func executeAction(queuedAction, queuedBattleEntity, queuedCaster, queuedTargets
 	for i in range(queuedTargets.size()):
 		var target = queuedTargets[i]
 		if !queuedAction.isMagicalAction() and target.state == State.COUNTER:
+			queuedTargets[i] = queuedCaster
+		if queuedAction.isMagicalAction() and target.state == State.REFLECT:
 			queuedTargets[i] = queuedCaster
 
 	var actionExecution = queuedAction.get_execution_name()

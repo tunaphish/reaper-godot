@@ -1,0 +1,15 @@
+[gd_resource type="Resource" load_steps=3 format=2]
+
+[ext_resource path="res://entities/action/action.gd" type="Script" id=1]
+[ext_resource path="res://assets/sounds/smirk.mp3" type="AudioStream" id=2]
+
+[resource]
+script = ExtResource( 1 )
+name = "Reflect"
+description = "Reflects Magic Attacks"
+staminaCost = 0
+magicCost = 10
+targetType = 0
+sound = ExtResource( 2 )
+castTimeInMs = 1000
+queueState = 3

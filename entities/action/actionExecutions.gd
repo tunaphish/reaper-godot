@@ -75,3 +75,6 @@ func evade(_battle: Battle, _caster: Actor, _targets: Array):
 
 func counter(_battle: Battle, caster: Actor, _targets: Array): 
 	caster.setState(State.COUNTER)
+
+func reflect(_battle: Battle, caster: Actor, _targets: Array): 
+	caster.setState(State.REFLECT)
