@@ -88,7 +88,15 @@ func closeMenus():
 func createTargetMenu():
 	var optionLabels = []
 	for target in battle.potentialTargets: 
-		optionLabels.append(target.name)
+		if target is Array: # AOE 
+			var label = ""
+			for individualTarget in target:
+				label += individualTarget.name + ", "
+			if label.length() > 0:
+				label = label.left(label.length() - 2)
+			optionLabels.append(label)
+		else: # Single Target
+			optionLabels.append(target.name)
 	var actionMenu = ActionMenu.instance().setup(optionLabels)
 	add_child(actionMenu)
 	menus.append(actionMenu)

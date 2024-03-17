@@ -130,7 +130,7 @@ func onActionPressed(id):
 	if option is Action:
 		setAction(option)
 		if option.targetType == TargetType.AOE:
-			potentialTargets = getActors() 
+			potentialTargets = [battleEntity.enemies, battleEntity.party]
 			emit_signal("potentialTargetsUpdated")
 		elif option.targetType == TargetType.SINGLE:
 			potentialTargets = getActors()
@@ -143,6 +143,9 @@ func onActionPressed(id):
 		appendMenuOptions(option)
 
 func onPotentialTargetPressed(id):
+	if potentialTargets[id] is Array: 
+		targets = potentialTargets[id]
+		return 
 	targets = [potentialTargets[id]]	
 	
 func enemiesAreDead():
