@@ -18,7 +18,12 @@ var action
 var targets
 const TICK = .25 #4 ticks per second
 var timer: float = 0
+var menuTimer
+
 func _process(delta):
+	if menuTimer != null:
+		menuTimer += delta
+
 	timer += delta
 	if (timer < TICK):
 		return
@@ -34,6 +39,7 @@ func _process(delta):
 
 	for actor in getActors():
 		updateStats(actor)
+
 
 func updateStats(actor):
 	if actor.state == State.REFLECT:
@@ -53,13 +59,16 @@ func queueAction():
 	if action.magicCost > caster.magic:
 		caster.updateHealth(caster.magic-action.magicCost)
 	var actionTimer = get_tree().create_timer(action.castTimeInMs/1000.0)
-	actionTimer.connect("timeout", self, "executeAction", [action, battleEntity, caster, targets])
+
+	var metadata = { "menuTimer": menuTimer }	
+	actionTimer.connect("timeout", self, "executeAction", [action, caster, targets, metadata])
+	menuTimer = null
 	caster.setState(action.queueState)
 	caster.setQueuedAction(action)
 	emit_signal("actionQueued")
 
 signal actionExecuted(action)
-func executeAction(queuedAction, queuedBattleEntity, queuedCaster, queuedTargets):
+func executeAction(queuedAction, queuedCaster, queuedTargets, metadata):
 	if queuedCaster.state != State.CASTING: 
 		return
 
@@ -72,7 +81,7 @@ func executeAction(queuedAction, queuedBattleEntity, queuedCaster, queuedTargets
 
 	var actionExecution = queuedAction.get_execution_name()
 	queuedCaster.setState(State.NORMAL)
-	actionExections.call(actionExecution, queuedBattleEntity, queuedCaster, queuedTargets) 
+	actionExections.call(actionExecution, queuedCaster, queuedTargets, metadata) 
 	queuedCaster.setQueuedAction(null)
 	emit_signal("actionExecuted", queuedAction)
 
@@ -151,6 +160,7 @@ signal openDisabledMenu()
 var disabledStates = [State.DEAD, State.EXHAUSTED, State.CASTING]
 var defensiveStates = [State.GUARD, State.COUNTER, State.REFLECT]
 func openInitialMenu(memberEntity: Resource):
+	menuTimer = 0
 	if defensiveStates.has(memberEntity.state):
 		memberEntity.setState(State.NORMAL)
 	if disabledStates.has(memberEntity.state):
