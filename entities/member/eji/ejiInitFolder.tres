@@ -1,12 +1,13 @@
-[gd_resource type="Resource" load_steps=5 format=2]
+[gd_resource type="Resource" load_steps=6 format=2]
 
-[ext_resource path="res://entities/folder/defense.tres" type="Resource" id=1]
+[ext_resource path="res://entities/soul/defense.tres" type="Resource" id=1]
 [ext_resource path="res://entities/action/quick_draw.tres" type="Resource" id=2]
-[ext_resource path="res://entities/folder/folder.gd" type="Script" id=5]
+[ext_resource path="res://entities/soul/generic.tres" type="Resource" id=3]
+[ext_resource path="res://entities/soul/soul.gd" type="Script" id=4]
 [ext_resource path="res://entities/action/attack.tres" type="Resource" id=6]
 
 [resource]
-script = ExtResource( 5 )
+script = ExtResource( 4 )
 name = ""
 description = null
-options = [ ExtResource( 6 ), ExtResource( 2 ), ExtResource( 1 ) ]
+options = [ ExtResource( 6 ), ExtResource( 2 ), ExtResource( 1 ), ExtResource( 3 ) ]

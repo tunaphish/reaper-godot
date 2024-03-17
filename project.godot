@@ -32,7 +32,7 @@ _global_script_classes=[ {
 "base": "Resource",
 "class": "Folder",
 "language": "GDScript",
-"path": "res://entities/folder/folder.gd"
+"path": "res://entities/soul/soul.gd"
 }, {
 "base": "Actor",
 "class": "Member",

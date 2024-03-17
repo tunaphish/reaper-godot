@@ -1,12 +1,13 @@
 [gd_resource type="Resource" load_steps=6 format=2]
 
-[ext_resource path="res://entities/folder/folder.gd" type="Script" id=1]
+[ext_resource path="res://entities/soul/fighter.tres" type="Resource" id=1]
 [ext_resource path="res://entities/action/attack.tres" type="Resource" id=2]
 [ext_resource path="res://entities/action/stanch.tres" type="Resource" id=3]
-[ext_resource path="res://entities/folder/fighter.tres" type="Resource" id=4]
+[ext_resource path="res://entities/soul/soul.gd" type="Script" id=4]
 [ext_resource path="res://entities/action/reflect.tres" type="Resource" id=5]
 
 [resource]
-script = ExtResource( 1 )
+script = ExtResource( 4 )
 name = ""
-options = [ ExtResource( 2 ), ExtResource( 3 ), ExtResource( 4 ), ExtResource( 5 ) ]
+description = ""
+options = [ ExtResource( 2 ), ExtResource( 3 ), ExtResource( 1 ), ExtResource( 5 ) ]

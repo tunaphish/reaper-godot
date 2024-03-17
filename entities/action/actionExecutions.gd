@@ -95,3 +95,8 @@ func quick_draw(_caster: Actor, targets: Array, metadata: Dictionary):
 	var damage = int(clamp(QUICK_DRAW_POTENCY-timeInMenu, 0, 60))
 	var target = targets[0]
 	target.receiveDamage(damage)
+
+func contemplation(_caster: Actor, targets: Array, metadata: Dictionary): 
+	var damage = metadata.get("menusNavigated", 0) * 10
+	var target = targets[0]
+	target.receiveDamage(damage)

@@ -1,0 +1,12 @@
+[gd_resource type="Resource" load_steps=5 format=2]
+
+[ext_resource path="res://entities/action/heal.tres" type="Resource" id=1]
+[ext_resource path="res://entities/soul/soul.gd" type="Script" id=2]
+[ext_resource path="res://entities/action/resurrect.tres" type="Resource" id=3]
+[ext_resource path="res://entities/action/drain.tres" type="Resource" id=4]
+
+[resource]
+script = ExtResource( 2 )
+name = "Cleric"
+description = "Soul focused on healing"
+options = [ ExtResource( 4 ), ExtResource( 1 ), ExtResource( 3 ) ]

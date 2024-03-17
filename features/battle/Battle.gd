@@ -18,6 +18,7 @@ var action
 var targets
 const TICK = .25 #4 ticks per second
 var timer: float = 0
+
 var menuTimer
 
 func _process(delta):
@@ -60,7 +61,7 @@ func queueAction():
 		caster.updateHealth(caster.magic-action.magicCost)
 	var actionTimer = get_tree().create_timer(action.castTimeInMs/1000.0)
 
-	var metadata = { "menuTimer": menuTimer }	
+	var metadata = { "menuTimer": menuTimer, "menusNavigated": menuOptions.size() }	
 	actionTimer.connect("timeout", self, "executeAction", [action, caster, targets, metadata])
 	menuTimer = null
 	caster.setState(action.queueState)
