@@ -69,7 +69,7 @@ func queueAction():
 
 signal actionExecuted(action)
 func executeAction(queuedAction, queuedCaster, queuedTargets, metadata):
-	if queuedCaster.state != State.CASTING: 
+	if queuedCaster.state == State.DEAD: 
 		return
 
 	for i in range(queuedTargets.size()):
