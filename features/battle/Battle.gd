@@ -82,7 +82,9 @@ func executeAction(queuedAction, queuedCaster, queuedTargets, metadata):
 
 	var actionExecution = queuedAction.get_execution_name()
 	queuedCaster.setState(State.NORMAL)
-	actionExections.call(actionExecution, queuedCaster, queuedTargets, metadata) 
+
+	for target in queuedTargets: 
+		actionExections.call(actionExecution, queuedCaster, target, metadata) 
 	queuedCaster.setQueuedAction(null)
 	emit_signal("actionExecuted", queuedAction)
 
