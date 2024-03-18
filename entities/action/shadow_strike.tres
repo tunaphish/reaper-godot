@@ -9,7 +9,10 @@ name = "Shadow Strike"
 description = "Hits enemy twice"
 staminaCost = 25
 magicCost = 25
-targetType = 1
+targetType = 4
 sound = ExtResource( 2 )
 castTimeInMs = 2000
 queueState = 3
+metadata = {
+"multihit": 2
+}

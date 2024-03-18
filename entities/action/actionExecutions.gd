@@ -44,7 +44,6 @@ func exert(caster: Actor, target: Actor, _metadata: Dictionary):
 	
 func shadow_strike(_caster: Actor, target: Actor, _metadata: Dictionary):
 	target.receiveDamage(ATTACK_POTENCY)
-	target.receiveDamage(ATTACK_POTENCY);
 	
 func erupt(_caster: Actor, target: Actor, _metadata: Dictionary): 
 	target.receiveDamage(ATTACK_POTENCY)

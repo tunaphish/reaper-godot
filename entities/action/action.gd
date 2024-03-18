@@ -6,7 +6,8 @@ enum TargetType {
 	SELF,
 	SINGLE,
 	AOE,
-	ALL
+	ALL,
+	MULTI
 }
 
 export (String) var name
@@ -17,6 +18,8 @@ export (TargetType) var targetType
 export (Resource) var sound
 export (int) var castTimeInMs = 2000
 export (State) var queueState = State.CASTING
+export (Dictionary) var metadata = {} 
+	# multihit
 
 func get_execution_name():
 	return name.to_lower().replace(' ', '_')

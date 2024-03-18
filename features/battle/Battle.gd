@@ -13,9 +13,10 @@ const TargetType = preload("res://entities/action/action.gd").TargetType
 var actionExections = preload("res://entities/action/actionExecutions.gd").new()
 var menuOptions = []
 var potentialTargets
+var multiTargets = []
+var targets
 var caster
 var action
-var targets
 const TICK = .25 #4 ticks per second
 var timer: float = 0
 
@@ -111,6 +112,7 @@ func clearSelections():
 	targets = null
 	menuOptions = []
 	potentialTargets = null
+	multiTargets = []
 
 func getActors(): 
 	return battleEntity.party + battleEntity.enemies
@@ -134,7 +136,7 @@ func onActionPressed(id):
 		if option.targetType == TargetType.AOE:
 			potentialTargets = [battleEntity.enemies, battleEntity.party]
 			emit_signal("potentialTargetsUpdated")
-		elif option.targetType == TargetType.SINGLE:
+		elif option.targetType == TargetType.SINGLE or option.targetType == TargetType.MULTI:
 			potentialTargets = getActors()
 			emit_signal("potentialTargetsUpdated")
 		elif option.targetType == TargetType.SELF:
@@ -145,10 +147,18 @@ func onActionPressed(id):
 		appendMenuOptions(option)
 
 func onPotentialTargetPressed(id):
-	if potentialTargets[id] is Array: 
-		targets = potentialTargets[id]
+	var potentialTarget = potentialTargets[id];
+	if potentialTarget is Array: 
+		targets = potentialTarget
 		return 
-	targets = [potentialTargets[id]]	
+	if action.targetType == TargetType.MULTI: 
+		multiTargets.append(potentialTarget)
+		if multiTargets.size() >= action.metadata["multihit"]:
+			targets = multiTargets
+		else: 
+			emit_signal("potentialTargetsUpdated")
+		return
+	targets = [potentialTarget]	
 	
 func enemiesAreDead():
 	for enemy in battleEntity.enemies:

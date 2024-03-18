@@ -13,3 +13,5 @@ targetType = 3
 sound = ExtResource( 2 )
 castTimeInMs = 2000
 queueState = 3
+metadata = {
+}
