@@ -59,7 +59,7 @@ func queueAction():
 	caster.updateStamina(-action.staminaCost)
 	caster.updateMagic(-action.magicCost)
 	if action.magicCost > caster.magic:
-		caster.updateHealth(caster.magic-action.magicCost)
+		caster.receiveDamage(action.magicCost-caster.magic)
 	var actionTimer = get_tree().create_timer(action.castTimeInMs/1000.0)
 
 	var metadata = { "menuTimer": menuTimer, "menusNavigated": menuOptions.size() }	
