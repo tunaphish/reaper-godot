@@ -64,7 +64,7 @@ func createActionMenu():
 	for option in options:
 		if option is Action: 
 			optionLabels.append(option.name + " " + str(option.staminaCost) + "SP " + str(option.magicCost) + "MP")
-		if option is Folder:
+		if option is Soul:
 			optionLabels.append(option.name)
 	var actionMenu = ActionMenu.instance().setup(optionLabels)
 	add_child(actionMenu)

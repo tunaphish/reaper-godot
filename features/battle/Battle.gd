@@ -56,12 +56,28 @@ func updateStats(actor):
 
 signal actionQueued()
 func queueAction():
-	caster.updateStamina(-action.staminaCost)
-	caster.updateMagic(-action.magicCost)
-	if action.magicCost > caster.magic:
-		caster.receiveDamage(action.magicCost-caster.magic)
-	var actionTimer = get_tree().create_timer(action.castTimeInMs/1000.0)
+	var flow = 0 
+	for member in battleEntity.party:
+		if member.state == State.ACTION:
+			if !action.isMagicalAction():
+				flow = min(member.flow + 1, 3)
+			else: 
+				flow = member.flow
+	caster.setFlow(flow)
 
+	# calculate magic cost
+	var magicCost 
+	match flow:
+		0: magicCost = action.magicCost
+		1: magicCost = int(action.magicCost * 0.75)
+		2: magicCost = int(action.magicCost * 0.50)
+		3: magicCost = 0
+	caster.updateStamina(-action.staminaCost)
+	caster.updateMagic(-magicCost)
+	if magicCost > caster.magic:
+		caster.receiveDamage(magicCost-caster.magic)
+	
+	var actionTimer = get_tree().create_timer(action.castTimeInMs/1000.0)
 	var metadata = { "menuTimer": menuTimer, "menusNavigated": menuOptions.size() }	
 	actionTimer.connect("timeout", self, "executeAction", [action, caster, targets, metadata])
 	menuTimer = null
@@ -82,14 +98,19 @@ func executeAction(queuedAction, queuedCaster, queuedTargets, metadata):
 			queuedTargets[i] = queuedCaster
 
 	var actionExecution = queuedAction.get_execution_name()
+	queuedCaster.setState(State.ACTION)
+	yield(get_tree().create_timer(0.7), "timeout") # lower to .3 later
+	queuedCaster.setFlow(0)
 	queuedCaster.setState(State.NORMAL)
+	queuedCaster.setQueuedAction(null)
 
 	for target in queuedTargets: 
 		yield(get_tree().create_timer(0.3), "timeout")
 		emit_signal("actionExecuted", queuedAction)
 		actionExections.call(actionExecution, queuedCaster, target, metadata) 
-	queuedCaster.setQueuedAction(null)
 
+
+var NON_EXHAUSTABLE_STATES = [State.ACTION, State.CASTING]
 signal actorDied()
 func setState(actor: Resource):
 	if actor.state != State.DEAD and actor.health == 0:
@@ -97,7 +118,7 @@ func setState(actor: Resource):
 		actor.setQueuedAction(null)
 		emit_signal("actorDied")
 		return
-	if actor.stamina < 0 and actor.state != State.CASTING:
+	if actor.stamina < 0 and !NON_EXHAUSTABLE_STATES.has(actor.state):
 		actor.setState(State.EXHAUSTED)
 		return
 	if actor.state == State.DEAD and actor.health > 0: 
@@ -125,8 +146,8 @@ func setCaster(memberEntity):
 	caster = memberEntity
 
 signal menuOptionsAppended()
-func appendMenuOptions(folder):
-	menuOptions.append(folder)
+func appendMenuOptions(soul):
+	menuOptions.append(soul)
 	emit_signal("menuOptionsAppended")
 
 signal potentialTargetsUpdated()
@@ -144,7 +165,7 @@ func onActionPressed(id):
 			targets = [caster]
 		elif option.targetType == TargetType.ALL:
 			targets = getActors()
-	if option is Folder: 
+	if option is Soul: 
 		appendMenuOptions(option)
 
 func onPotentialTargetPressed(id):
@@ -184,4 +205,4 @@ func openInitialMenu(memberEntity: Resource):
 		emit_signal("openDisabledMenu")
 		return
 	setCaster(memberEntity)
-	appendMenuOptions(memberEntity.folder)
+	appendMenuOptions(memberEntity.soul)

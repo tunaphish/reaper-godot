@@ -11,7 +11,8 @@ enum State {
 	PERFECTGUARD,
 	DODGE, 
 	COUNTER, 
-	REFLECT
+	REFLECT,
+	ACTION
 } 
 
 # max values set to 10000000 due to initialization bug with clamp and internal references, not Inf because those are floats
@@ -25,16 +26,17 @@ export(int) var staminaRegenRate
 export(int) var magic setget setMagic, getMagic
 export(int) var maxMagic = 1000000
 export(State) var state  = State.NORMAL setget setState, getState 
-export(Resource) var queuedAction setget setQueuedAction, getQueuedAction
+export(int) var flow = 0 setget setFlow, getFlow
+export(Resource) var queuedAction = null setget setQueuedAction, getQueuedAction
 
-export(Resource) var folder
+export(Resource) var soul
 
 signal healthUpdated(value)
 signal tickingHealthUpdated(value);
 signal staminaUpdated(value)
 signal magicUpdated(value)
 signal healthTicked()
-signal stateSet(value)
+signal stateUpdated(value)
 
 func setHealth(value):
 	health = clamp(value, 0, maxHealth)
@@ -86,7 +88,7 @@ func updateMagic(value):
 
 func setState(value: int): # State as enums can't be used as types...
 	state = value
-	emit_signal("stateSet", value)
+	emit_signal("stateUpdated", value)
 
 func getState():
 	return state
@@ -114,3 +116,12 @@ func receiveDamage(value):
 	emit_signal("tickingHealthUpdated", value)
 	if newTickingHealth > getHealth():
 		updateHealth(-(newTickingHealth-health)) 
+
+
+func getFlow():
+	return flow
+
+signal flowUpdated(value)
+func setFlow(value: int):
+	flow = value
+	emit_signal("flowUpdated", value)

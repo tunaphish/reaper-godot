@@ -1,5 +1,5 @@
 tool
-class_name Folder extends Resource
+class_name Soul extends Resource
 
 export(String) var name
 export(String) var description

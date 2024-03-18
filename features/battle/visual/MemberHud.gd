@@ -6,6 +6,7 @@ onready var vstack = $VStack
 onready var avatarButton = $AvatarButton
 onready var avatar = $VStack/Avatar
 onready var castWindow = $CastWindow
+onready var actionFlash = $ActionFlash
 const Resources = preload("res://features/battle/visual/Resources.tscn")
 
 signal memberPressed(memberEntity)
@@ -21,6 +22,7 @@ func _ready():
 	vstack.add_child(resources)
 	memberEntity.connect("healthUpdated", self, "onHealthUpdated")
 	memberEntity.connect("tickingHealthUpdated", self, "onTickingHealthUpdated")
+	memberEntity.connect("stateUpdated", self, "onStateUpdated")
 
 func _process(delta):
 	renderCastingWindow(delta)
@@ -57,3 +59,9 @@ func shakeSprite(duration = 0.03, magnitude = 10, frequency = 10):
 	
 func onAvatarButtonPressed():
 	emit_signal("memberPressed", memberEntity)
+
+func onStateUpdated(value):
+	if (value == State.ACTION):
+		actionFlash.visible = true 
+	else:
+		actionFlash.visible = false

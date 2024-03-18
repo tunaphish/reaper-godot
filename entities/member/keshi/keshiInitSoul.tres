@@ -4,10 +4,10 @@
 [ext_resource path="res://entities/action/attack.tres" type="Resource" id=2]
 [ext_resource path="res://entities/action/stanch.tres" type="Resource" id=3]
 [ext_resource path="res://entities/soul/soul.gd" type="Script" id=4]
-[ext_resource path="res://entities/action/reflect.tres" type="Resource" id=5]
+[ext_resource path="res://entities/action/heal.tres" type="Resource" id=5]
 
 [resource]
 script = ExtResource( 4 )
-name = ""
-description = ""
-options = [ ExtResource( 2 ), ExtResource( 3 ), ExtResource( 1 ), ExtResource( 5 ) ]
+name = "Keshi Init Soul"
+description = "Ruff"
+options = [ ExtResource( 2 ), ExtResource( 1 ), ExtResource( 5 ), ExtResource( 3 ) ]

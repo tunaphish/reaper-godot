@@ -5,6 +5,7 @@ var actor: Actor
 var State = preload("res://entities/actor.gd").State
 
 onready var stateLabel = $Container/StateLabel
+onready var flowLabel = $Container/FlowLabel
 onready var healthBar = $Container/HealthTickingBar/HealthBar
 onready var healthLabel = $Container/HealthTickingBar/HealthLabel
 onready var healthTickingBar = $Container/HealthTickingBar
@@ -24,7 +25,10 @@ func setup(initActor: Actor):
 
 func _ready():	
 	stateLabel.text = convertState(actor.state)
-	actor.connect("stateSet", self, "onStateSet")
+	actor.connect("stateUpdated", self, "onstateUpdated")
+
+	actor.connect("flowUpdated", self, "onFlowUpdated")
+	onFlowUpdated(actor.flow)
 
 	healthBar.max_value = actor.maxHealth
 	renderHealth()
@@ -47,8 +51,11 @@ func _ready():
 
 	actor.connect("attackBlocked", self, "onAttackBlocked")
 
-func onStateSet(value):
+func onstateUpdated(value):
 	stateLabel.text = convertState(value)
+
+func onFlowUpdated(value):
+	flowLabel.text = "Flow: " + str(value)
 
 func convertState(state): 
 	match state:
@@ -62,6 +69,7 @@ func convertState(state):
 		State.DODGE: return "Dodge"
 		State.COUNTER: return "Counter"
 		State.REFLECT: return "Reflect"
+		State.ACTION: return "ACTION"
 
 func onHealthUpdated(_value):
 	renderHealth()

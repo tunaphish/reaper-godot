@@ -16,7 +16,7 @@ script = ExtResource( 2 )
 
 [node name="Container" type="VBoxContainer" parent="."]
 margin_right = 128.0
-margin_bottom = 68.0
+margin_bottom = 86.0
 alignment = 2
 
 [node name="StateLabel" type="Label" parent="Container"]
@@ -25,10 +25,17 @@ margin_bottom = 14.0
 text = "Test"
 align = 1
 
-[node name="HealthTickingBar" type="TextureProgress" parent="Container"]
+[node name="FlowLabel" type="Label" parent="Container"]
 margin_top = 18.0
 margin_right = 128.0
 margin_bottom = 32.0
+text = "Flow: 0"
+align = 1
+
+[node name="HealthTickingBar" type="TextureProgress" parent="Container"]
+margin_top = 36.0
+margin_right = 128.0
+margin_bottom = 50.0
 value = 20.0
 texture_under = ExtResource( 1 )
 texture_progress = ExtResource( 1 )
@@ -49,9 +56,9 @@ text = "Test"
 align = 2
 
 [node name="StaminaBar" type="TextureProgress" parent="Container"]
-margin_top = 36.0
+margin_top = 54.0
 margin_right = 128.0
-margin_bottom = 50.0
+margin_bottom = 68.0
 value = 20.0
 texture_under = ExtResource( 1 )
 texture_progress = ExtResource( 1 )
@@ -65,9 +72,9 @@ text = "Test"
 align = 2
 
 [node name="MagicBar" type="TextureProgress" parent="Container"]
-margin_top = 54.0
+margin_top = 72.0
 margin_right = 128.0
-margin_bottom = 68.0
+margin_bottom = 86.0
 value = 20.0
 texture_under = ExtResource( 1 )
 texture_progress = ExtResource( 1 )
