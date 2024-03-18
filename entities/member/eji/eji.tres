@@ -7,7 +7,7 @@
 [resource]
 script = ExtResource( 1 )
 name = "Eji"
-health = 20
+health = 100
 maxHealth = 100
 tickingHealth = 0
 stamina = 50

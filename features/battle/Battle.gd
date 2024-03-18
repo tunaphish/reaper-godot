@@ -85,9 +85,10 @@ func executeAction(queuedAction, queuedCaster, queuedTargets, metadata):
 	queuedCaster.setState(State.NORMAL)
 
 	for target in queuedTargets: 
+		yield(get_tree().create_timer(0.3), "timeout")
+		emit_signal("actionExecuted", queuedAction)
 		actionExections.call(actionExecution, queuedCaster, target, metadata) 
 	queuedCaster.setQueuedAction(null)
-	emit_signal("actionExecuted", queuedAction)
 
 signal actorDied()
 func setState(actor: Resource):
