@@ -1,7 +1,7 @@
 [gd_resource type="Resource" load_steps=4 format=2]
 
 [ext_resource path="res://entities/member/member.gd" type="Script" id=1]
-[ext_resource path="res://entities/member/elise/aubrey.png" type="Texture" id=2]
+[ext_resource path="res://entities/member/elise/elise.png" type="Texture" id=2]
 [ext_resource path="res://entities/member/elise/eliseInitSoul.tres" type="Resource" id=3]
 
 [resource]
@@ -19,6 +19,6 @@ state = 0
 flow = 0
 soul = ExtResource( 3 )
 emotionalState = {
-2:3
+2: 3
 }
 avatar = ExtResource( 2 )

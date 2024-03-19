@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/hero.png-de48a73039e93a89df434378d8ad8f91.stex"
+path="res://.import/eji.png-9e16c738ca0cc6ebe24a821fd55d8645.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://entities/member/keshi/hero.png"
-dest_files=[ "res://.import/hero.png-de48a73039e93a89df434378d8ad8f91.stex" ]
+source_file="res://entities/member/eji/eji.png"
+dest_files=[ "res://.import/eji.png-9e16c738ca0cc6ebe24a821fd55d8645.stex" ]
 
 [params]
 

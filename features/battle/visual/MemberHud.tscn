@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://features/battle/visual/MemberHud.gd" type="Script" id=1]
-[ext_resource path="res://entities/member/elise/aubrey.png" type="Texture" id=2]
+[ext_resource path="res://entities/member/elise/elise.png" type="Texture" id=2]
 
 [node name="MemberHud" type="PanelContainer"]
 margin_right = 142.0

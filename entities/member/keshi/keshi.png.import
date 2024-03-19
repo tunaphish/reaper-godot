@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/aubrey.png-5b0e51fe62551fcdea0c10cde6e5b988.stex"
+path="res://.import/keshi.png-cb6d034a9ca52275440a191da65bacbb.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://entities/member/elise/aubrey.png"
-dest_files=[ "res://.import/aubrey.png-5b0e51fe62551fcdea0c10cde6e5b988.stex" ]
+source_file="res://entities/member/keshi/keshi.png"
+dest_files=[ "res://.import/keshi.png-cb6d034a9ca52275440a191da65bacbb.stex" ]
 
 [params]
 

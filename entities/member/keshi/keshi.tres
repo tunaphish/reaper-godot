@@ -1,7 +1,7 @@
 [gd_resource type="Resource" load_steps=4 format=2]
 
 [ext_resource path="res://entities/member/member.gd" type="Script" id=1]
-[ext_resource path="res://entities/member/keshi/hero.png" type="Texture" id=2]
+[ext_resource path="res://entities/member/keshi/keshi.png" type="Texture" id=2]
 [ext_resource path="res://entities/member/keshi/keshiInitSoul.tres" type="Resource" id=3]
 
 [resource]
