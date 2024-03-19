@@ -1,7 +1,7 @@
 extends Node
 
 const EmotionKey = preload("res://entities/emotion/emotion.gd").EmotionKey
-var State = preload("res://entities/actor.gd").State
+const State = preload("res://entities/actor.gd").State
 const battleEntity: Battle = preload("res://entities/battle/testBattle.tres")
 const Container = preload("res://features/battle/visual/Container.tscn");
 
@@ -45,10 +45,13 @@ func _process(delta):
 func updateStats(actor):
 	if actor.state == State.REFLECT:
 		actor.updateMagic(-1)
-	if actor.state == State.COUNTER:
+	elif actor.state == State.COUNTER:
 		actor.updateStamina(-1)
 	elif (actor.state != State.GUARD and actor.state != State.DEAD and actor.state != State.CASTING):
-		actor.updateStamina(actor.staminaRegenRate)
+		if actor.emotionalState.get(EmotionKey.ANXIETY, 0) > 0 and menuOptions.size() > 0: 
+			actor.updateStamina(-menuOptions.size())
+		else:
+			actor.updateStamina(actor.staminaRegenRate)
 	if (actor.getTickingHealth() > 0):
 		actor.tickHealth()
 	setState(actor)

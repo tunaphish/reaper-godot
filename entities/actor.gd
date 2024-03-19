@@ -33,6 +33,7 @@ export(Resource) var queuedAction = null setget setQueuedAction, getQueuedAction
 export(Resource) var soul
 export(Dictionary) var emotionalState = {
 	EmotionKey.CONFUSION: 0,
+	EmotionKey.ANXIETY: 0,
 }
 
 signal healthUpdated(value)

@@ -3,7 +3,8 @@ class_name Emotion extends Resource
 
 # Cannot be reordered at least for now because enums as dictionary keys inside custom resources are just ints -_-
 enum EmotionKey {
-    CONFUSION
+    CONFUSION,
+    ANXIETY
 }
 
 export(EmotionKey) var emotionKey

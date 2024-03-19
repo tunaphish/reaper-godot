@@ -4,6 +4,6 @@
 
 [resource]
 script = ExtResource( 1 )
-emotionKey = 0
-name = "Confusion"
-description = "Randomizes menus"
+emotionKey = 1
+name = "Anxiety"
+description = "Reduces stamina while menus opens, increasing in severity with depth"
