@@ -147,14 +147,39 @@ func setCaster(memberEntity):
 	caster = memberEntity
 
 signal menuOptionsAppended(options, title)
+# signal doubtMenuTriggered()
 func appendMenuOptions(newSoul):
 	var soul = newSoul.duplicate()
 	if caster.emotionalState.get(EmotionKey.CONFUSION, 0) > 0:
 		soul.options.shuffle()
 	menuOptions.append(soul) 
-	emit_signal("menuOptionsAppended", soul.options, soul.name)
+	var optionLabels = []
+	for option in soul.options:
+		if option is Action: 
+			optionLabels.append(option.name + " " + str(option.staminaCost) + "SP " + str(option.magicCost) + "MP")
+		if option is Soul:
+			optionLabels.append(option.name)
+	# var doubtCalculation = min(caster.emotionalState.get(EmotionKey.DOUBT, 0)*0.1, 0.5)
+	# if doubtCalculation > randf():
+	# 	emit_signal("doubtMenuTriggered")
+	# 	return
+	emit_signal("menuOptionsAppended", optionLabels, soul.name, "onActionPressed")
 
-signal potentialTargetsUpdated()
+func createTargetLabels(): 
+	var optionLabels = []
+	for target in potentialTargets: 
+		if target is Array: # AOE 
+			var label = ""
+			for individualTarget in target:
+				label += individualTarget.name + ", "
+			if label.length() > 0:
+				label = label.left(label.length() - 2)
+			optionLabels.append(label)
+		else: # Single Target
+			optionLabels.append(target.name)
+	emit_signal("menuOptionsAppended", optionLabels, "Target", "onPotentialTargetPressed")
+
+
 func onActionPressed(id):
 	var option = menuOptions.back().options[id]
 	if option is Action:
@@ -163,18 +188,19 @@ func onActionPressed(id):
 			potentialTargets = [battleEntity.enemies, battleEntity.party]
 			if potentialTargets and caster.emotionalState.get(EmotionKey.CONFUSION, 0) > 0:
 				potentialTargets.shuffle()
-			emit_signal("potentialTargetsUpdated")
+			createTargetLabels()
 		elif option.targetType == TargetType.SINGLE or option.targetType == TargetType.MULTI:
 			potentialTargets = getActors()
 			if potentialTargets and caster.emotionalState.get(EmotionKey.CONFUSION, 0) > 0:
 				potentialTargets.shuffle()
-			emit_signal("potentialTargetsUpdated")
+			createTargetLabels()
 		elif option.targetType == TargetType.SELF:
 			targets = [caster]
 		elif option.targetType == TargetType.ALL:
 			targets = getActors()
 	elif option is Soul: 
 		appendMenuOptions(option)
+
 
 func onPotentialTargetPressed(id):
 	var potentialTarget = potentialTargets[id];
@@ -186,10 +212,29 @@ func onPotentialTargetPressed(id):
 		if multiTargets.size() >= action.metadata["multihit"]:
 			targets = multiTargets
 		else: 
-			emit_signal("potentialTargetsUpdated")
+			createTargetLabels()
 		return
 	targets = [potentialTarget]	
-	
+
+# func createDoubtMenu():
+# 	var actionMenu = ActionMenu.instance().setup(["Yes", "No"], "Are you Sure?")
+# 	add_child(actionMenu)
+# 	menus.append(actionMenu)
+# 	actionMenu.setPopupPosition(INITIAL_ACTION_MENU_POSITION - (Vector2(10,10) * menus.size()))
+# 	actionMenu.connect("id_pressed", battle, "onDoubtMenuPressed")
+# 	actionMenu.connect("menuClosed", self, "onMenuClosed")
+
+#assumes Yes, No order. might change if confusion can apply
+# signal doubtedThemself()
+# func onDoubtMenuPressed(id): 
+# 	if id == 0:
+# 		var soul = menuOptions.back()
+# 		emit_signal("menuOptionsAppended", soul.options, soul.name)
+# 		return 
+# 	if id == 1: 
+# 		emit_signal("doubtedThemself")
+# 		return
+
 func enemiesAreDead():
 	for enemy in battleEntity.enemies:
 		if enemy.state != State.DEAD:

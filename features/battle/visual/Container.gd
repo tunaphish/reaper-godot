@@ -30,8 +30,11 @@ func setup(initBattleEntity: Battle, initBattle):
 func _ready():
 	battle.connect("menuOptionsAppended", self, "createActionMenu")
 	battle.connect("potentialTargetsUpdated", self, "createTargetMenu")
+	battle.connect("doubtMenuTriggered", self, "createDoubtMenu")
+
 	battle.connect("actionExecuted", self, "onActionExecuted") 
 	battle.connect("actionQueued", self, "onActionQueued")
+	battle.connect("doubtedThemself", self, "onDoubtedThemself")
 	battle.connect("openDisabledMenu", self, "onOpenDisabledMenu")
 	battle.connect("actorDied", self, "onActorDied")
 
@@ -56,23 +59,10 @@ func onOpenDisabledMenu():
 func onActorDied():
 	deathSound.play()
 
-
-const INITIAL_ACTION_MENU_POSITION = Vector2(290,580);
-func createActionMenu(options: Array, title: String):
-	var optionLabels = []
-	for option in options:
-		if option is Action: 
-			optionLabels.append(option.name + " " + str(option.staminaCost) + "SP " + str(option.magicCost) + "MP")
-		if option is Soul:
-			optionLabels.append(option.name)
-	var actionMenu = ActionMenu.instance().setup(optionLabels, title)
-	add_child(actionMenu)
-	menus.append(actionMenu)
-	actionMenu.setPopupPosition(INITIAL_ACTION_MENU_POSITION - (Vector2(10,10) * menus.size())) 
-	actionMenu.connect("id_pressed", battle, "onActionPressed")
-	actionMenu.connect("menuClosed", self, "onMenuClosed")
-
 func onActionQueued():
+	closeMenus()
+
+func onDoubtedThemself():
 	closeMenus()
 
 func onActionExecuted(action): 
@@ -84,25 +74,14 @@ func closeMenus():
 		menu.queue_free()
 	battle.clearSelections()
 
-func createTargetMenu():
-	var optionLabels = []
-	for target in battle.potentialTargets: 
-		if target is Array: # AOE 
-			var label = ""
-			for individualTarget in target:
-				label += individualTarget.name + ", "
-			if label.length() > 0:
-				label = label.left(label.length() - 2)
-			optionLabels.append(label)
-		else: # Single Target
-			optionLabels.append(target.name)
-	var actionMenu = ActionMenu.instance().setup(optionLabels, "Target")
+const INITIAL_ACTION_MENU_POSITION = Vector2(290,580);
+func createActionMenu(options: Array, title: String, signalFunctionName: String):
+	var actionMenu = ActionMenu.instance().setup(options, title)
 	add_child(actionMenu)
 	menus.append(actionMenu)
-	actionMenu.setPopupPosition(INITIAL_ACTION_MENU_POSITION - (Vector2(10,10) * menus.size()))
-	actionMenu.connect("id_pressed", battle, "onPotentialTargetPressed")
+	actionMenu.setPopupPosition(INITIAL_ACTION_MENU_POSITION - (Vector2(10,10) * menus.size())) 
+	actionMenu.connect("id_pressed", battle, signalFunctionName)
 	actionMenu.connect("menuClosed", self, "onMenuClosed")
-
 
 func onMenuClosed(): 
 	closeSound.play()
