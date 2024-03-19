@@ -58,17 +58,17 @@ func onActorDied():
 
 
 const INITIAL_ACTION_MENU_POSITION = Vector2(290,580);
-func createActionMenu(options: Array):
+func createActionMenu(options: Array, title: String):
 	var optionLabels = []
 	for option in options:
 		if option is Action: 
 			optionLabels.append(option.name + " " + str(option.staminaCost) + "SP " + str(option.magicCost) + "MP")
 		if option is Soul:
 			optionLabels.append(option.name)
-	var actionMenu = ActionMenu.instance().setup(optionLabels)
+	var actionMenu = ActionMenu.instance().setup(optionLabels, title)
 	add_child(actionMenu)
 	menus.append(actionMenu)
-	actionMenu.set_popup_position(INITIAL_ACTION_MENU_POSITION - (Vector2(10,10) * menus.size())) 
+	actionMenu.setPopupPosition(INITIAL_ACTION_MENU_POSITION - (Vector2(10,10) * menus.size())) 
 	actionMenu.connect("id_pressed", battle, "onActionPressed")
 	actionMenu.connect("menuClosed", self, "onMenuClosed")
 
@@ -96,10 +96,10 @@ func createTargetMenu():
 			optionLabels.append(label)
 		else: # Single Target
 			optionLabels.append(target.name)
-	var actionMenu = ActionMenu.instance().setup(optionLabels)
+	var actionMenu = ActionMenu.instance().setup(optionLabels, "Target")
 	add_child(actionMenu)
 	menus.append(actionMenu)
-	actionMenu.set_popup_position(INITIAL_ACTION_MENU_POSITION - (Vector2(10,10) * menus.size()))
+	actionMenu.setPopupPosition(INITIAL_ACTION_MENU_POSITION - (Vector2(10,10) * menus.size()))
 	actionMenu.connect("id_pressed", battle, "onPotentialTargetPressed")
 	actionMenu.connect("menuClosed", self, "onMenuClosed")
 

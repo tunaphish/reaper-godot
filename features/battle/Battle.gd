@@ -146,13 +146,13 @@ func setAction(newAction):
 func setCaster(memberEntity):
 	caster = memberEntity
 
-signal menuOptionsAppended(options)
+signal menuOptionsAppended(options, title)
 func appendMenuOptions(newSoul):
 	var soul = newSoul.duplicate()
 	if caster.emotionalState.get(EmotionKey.CONFUSION, 0) > 0:
 		soul.options.shuffle()
 	menuOptions.append(soul) 
-	emit_signal("menuOptionsAppended", soul.options)
+	emit_signal("menuOptionsAppended", soul.options, soul.name)
 
 signal potentialTargetsUpdated()
 func onActionPressed(id):
