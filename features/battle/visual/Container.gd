@@ -58,8 +58,7 @@ func onActorDied():
 
 
 const INITIAL_ACTION_MENU_POSITION = Vector2(290,580);
-func createActionMenu():
-	var options = battle.menuOptions.back().options
+func createActionMenu(options: Array):
 	var optionLabels = []
 	for option in options:
 		if option is Action: 
@@ -71,7 +70,7 @@ func createActionMenu():
 	menus.append(actionMenu)
 	actionMenu.set_popup_position(INITIAL_ACTION_MENU_POSITION - (Vector2(10,10) * menus.size())) 
 	actionMenu.connect("id_pressed", battle, "onActionPressed")
-	actionMenu.connect("menuClosed", self, "_on_menuClosed")
+	actionMenu.connect("menuClosed", self, "onMenuClosed")
 
 func onActionQueued():
 	closeMenus()
@@ -102,10 +101,10 @@ func createTargetMenu():
 	menus.append(actionMenu)
 	actionMenu.set_popup_position(INITIAL_ACTION_MENU_POSITION - (Vector2(10,10) * menus.size()))
 	actionMenu.connect("id_pressed", battle, "onPotentialTargetPressed")
-	actionMenu.connect("menuClosed", self, "_on_menuClosed")
+	actionMenu.connect("menuClosed", self, "onMenuClosed")
 
 
-func _on_menuClosed(): 
+func onMenuClosed(): 
 	closeSound.play()
 	battle.menuOptions.pop_back()
 	menus.pop_back()

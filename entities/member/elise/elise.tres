@@ -18,4 +18,6 @@ maxMagic = 100
 state = 0
 flow = 0
 soul = ExtResource( 3 )
+emotionalState = {
+}
 avatar = ExtResource( 2 )

@@ -1,5 +1,6 @@
 extends Node
 
+const EmotionKey = preload("res://entities/emotion/emotion.gd").EmotionKey
 var State = preload("res://entities/actor.gd").State
 const battleEntity: Battle = preload("res://entities/battle/testBattle.tres")
 const Container = preload("res://features/battle/visual/Container.tscn");
@@ -7,7 +8,6 @@ const Container = preload("res://features/battle/visual/Container.tscn");
 func _ready():
 	var container = Container.instance().setup(battleEntity, self);
 	add_child(container)
-
 
 const TargetType = preload("res://entities/action/action.gd").TargetType
 var actionExections = preload("res://entities/action/actionExecutions.gd").new()
@@ -42,7 +42,6 @@ func _process(delta):
 	for actor in getActors():
 		updateStats(actor)
 
-
 func updateStats(actor):
 	if actor.state == State.REFLECT:
 		actor.updateMagic(-1)
@@ -65,7 +64,6 @@ func queueAction():
 				flow = member.flow
 	caster.setFlow(flow)
 
-	# calculate magic cost
 	var magicCost 
 	match flow:
 		0: magicCost = action.magicCost
@@ -145,10 +143,13 @@ func setAction(newAction):
 func setCaster(memberEntity):
 	caster = memberEntity
 
-signal menuOptionsAppended()
-func appendMenuOptions(soul):
-	menuOptions.append(soul)
-	emit_signal("menuOptionsAppended")
+signal menuOptionsAppended(options)
+func appendMenuOptions(newSoul):
+	var soul = newSoul.duplicate()
+	if caster.emotionalState.get(EmotionKey.CONFUSION, 0) > 0:
+		soul.options.shuffle()
+	menuOptions.append(soul) 
+	emit_signal("menuOptionsAppended", soul.options)
 
 signal potentialTargetsUpdated()
 func onActionPressed(id):
@@ -157,15 +158,19 @@ func onActionPressed(id):
 		setAction(option)
 		if option.targetType == TargetType.AOE:
 			potentialTargets = [battleEntity.enemies, battleEntity.party]
+			if potentialTargets and caster.emotionalState.get(EmotionKey.CONFUSION, 0) > 0:
+				potentialTargets.shuffle()
 			emit_signal("potentialTargetsUpdated")
 		elif option.targetType == TargetType.SINGLE or option.targetType == TargetType.MULTI:
 			potentialTargets = getActors()
+			if potentialTargets and caster.emotionalState.get(EmotionKey.CONFUSION, 0) > 0:
+				potentialTargets.shuffle()
 			emit_signal("potentialTargetsUpdated")
 		elif option.targetType == TargetType.SELF:
 			targets = [caster]
 		elif option.targetType == TargetType.ALL:
 			targets = getActors()
-	if option is Soul: 
+	elif option is Soul: 
 		appendMenuOptions(option)
 
 func onPotentialTargetPressed(id):

@@ -1,6 +1,8 @@
 tool
 class_name Actor extends Resource
 
+const EmotionKey = preload("res://entities/emotion/emotion.gd").EmotionKey
+
 enum State {
 	NORMAL,
 	DEAD,
@@ -28,8 +30,10 @@ export(int) var maxMagic = 1000000
 export(State) var state  = State.NORMAL setget setState, getState 
 export(int) var flow = 0 setget setFlow, getFlow
 export(Resource) var queuedAction = null setget setQueuedAction, getQueuedAction
-
 export(Resource) var soul
+export(Dictionary) var emotionalState = {
+	EmotionKey.CONFUSION: 0,
+}
 
 signal healthUpdated(value)
 signal tickingHealthUpdated(value);
