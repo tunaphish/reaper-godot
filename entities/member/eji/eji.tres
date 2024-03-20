@@ -19,6 +19,6 @@ state = 0
 flow = 0
 soul = ExtResource( 3 )
 emotionalState = {
-4: 1
+5: 1
 }
 avatar = ExtResource( 2 )

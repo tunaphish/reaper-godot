@@ -1,7 +1,7 @@
 extends Control
 
 const EmotionKey = preload("res://entities/emotion/emotion.gd").EmotionKey
-
+const ActionButton = preload("res://features/battle/visual/ActionButton.tscn")
 onready var popup = $Popup
 onready var container = $Popup/VStack
 onready var header = $Popup/VStack/Header
@@ -29,10 +29,8 @@ func _ready():
 	header.text = title
 	for index in options.size():
 		var option = options[index] 
-		var actionButton = ToolButton.new()
-		actionButton.text = option
-		actionButton.align = ToolButton.ALIGN_LEFT
-		actionButton.connect("pressed", self, "onPressed", [index])
+		var actionButton = ActionButton.instance().setup(option, actor)
+		actionButton.connect("pressed", self, "onPressed", [index])	
 		container.add_child(actionButton)
 
 	popup.connect("popup_hide", self, "_on_PopupMenu_popup_hide")

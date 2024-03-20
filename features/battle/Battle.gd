@@ -194,7 +194,6 @@ func appendMenuOptions(initOptions, title):
 	emit_signal("menuOptionsAppended", options, title, caster)
 
 
-
 signal doubtedThemself()
 func onOptionPressed(id):
 	var option = menuOptions.back()[id]
