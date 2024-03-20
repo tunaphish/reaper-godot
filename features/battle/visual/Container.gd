@@ -83,7 +83,8 @@ func closeMenus():
 
 const INITIAL_ACTION_MENU_POSITION = Vector2(290,580);
 func createActionMenu(options: Array, title: String):
-	var actionMenu = ActionMenu.instance().setup(options, title)
+	var optionLabels = createOptionlabels(options)
+	var actionMenu = ActionMenu.instance().setup(optionLabels, title)
 	add_child(actionMenu)
 	menus.append(actionMenu)
 	actionMenu.setPopupPosition(INITIAL_ACTION_MENU_POSITION - (Vector2(10,10) * menus.size())) 
@@ -95,3 +96,24 @@ func onMenuClosed():
 	closeSound.play()
 	battle.menuOptions.pop_back()
 	menus.pop_back()
+
+
+func createOptionlabels(options):
+	var optionLabels = []
+	for option in options:
+		if option is Action: 
+			optionLabels.append(option.name + " " + str(option.staminaCost) + "SP " + str(option.magicCost) + "MP")
+		elif option is Soul:
+			optionLabels.append(option.name)
+		elif option is Actor:
+			optionLabels.append(option.name)
+		elif option is Option: 
+			optionLabels.append(option.name)
+		elif option is Array: # AOE 
+			var label = ""
+			for individualTarget in option:
+				label += individualTarget.name + ", "
+			if label.length() > 0:
+				label = label.left(label.length() - 2)
+			optionLabels.append(label)
+	return optionLabels

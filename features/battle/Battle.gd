@@ -182,32 +182,9 @@ func appendMenuOptions(initOptions, title):
 		title = "Are you sure?"	
 	if min(caster.emotionalState.get(EmotionKey.CONFUSION, 0)*0.1, 0.5) > randf():
 		options.shuffle()
-
 	menuOptions.append(options)
-	var optionLabels = createOptionlabels(options)
+	emit_signal("menuOptionsAppended", options, title)
 
-	emit_signal("menuOptionsAppended", optionLabels, title)
-
-
-func createOptionlabels(options):
-	var optionLabels = []
-	for option in options:
-		if option is Action: 
-			optionLabels.append(option.name + " " + str(option.staminaCost) + "SP " + str(option.magicCost) + "MP")
-		elif option is Soul:
-			optionLabels.append(option.name)
-		elif option is Actor:
-			optionLabels.append(option.name)
-		elif option is Option: 
-			optionLabels.append(option.name)
-		elif option is Array: # AOE 
-			var label = ""
-			for individualTarget in option:
-				label += individualTarget.name + ", "
-			if label.length() > 0:
-				label = label.left(label.length() - 2)
-			optionLabels.append(label)
-	return optionLabels
 
 
 signal doubtedThemself()
