@@ -46,7 +46,7 @@ func onHealthUpdated(value):
 		shakeSprite()
 
 func onTickingHealthUpdated(value):
-	if (value > 0):
+	if (value > 5): #hack to account for envy or other DoTs
 		shakeSprite()
 
 func shakeSprite(duration = 0.03, magnitude = 10, frequency = 10):

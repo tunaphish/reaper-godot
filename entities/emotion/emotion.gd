@@ -8,7 +8,8 @@ enum EmotionKey {
     DOUBT,
     EXCITED,
     PETRIFIED,
-    ANGER
+    ANGER,
+    ENVY
 }
 
 export(EmotionKey) var emotionKey
