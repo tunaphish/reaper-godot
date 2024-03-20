@@ -165,6 +165,10 @@ signal menuOptionsAppended(options, title)
 # signal doubtMenuTriggered()
 func appendMenuOptions(initOptions, title):
 	var options = initOptions.duplicate()
+	
+	if min(caster.emotionalState.get(EmotionKey.CONFUSION, 0)*0.1, 0.5) > randf():
+		options.shuffle()
+
 	menuOptions.append(options)
 	var optionLabels = createOptionlabels(options)
 	# var doubtCalculation = min(caster.emotionalState.get(EmotionKey.DOUBT, 0)*0.1, 0.5)
