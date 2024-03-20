@@ -1,0 +1,9 @@
+[gd_resource type="Resource" load_steps=2 format=2]
+
+[ext_resource path="res://entities/emotion/emotion.gd" type="Script" id=1]
+
+[resource]
+script = ExtResource( 1 )
+emotionKey = 4
+name = "Petrified"
+description = "Menus need to be clicked multiple times to break open, scales"

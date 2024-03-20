@@ -82,9 +82,9 @@ func closeMenus():
 
 
 const INITIAL_ACTION_MENU_POSITION = Vector2(290,580);
-func createActionMenu(options: Array, title: String):
+func createActionMenu(options: Array, title: String, actor: Actor):
 	var optionLabels = createOptionlabels(options)
-	var actionMenu = ActionMenu.instance().setup(optionLabels, title)
+	var actionMenu = ActionMenu.instance().setup(optionLabels, title, actor)
 	add_child(actionMenu)
 	menus.append(actionMenu)
 	actionMenu.setPopupPosition(INITIAL_ACTION_MENU_POSITION - (Vector2(10,10) * menus.size())) 

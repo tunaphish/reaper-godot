@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/petrified.mp3-1ed684fa246916290c98cbe2ca95009e.mp3str"
+
+[deps]
+
+source_file="res://assets/sounds/petrified.mp3"
+dest_files=[ "res://.import/petrified.mp3-1ed684fa246916290c98cbe2ca95009e.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0

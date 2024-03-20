@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://features/battle/visual/ActionMenu.gd" type="Script" id=1]
 [ext_resource path="res://assets/sounds/choice-select.wav" type="AudioStream" id=2]
+[ext_resource path="res://assets/sounds/petrified.mp3" type="AudioStream" id=3]
 
 [node name="ActionMenu" type="Control"]
 anchor_right = 1.0
@@ -25,5 +26,13 @@ margin_right = 73.0
 margin_bottom = 14.0
 text = "Test"
 
+[node name="PetrifiedFilter" type="Button" parent="Popup"]
+modulate = Color( 1, 1, 1, 0.733333 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+
 [node name="Select" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 2 )
+
+[node name="Petrified" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 3 )

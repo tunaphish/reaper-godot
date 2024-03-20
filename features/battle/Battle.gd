@@ -180,7 +180,7 @@ func openInitialMenu(memberEntity: Resource):
 	appendMenuOptions(memberEntity.soul.options, memberEntity.soul.name)
 
 
-signal menuOptionsAppended(options, title)
+signal menuOptionsAppended(options, title, caster)
 func appendMenuOptions(initOptions, title):
 	var options = initOptions.duplicate()
 	if  min(caster.emotionalState.get(EmotionKey.DOUBT, 0)*0.1, 0.5) > randf():
@@ -191,7 +191,7 @@ func appendMenuOptions(initOptions, title):
 	if min(caster.emotionalState.get(EmotionKey.CONFUSION, 0)*0.1, 0.5) > randf():
 		options.shuffle()
 	menuOptions.append(options)
-	emit_signal("menuOptionsAppended", options, title)
+	emit_signal("menuOptionsAppended", options, title, caster)
 
 
 
