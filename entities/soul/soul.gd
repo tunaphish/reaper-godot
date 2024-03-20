@@ -1,6 +1,5 @@
 tool
-class_name Soul extends Resource
+class_name Soul extends Option
 
-export(String) var name
 export(String) var description
 export(Array, Resource) var options

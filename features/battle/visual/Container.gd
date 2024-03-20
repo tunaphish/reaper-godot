@@ -75,12 +75,12 @@ func closeMenus():
 	battle.clearSelections()
 
 const INITIAL_ACTION_MENU_POSITION = Vector2(290,580);
-func createActionMenu(options: Array, title: String, signalFunctionName: String):
+func createActionMenu(options: Array, title: String):
 	var actionMenu = ActionMenu.instance().setup(options, title)
 	add_child(actionMenu)
 	menus.append(actionMenu)
 	actionMenu.setPopupPosition(INITIAL_ACTION_MENU_POSITION - (Vector2(10,10) * menus.size())) 
-	actionMenu.connect("id_pressed", battle, signalFunctionName)
+	actionMenu.connect("id_pressed", battle, "onOptionPressed")
 	actionMenu.connect("menuClosed", self, "onMenuClosed")
 
 func onMenuClosed(): 

@@ -1,5 +1,5 @@
 tool
-class_name Actor extends Resource
+class_name Actor extends Option
 
 const EmotionKey = preload("res://entities/emotion/emotion.gd").EmotionKey
 
@@ -18,7 +18,6 @@ enum State {
 } 
 
 # max values set to 10000000 due to initialization bug with clamp and internal references, not Inf because those are floats
-export(String) var name
 export(int) var health setget setHealth, getHealth
 export(int) var maxHealth = 1000000
 export(int) var tickingHealth setget setTickingHealth, getTickingHealth

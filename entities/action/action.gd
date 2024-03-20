@@ -1,4 +1,4 @@
-class_name Action extends Resource
+class_name Action extends Option
 
 const State = preload("res://entities/actor.gd").State
 
@@ -10,7 +10,6 @@ enum TargetType {
 	MULTI
 }
 
-export (String) var name
 export (String) var description
 export (int) var staminaCost
 export (int) var magicCost
