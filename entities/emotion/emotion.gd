@@ -5,7 +5,8 @@ class_name Emotion extends Resource
 enum EmotionKey {
     CONFUSION,
     ANXIETY,
-    DOUBT
+    DOUBT,
+    EXCITED
 }
 
 export(EmotionKey) var emotionKey

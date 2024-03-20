@@ -5,6 +5,8 @@ const State = preload("res://entities/actor.gd").State
 const battleEntity: Battle = preload("res://entities/battle/testBattle.tres")
 const Container = preload("res://features/battle/visual/Container.tscn");
 
+const ATTACK_ACTION = preload("res://entities/action/ATTACK.tres")
+
 const YES_OPTION = preload("res://entities/option/yes.tres")
 const NO_OPTION = preload("res://entities/option/no.tres")
 const DOUBT_OPTIONS = [YES_OPTION, NO_OPTION]
@@ -47,6 +49,12 @@ func _process(delta):
 
 	for actor in getActors():
 		updateStats(actor)
+
+	for actor in getActors():
+		if actor.state != State.CASTING and actor.stamina > actor.maxStamina - min(actor.emotionalState.get(EmotionKey.EXCITED, 0)*10, 50) :
+			caster = actor
+			action = ATTACK_ACTION
+			targets = [select_random_item(getActors())] # maybe switch to enemies (and allies if enemy unit)
 
 
 func updateStats(actor):
@@ -231,3 +239,9 @@ func partyIsDead():
 			return false
 	return true
 
+
+func select_random_item(array: Array):
+    if array.empty():
+        return null  
+    var random_index = randi() % array.size()
+    return array[random_index]
