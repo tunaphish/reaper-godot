@@ -30,13 +30,12 @@ func setup(initBattleEntity: Battle, initBattle):
 func _ready():
 	battle.connect("menuOptionsAppended", self, "createActionMenu")
 	battle.connect("potentialTargetsUpdated", self, "createTargetMenu")
-	battle.connect("doubtMenuTriggered", self, "createDoubtMenu")
 
 	battle.connect("actionExecuted", self, "onActionExecuted") 
 	battle.connect("actionQueued", self, "onActionQueued")
-	battle.connect("doubtedThemself", self, "onDoubtedThemself")
-	battle.connect("openDisabledMenu", self, "onOpenDisabledMenu")
 	battle.connect("actorDied", self, "onActorDied")
+
+	battle.connect("doubtedThemself", self, "onDoubtedThemself")
 
 	for member in battleEntity.party:
 		var memberHud = MemberHud.instance().setup(member)
@@ -50,29 +49,37 @@ func _ready():
 	var stage = Stage.instance().setup(battleEntity)
 	stageContainer.add_child(stage)
 
+
 func onMemberPressed(memberEntity):
 	battle.openInitialMenu(memberEntity)
+
 
 func onOpenDisabledMenu():
 	menuDisabledSound.play()
 
+
 func onActorDied():
 	deathSound.play()
+
 
 func onActionQueued():
 	closeMenus()
 
+
 func onDoubtedThemself():
 	closeMenus()
+
 
 func onActionExecuted(action): 
 	actionSoundPlayer.stream = action.sound
 	actionSoundPlayer.play()
 
+
 func closeMenus():
 	for menu in menus:
 		menu.queue_free()
 	battle.clearSelections()
+
 
 const INITIAL_ACTION_MENU_POSITION = Vector2(290,580);
 func createActionMenu(options: Array, title: String):
@@ -82,6 +89,7 @@ func createActionMenu(options: Array, title: String):
 	actionMenu.setPopupPosition(INITIAL_ACTION_MENU_POSITION - (Vector2(10,10) * menus.size())) 
 	actionMenu.connect("id_pressed", battle, "onOptionPressed")
 	actionMenu.connect("menuClosed", self, "onMenuClosed")
+
 
 func onMenuClosed(): 
 	closeSound.play()

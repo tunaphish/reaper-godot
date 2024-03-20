@@ -5,6 +5,10 @@ const State = preload("res://entities/actor.gd").State
 const battleEntity: Battle = preload("res://entities/battle/testBattle.tres")
 const Container = preload("res://features/battle/visual/Container.tscn");
 
+const YES_OPTION = preload("res://entities/option/yes.tres")
+const NO_OPTION = preload("res://entities/option/no.tres")
+const DOUBT_OPTIONS = [YES_OPTION, NO_OPTION]
+
 func _ready():
 	var container = Container.instance().setup(battleEntity, self);
 	add_child(container)
@@ -12,7 +16,6 @@ func _ready():
 const TargetType = preload("res://entities/action/action.gd").TargetType
 var actionExections = preload("res://entities/action/actionExecutions.gd").new()
 var menuOptions = []
-var potentialTargets
 var multiTargets = []
 var targets
 var caster
@@ -20,7 +23,10 @@ var action
 const TICK = .25 #4 ticks per second
 var timer: float = 0
 
+var doubtOptions = []
+var doubtName = ""
 var menuTimer
+
 
 func _process(delta):
 	if menuTimer != null:
@@ -42,6 +48,7 @@ func _process(delta):
 	for actor in getActors():
 		updateStats(actor)
 
+
 func updateStats(actor):
 	if actor.state == State.REFLECT:
 		actor.updateMagic(-1)
@@ -55,6 +62,7 @@ func updateStats(actor):
 	if (actor.getTickingHealth() > 0):
 		actor.tickHealth()
 	setState(actor)
+
 
 signal actionQueued()
 func queueAction():
@@ -85,6 +93,7 @@ func queueAction():
 	caster.setState(action.queueState)
 	caster.setQueuedAction(action)
 	emit_signal("actionQueued")
+
 
 signal actionExecuted(action)
 func executeAction(queuedAction, queuedCaster, queuedTargets, metadata):
@@ -134,14 +143,16 @@ func clearSelections():
 	action = null
 	targets = null
 	menuOptions = []
-	potentialTargets = null
 	multiTargets = []
+
 
 func getActors(): 
 	return battleEntity.party + battleEntity.enemies
 
+
 func setAction(newAction):
 	action = newAction
+
 
 func setCaster(memberEntity):
 	caster = memberEntity
@@ -162,19 +173,19 @@ func openInitialMenu(memberEntity: Resource):
 
 
 signal menuOptionsAppended(options, title)
-# signal doubtMenuTriggered()
 func appendMenuOptions(initOptions, title):
 	var options = initOptions.duplicate()
-	
+	if  min(caster.emotionalState.get(EmotionKey.DOUBT, 0)*0.1, 0.5) > randf():
+		doubtOptions = options
+		doubtName = name
+		options = DOUBT_OPTIONS
+		title = "Are you sure?"	
 	if min(caster.emotionalState.get(EmotionKey.CONFUSION, 0)*0.1, 0.5) > randf():
 		options.shuffle()
 
 	menuOptions.append(options)
 	var optionLabels = createOptionlabels(options)
-	# var doubtCalculation = min(caster.emotionalState.get(EmotionKey.DOUBT, 0)*0.1, 0.5)
-	# if doubtCalculation > randf():
-	# 	emit_signal("doubtMenuTriggered")
-	# 	return
+
 	emit_signal("menuOptionsAppended", optionLabels, title)
 
 
@@ -183,11 +194,13 @@ func createOptionlabels(options):
 	for option in options:
 		if option is Action: 
 			optionLabels.append(option.name + " " + str(option.staminaCost) + "SP " + str(option.magicCost) + "MP")
-		if option is Soul:
+		elif option is Soul:
 			optionLabels.append(option.name)
-		if option is Actor:
+		elif option is Actor:
 			optionLabels.append(option.name)
-		if option is Array: # AOE 
+		elif option is Option: 
+			optionLabels.append(option.name)
+		elif option is Array: # AOE 
 			var label = ""
 			for individualTarget in option:
 				label += individualTarget.name + ", "
@@ -197,6 +210,7 @@ func createOptionlabels(options):
 	return optionLabels
 
 
+signal doubtedThemself()
 func onOptionPressed(id):
 	var option = menuOptions.back()[id]
 	if option is Action:
@@ -210,37 +224,21 @@ func onOptionPressed(id):
 		elif option.targetType == TargetType.ALL:
 			targets = getActors()
 	elif option is Soul: 
-		appendMenuOptions(option.options, option.name)
+		appendMenuOptions(option.options, option.name)	
+	elif option is Option and option.name == "Yes": 
+		appendMenuOptions(doubtOptions, doubtName)
+	elif option is Option and option.name == "No": 
+		emit_signal("doubtedThemself")
 	elif option is Array: 
 		targets = option
-	elif action.targetType == TargetType.MULTI: 
+	elif option is Actor and action.targetType != TargetType.MULTI:
+		targets = [option]
+	elif action and action.targetType == TargetType.MULTI: 
 		multiTargets.append(option)
 		if multiTargets.size() >= action.metadata["multihit"]:
 			targets = multiTargets
 		else: 
 			appendMenuOptions(menuOptions.back(), "Target")
-	elif option is Actor:
-		targets = [option]	
-
-
-# func createDoubtMenu():
-# 	var actionMenu = ActionMenu.instance().setup(["Yes", "No"], "Are you Sure?")
-# 	add_child(actionMenu)
-# 	menus.append(actionMenu)
-# 	actionMenu.setPopupPosition(INITIAL_ACTION_MENU_POSITION - (Vector2(10,10) * menus.size()))
-# 	actionMenu.connect("id_pressed", battle, "onDoubtMenuPressed")
-# 	actionMenu.connect("menuClosed", self, "onMenuClosed")
-
-#assumes Yes, No order. might change if confusion can apply
-# signal doubtedThemself()
-# func onDoubtMenuPressed(id): 
-# 	if id == 0:
-# 		var soul = menuOptions.back()
-# 		emit_signal("menuOptionsAppended", soul.options, soul.name)
-# 		return 
-# 	if id == 1: 
-# 		emit_signal("doubtedThemself")
-# 		return
 
 
 func enemiesAreDead():

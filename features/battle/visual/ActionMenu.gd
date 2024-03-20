@@ -22,6 +22,7 @@ func _ready():
 		var option = options[index] 
 		var actionButton = ToolButton.new()
 		actionButton.text = option
+		actionButton.align = ToolButton.ALIGN_LEFT
 		actionButton.connect("pressed", self, "onPressed", [index])
 		container.add_child(actionButton)
 
