@@ -28,14 +28,12 @@ func setup(initBattleEntity: Battle, initBattle):
 	return self
 
 func _ready():
-	battle.connect("menuOptionsAppended", self, "createActionMenu")
+	battle.connect("menuOptionsAppended", self, "onMenuOptionsAppended")
+	battle.connect("menuOptionsPopped", self, "onMenuOptionsPopped")
 	battle.connect("potentialTargetsUpdated", self, "createTargetMenu")
 
 	battle.connect("actionExecuted", self, "onActionExecuted") 
-	battle.connect("actionQueued", self, "onActionQueued")
 	battle.connect("actorDied", self, "onActorDied")
-
-	battle.connect("doubtedThemself", self, "onDoubtedThemself")
 
 	for member in battleEntity.party:
 		var memberHud = MemberHud.instance().setup(member)
@@ -62,40 +60,26 @@ func onActorDied():
 	deathSound.play()
 
 
-func onActionQueued():
-	closeMenus()
-
-
-func onDoubtedThemself():
-	closeMenus()
-
-
 func onActionExecuted(action): 
 	actionSoundPlayer.stream = action.sound
 	actionSoundPlayer.play()
 
 
-func closeMenus():
-	for menu in menus:
-		menu.queue_free()
-	battle.clearSelections()
-
-
 const INITIAL_ACTION_MENU_POSITION = Vector2(290,580);
-func createActionMenu(options: Array, title: String, actor: Actor):
+func onMenuOptionsAppended(options: Array, title: String, actor: Actor):
 	var optionLabels = createOptionlabels(options)
 	var actionMenu = ActionMenu.instance().setup(optionLabels, title, actor)
 	add_child(actionMenu)
 	menus.append(actionMenu)
 	actionMenu.setPopupPosition(INITIAL_ACTION_MENU_POSITION - (Vector2(10,10) * menus.size())) 
 	actionMenu.connect("id_pressed", battle, "onOptionPressed")
-	actionMenu.connect("menuClosed", self, "onMenuClosed")
 
 
-func onMenuClosed(): 
+func onMenuOptionsPopped(): 
 	closeSound.play()
-	battle.menuOptions.pop_back()
-	menus.pop_back()
+	var menu = menus.pop_back()
+	if menu: 
+		menu.queue_free()
 
 
 func createOptionlabels(options):

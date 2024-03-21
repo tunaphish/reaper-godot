@@ -76,7 +76,6 @@ func updateStats(actor):
 	setState(actor)
 
 
-signal actionQueued()
 func queueAction():
 	var flow = 0 
 	for member in battleEntity.party:
@@ -104,7 +103,7 @@ func queueAction():
 	menuTimer = null
 	caster.setState(action.queueState)
 	caster.setQueuedAction(action)
-	emit_signal("actionQueued")
+	clearSelections()
 
 
 signal actionExecuted(action)
@@ -150,12 +149,16 @@ func setState(actor: Resource):
 		actor.setState(State.NORMAL)
 
 
+signal menuOptionsPopped()
 func clearSelections():
 	caster = null
 	action = null
 	targets = null
-	menuOptions = []
 	multiTargets = []
+	while menuOptions.size() > 0:
+		menuOptions.pop_back()
+		emit_signal("menuOptionsPopped")
+		yield(get_tree().create_timer(0.1), "timeout")
 
 
 func getActors(): 
@@ -198,7 +201,6 @@ func appendMenuOptions(initOptions, title):
 	emit_signal("menuOptionsAppended", options, title, caster)
 
 
-signal doubtedThemself()
 func onOptionPressed(id):
 	var option = menuOptions.back()[id]
 	if option is Action:
@@ -216,7 +218,7 @@ func onOptionPressed(id):
 	elif option is Option and option.name == "Yes": 
 		appendMenuOptions(doubtOptions, doubtName)
 	elif option is Option and option.name == "No": 
-		emit_signal("doubtedThemself")
+		clearSelections()
 	elif option is Array: 
 		targets = option
 	elif option is Actor and action.targetType != TargetType.MULTI:
