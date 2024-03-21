@@ -18,11 +18,11 @@ margin_bottom = 89.0
 [node name="VStack" type="VBoxContainer" parent="Popup"]
 margin_left = 4.0
 margin_top = 4.0
-margin_right = 77.0
+margin_right = 154.0
 margin_bottom = 85.0
 
 [node name="Header" type="Label" parent="Popup/VStack"]
-margin_right = 73.0
+margin_right = 150.0
 margin_bottom = 14.0
 text = "Test"
 

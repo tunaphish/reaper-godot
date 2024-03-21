@@ -59,7 +59,8 @@ func _process(delta):
 
 func updateStats(actor):
 	var envyDot = min(actor.emotionalState.get(EmotionKey.ENVY, 0)*1, 5)
-	actor.updateTickingHealth(envyDot)
+	if actor.state != State.DEAD:
+		actor.receiveDamage(envyDot)
 
 	if actor.state == State.REFLECT:
 		actor.updateMagic(-1)
