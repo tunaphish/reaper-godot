@@ -2,8 +2,9 @@ extends Node
 
 const EmotionKey = preload("res://entities/emotion/emotion.gd").EmotionKey
 const State = preload("res://entities/actor.gd").State
-const battleEntity: Battle = preload("res://entities/battle/testBattle.tres")
 const Container = preload("res://features/battle/visual/Container.tscn");
+const TargetType = preload("res://entities/targetType.gd").TargetType
+var actionExections = preload("res://entities/action/actionExecutions.gd").new()
 
 const ATTACK_ACTION = preload("res://entities/action/ATTACK.tres")
 
@@ -11,18 +12,20 @@ const YES_OPTION = preload("res://entities/option/yes.tres")
 const NO_OPTION = preload("res://entities/option/no.tres")
 const DOUBT_OPTIONS = [YES_OPTION, NO_OPTION]
 
+var battleEntity: Battle
+
 func _ready():
+	if battleEntity == null:
+		battleEntity = preload("res://entities/battle/testBattle.tres")
 	var container = Container.instance().setup(battleEntity, self);
 	add_child(container)
 
-const TargetType = preload("res://entities/action/action.gd").TargetType
-var actionExections = preload("res://entities/action/actionExecutions.gd").new()
+
 var menuOptions = []
 var multiTargets = []
 var targets
 var caster
 var action
-const TICK = .25 #4 ticks per second
 var timer: float = 0
 
 var doubtOptions = []
@@ -30,6 +33,7 @@ var doubtName = ""
 var menuTimer
 
 
+const TICK = .25 #4 ticks per second
 func _process(delta):
 	if menuTimer != null:
 		menuTimer += delta
@@ -54,7 +58,7 @@ func _process(delta):
 		if actor.state != State.CASTING and actor.stamina > actor.maxStamina - min(actor.emotionalState.get(EmotionKey.EXCITED, 0)*10, 50) :
 			caster = actor
 			action = ATTACK_ACTION
-			targets = [select_random_item(getActors())] # maybe switch to enemies (and allies if enemy unit)
+			targets = [selectRandomItem(getActors())] 
 
 
 func updateStats(actor):
@@ -245,7 +249,7 @@ func partyIsDead():
 	return true
 
 
-func select_random_item(array: Array):
+func selectRandomItem(array: Array):
     if array.empty():
         return null  
     var random_index = randi() % array.size()
