@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/vow-made.mp3-ddb5d92d21005d0bdbc9161036785199.mp3str"
+
+[deps]
+
+source_file="res://assets/sounds/vow-made.mp3"
+dest_files=[ "res://.import/vow-made.mp3-ddb5d92d21005d0bdbc9161036785199.mp3str" ]
+
+[params]
+
+loop=false
+loop_offset=0

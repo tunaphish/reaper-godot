@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/vow-stopped.mp3-45ff4be03eb8ad62b77f6f2217fc803d.mp3str"
+
+[deps]
+
+source_file="res://assets/sounds/vow-stopped.mp3"
+dest_files=[ "res://.import/vow-stopped.mp3-45ff4be03eb8ad62b77f6f2217fc803d.mp3str" ]
+
+[params]
+
+loop=false
+loop_offset=0

@@ -1,13 +1,14 @@
-[gd_resource type="Resource" load_steps=6 format=2]
+[gd_resource type="Resource" load_steps=7 format=2]
 
 [ext_resource path="res://entities/soul/soul.gd" type="Script" id=1]
 [ext_resource path="res://entities/member/eji/ejiPocket.tres" type="Resource" id=2]
 [ext_resource path="res://entities/action/sweep.tres" type="Resource" id=3]
 [ext_resource path="res://entities/action/attack.tres" type="Resource" id=4]
 [ext_resource path="res://entities/action/shadow_strike.tres" type="Resource" id=5]
+[ext_resource path="res://entities/covenant/decisiveness.tres" type="Resource" id=6]
 
 [resource]
 script = ExtResource( 1 )
 name = "ACT"
 description = "Hi"
-options = [ ExtResource( 4 ), ExtResource( 2 ), ExtResource( 3 ), ExtResource( 5 ) ]
+options = [ ExtResource( 4 ), ExtResource( 2 ), ExtResource( 3 ), ExtResource( 5 ), ExtResource( 6 ) ]

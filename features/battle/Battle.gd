@@ -1,7 +1,9 @@
 extends Node
 
 const EmotionKey = preload("res://entities/emotion/emotion.gd").EmotionKey
+const CovenantKey = preload("res://entities/covenant/covenant.gd").CovenantKey
 const State = preload("res://entities/actor.gd").State
+const CovenantState = preload("res://entities/actor.gd").CovenantState
 const Container = preload("res://features/battle/visual/Container.tscn");
 const TargetType = preload("res://entities/targetType.gd").TargetType
 var actionExections = preload("res://entities/action/actionExecutions.gd").new()
@@ -28,6 +30,7 @@ var targets
 var caster
 var action
 var item
+var covenant
 var timer: float = 0
 
 var doubtOptions = []
@@ -49,6 +52,9 @@ func _process(delta):
 		pass
 	if partyIsDead():
 		pass
+
+	if (caster and covenant):
+		toggleCovenant(covenant, caster)
 
 	if (caster and action and targets):
 		queueAction()
@@ -151,6 +157,18 @@ func consumeItem(queuedItem, queuedCaster, queuedTargets):
 		emit_signal("actionExecuted", itemResource)
 		itemExecutions.call(itemExecution, queuedCaster, target, metadata) #potential for metadata
 	
+signal vowMade()
+signal vowStopped()
+#signal vowBroken()
+func toggleCovenant(queuedCovenant, queuedCaster): 
+	clearSelections()
+	var covenantState = queuedCaster.covenants.get(queuedCovenant.covenantKey, CovenantState.INACTIVE)
+	if covenantState == CovenantState.INACTIVE: 
+		queuedCaster.covenants[queuedCovenant.covenantKey] = CovenantState.ACTIVE
+		emit_signal("vowMade")
+	elif covenantState == CovenantState.ACTIVE: 
+		queuedCaster.covenants[queuedCovenant.covenantKey] = CovenantState.INACTIVE
+		emit_signal("vowStopped")
 
 var NON_EXHAUSTABLE_STATES = [State.ACTION, State.CASTING]
 signal actorDied()
@@ -176,6 +194,7 @@ func clearSelections():
 	action = null
 	targets = null
 	item = null
+	covenant = null 
 	multiTargets = []
 	while menuOptions.size() > 0:
 		menuOptions.pop_back()
@@ -206,6 +225,7 @@ func appendMenuOptions(initOptions, title):
 	var unfilteredOptions = initOptions.duplicate()
 	
 	# Filtered used items
+	# TODO: filter broken covenants
 	var options = []
 	for option in unfilteredOptions:
 		if option is Array and option[0] is Item:
@@ -247,6 +267,8 @@ func onOptionPressed(id):
 			targets = [caster]
 		elif item[0].targetType == TargetType.ALL:
 			targets = getActors()
+	elif option is Covenant:
+		covenant = option
 	elif option is Soul: 
 		appendMenuOptions(option.options, option.name)	
 	elif option is Pocket: 

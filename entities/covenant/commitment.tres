@@ -1,0 +1,11 @@
+[gd_resource type="Resource" load_steps=2 format=2]
+
+[ext_resource path="res://entities/covenant/covenant.gd" type="Script" id=1]
+
+[resource]
+script = ExtResource( 1 )
+name = "Commitment"
+covenantKey = 0
+vow = "I vow to commit to my decisions"
+reward = "Others flow with me more easily"
+punishment = "They cannot flow with me"

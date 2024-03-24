@@ -16,6 +16,9 @@ onready var closeSound = $Close
 onready var actionSoundPlayer = $ActionSoundPlayer
 onready var menuDisabledSound = $MenuDisabled
 onready var deathSound = $Death
+onready var vowMadeSound = $VowMade
+onready var vowStoppedSound = $VowStopped
+onready var vowBrokenSound = $VowBroken
 
 var battleEntity: Battle
 var battle
@@ -34,6 +37,10 @@ func _ready():
 
 	battle.connect("actionExecuted", self, "onActionExecuted") 
 	battle.connect("actorDied", self, "onActorDied")
+	
+	battle.connect("vowMade", self, "onVowMade")
+	battle.connect("vowStopped", self, "onVowStopped")
+	battle.connect("vowBroken", self, "onVowBroken")
 
 	for member in battleEntity.party:
 		var memberHud = MemberHud.instance().setup(member)
@@ -58,6 +65,18 @@ func onOpenDisabledMenu():
 
 func onActorDied():
 	deathSound.play()
+
+
+func onVowMade():
+	vowMadeSound.play()
+
+
+func onVowStopped():
+	vowStoppedSound.play()
+
+
+func onVowBroken():
+	vowBrokenSound.play()
 
 
 func onActionExecuted(action): 
@@ -89,7 +108,8 @@ func createOptionlabels(options):
 			optionLabels.append(option.name + " " + str(option.staminaCost) + "SP " + str(option.magicCost) + "MP")
 		elif option is Array and option[0] is Item: #item 
 			optionLabels.append(option[0].name+ " " + str(option[1]) + "/" + str(option[0].maxCharges) )
-			pass
+		elif option is Covenant:
+			optionLabels.append(option.name)
 		elif option is Soul:
 			optionLabels.append(option.name)
 		elif option is Actor:

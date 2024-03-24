@@ -2,6 +2,7 @@ tool
 class_name Actor extends Option
 
 const EmotionKey = preload("res://entities/emotion/emotion.gd").EmotionKey
+const CovenantKey = preload("res://entities/covenant/covenant.gd").CovenantKey
 
 enum State {
 	NORMAL,
@@ -17,6 +18,12 @@ enum State {
 	ACTION
 } 
 
+enum CovenantState {
+	ACTIVE,
+	INACTIVE,
+	BROKEN
+}
+
 # max values set to 10000000 due to initialization bug with clamp and internal references, not Inf because those are floats
 export(int) var health setget setHealth, getHealth
 export(int) var maxHealth = 1000000
@@ -30,11 +37,9 @@ export(State) var state  = State.NORMAL setget setState, getState
 export(int) var flow = 0 setget setFlow, getFlow
 export(Resource) var queuedAction = null setget setQueuedAction, getQueuedAction
 export(Resource) var soul
-export(Dictionary) var emotionalState = {
-	EmotionKey.CONFUSION: 0,
-	EmotionKey.ANXIETY: 0,
-}
 export(Resource) var pocket
+export(Dictionary) var emotionalState = {}
+export(Dictionary) var covenants = {}
 
 signal healthUpdated(value)
 signal tickingHealthUpdated(value);

@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/vow-broken.mp3-130252c79d6533fc7f0518f998e2edc2.mp3str"
+
+[deps]
+
+source_file="res://assets/sounds/vow-broken.mp3"
+dest_files=[ "res://.import/vow-broken.mp3-130252c79d6533fc7f0518f998e2edc2.mp3str" ]
+
+[params]
+
+loop=false
+loop_offset=0
