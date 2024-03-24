@@ -1,14 +1,8 @@
 class_name Action extends Option
 
 const State = preload("res://entities/actor.gd").State
+const TargetType = preload("res://entities/targetType.gd").TargetType
 
-enum TargetType {
-	SELF,
-	SINGLE,
-	AOE,
-	ALL,
-	MULTI
-}
 
 export (String) var description
 export (int) var staminaCost
@@ -20,8 +14,10 @@ export (State) var queueState = State.CASTING
 export (Dictionary) var metadata = {} 
 	# multihit
 
+
 func get_execution_name():
 	return name.to_lower().replace(' ', '_')
+
 
 func isMagicalAction():
 	return magicCost > 0

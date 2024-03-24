@@ -1,8 +1,9 @@
-[gd_resource type="Resource" load_steps=4 format=2]
+[gd_resource type="Resource" load_steps=5 format=2]
 
 [ext_resource path="res://entities/member/member.gd" type="Script" id=1]
 [ext_resource path="res://entities/member/elise/elise.png" type="Texture" id=2]
 [ext_resource path="res://entities/member/elise/eliseInitSoul.tres" type="Resource" id=3]
+[ext_resource path="res://entities/member/elise/elisePocket.tres" type="Resource" id=4]
 
 [resource]
 script = ExtResource( 1 )
@@ -20,4 +21,5 @@ flow = 0
 soul = ExtResource( 3 )
 emotionalState = {
 }
+pocket = ExtResource( 4 )
 avatar = ExtResource( 2 )

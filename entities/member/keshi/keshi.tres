@@ -1,13 +1,14 @@
-[gd_resource type="Resource" load_steps=4 format=2]
+[gd_resource type="Resource" load_steps=5 format=2]
 
 [ext_resource path="res://entities/member/member.gd" type="Script" id=1]
 [ext_resource path="res://entities/member/keshi/keshi.png" type="Texture" id=2]
 [ext_resource path="res://entities/member/keshi/keshiInitSoul.tres" type="Resource" id=3]
+[ext_resource path="res://entities/member/keshi/keshiPocket.tres" type="Resource" id=4]
 
 [resource]
 script = ExtResource( 1 )
 name = "Keshi"
-health = 50
+health = 100
 maxHealth = 100
 tickingHealth = 0
 stamina = 100
@@ -21,4 +22,5 @@ soul = ExtResource( 3 )
 emotionalState = {
 2: 10
 }
+pocket = ExtResource( 4 )
 avatar = ExtResource( 2 )

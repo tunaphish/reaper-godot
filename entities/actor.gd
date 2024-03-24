@@ -34,6 +34,7 @@ export(Dictionary) var emotionalState = {
 	EmotionKey.CONFUSION: 0,
 	EmotionKey.ANXIETY: 0,
 }
+export(Resource) var pocket
 
 signal healthUpdated(value)
 signal tickingHealthUpdated(value);

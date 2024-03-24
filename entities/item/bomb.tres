@@ -1,0 +1,11 @@
+[gd_resource type="Resource" load_steps=3 format=2]
+
+[ext_resource path="res://entities/item/item.gd" type="Script" id=1]
+[ext_resource path="res://assets/sounds/bomb.wav" type="AudioStream" id=2]
+
+[resource]
+script = ExtResource( 1 )
+name = "Bomb"
+description = "Deals AOE Damage"
+targetType = 2
+sound = ExtResource( 2 )

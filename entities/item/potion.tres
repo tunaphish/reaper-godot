@@ -1,0 +1,11 @@
+[gd_resource type="Resource" load_steps=3 format=2]
+
+[ext_resource path="res://entities/item/item.gd" type="Script" id=1]
+[ext_resource path="res://assets/sounds/heal.mp3" type="AudioStream" id=2]
+
+[resource]
+script = ExtResource( 1 )
+name = "Potion"
+description = "Mild heal"
+targetType = 1
+sound = ExtResource( 2 )

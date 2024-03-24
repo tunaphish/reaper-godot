@@ -1,0 +1,9 @@
+[gd_resource type="Resource" load_steps=3 format=2]
+
+[ext_resource path="res://entities/pocket.gd" type="Script" id=1]
+[ext_resource path="res://entities/item/potion.tres" type="Resource" id=2]
+
+[resource]
+script = ExtResource( 1 )
+name = "Pocket"
+items = [ [ ExtResource( 2 ), 1 ] ]

@@ -5,6 +5,7 @@ const State = preload("res://entities/actor.gd").State
 const Container = preload("res://features/battle/visual/Container.tscn");
 const TargetType = preload("res://entities/targetType.gd").TargetType
 var actionExections = preload("res://entities/action/actionExecutions.gd").new()
+var itemExecutions = preload("res://entities/item/itemExecutions.gd").new()
 
 const ATTACK_ACTION = preload("res://entities/action/ATTACK.tres")
 
@@ -26,6 +27,7 @@ var multiTargets = []
 var targets
 var caster
 var action
+var item
 var timer: float = 0
 
 var doubtOptions = []
@@ -50,6 +52,9 @@ func _process(delta):
 
 	if (caster and action and targets):
 		queueAction()
+	
+	if (caster and item and targets):
+		consumeItem(item, caster, targets)
 
 	for actor in getActors():
 		updateStats(actor)
@@ -134,6 +139,18 @@ func executeAction(queuedAction, queuedCaster, queuedTargets, metadata):
 		emit_signal("actionExecuted", queuedAction)
 		actionExections.call(actionExecution, queuedCaster, target, metadata) 
 
+func consumeItem(queuedItem, queuedCaster, queuedTargets):
+	clearSelections()
+	var itemResource = queuedItem[0]
+	var charges = queuedItem[1]
+	queuedItem[1] = charges-1
+	var itemExecution = itemResource.get_execution_name()
+	var metadata = {}
+	for target in queuedTargets: 
+		yield(get_tree().create_timer(0.3), "timeout")
+		emit_signal("actionExecuted", itemResource)
+		itemExecutions.call(itemExecution, queuedCaster, target, metadata) #potential for metadata
+	
 
 var NON_EXHAUSTABLE_STATES = [State.ACTION, State.CASTING]
 signal actorDied()
@@ -158,6 +175,7 @@ func clearSelections():
 	caster = null
 	action = null
 	targets = null
+	item = null
 	multiTargets = []
 	while menuOptions.size() > 0:
 		menuOptions.pop_back()
@@ -167,14 +185,6 @@ func clearSelections():
 
 func getActors(): 
 	return battleEntity.party + battleEntity.enemies
-
-
-func setAction(newAction):
-	action = newAction
-
-
-func setCaster(memberEntity):
-	caster = memberEntity
 
 
 signal openDisabledMenu()
@@ -187,13 +197,23 @@ func openInitialMenu(memberEntity: Resource):
 	if disabledStates.has(memberEntity.state):
 		emit_signal("openDisabledMenu")
 		return
-	setCaster(memberEntity)
+	caster = memberEntity
 	appendMenuOptions(memberEntity.soul.options, memberEntity.soul.name)
 
 
 signal menuOptionsAppended(options, title, caster)
 func appendMenuOptions(initOptions, title):
-	var options = initOptions.duplicate()
+	var unfilteredOptions = initOptions.duplicate()
+	
+	# Filtered used items
+	var options = []
+	for option in unfilteredOptions:
+		if option is Array and option[0] is Item:
+			if option[1] > 0:
+				options.append(option)
+		else:
+			options.append(option)
+
 	if  min(caster.emotionalState.get(EmotionKey.DOUBT, 0)*0.1, 0.5) > randf():
 		doubtOptions = options
 		doubtName = name
@@ -208,7 +228,7 @@ func appendMenuOptions(initOptions, title):
 func onOptionPressed(id):
 	var option = menuOptions.back()[id]
 	if option is Action:
-		setAction(option)
+		action = option
 		if option.targetType == TargetType.AOE:
 			appendMenuOptions([battleEntity.enemies, battleEntity.party], "Target")
 		elif option.targetType == TargetType.SINGLE or option.targetType == TargetType.MULTI:
@@ -217,15 +237,29 @@ func onOptionPressed(id):
 			targets = [caster]
 		elif option.targetType == TargetType.ALL:
 			targets = getActors()
+	elif option is Array and option[0] is Item: #item
+		item = option
+		if item[0].targetType == TargetType.AOE:
+			appendMenuOptions([battleEntity.enemies, battleEntity.party], "Target")
+		elif item[0].targetType == TargetType.SINGLE or item[0].targetType == TargetType.MULTI:
+			appendMenuOptions(getActors(), "Target")
+		elif item[0].targetType == TargetType.SELF:
+			targets = [caster]
+		elif item[0].targetType == TargetType.ALL:
+			targets = getActors()
 	elif option is Soul: 
 		appendMenuOptions(option.options, option.name)	
+	elif option is Pocket: 
+		appendMenuOptions(option.items, option.name)
 	elif option is Option and option.name == "Yes": 
 		appendMenuOptions(doubtOptions, doubtName)
 	elif option is Option and option.name == "No": 
 		clearSelections()
 	elif option is Array: 
 		targets = option
-	elif option is Actor and action.targetType != TargetType.MULTI:
+	elif option is Actor and item != null: # Item Single Target
+		targets = [option]
+	elif option is Actor and action.targetType != TargetType.MULTI: # Action Single Target
 		targets = [option]
 	elif action and action.targetType == TargetType.MULTI: 
 		multiTargets.append(option)

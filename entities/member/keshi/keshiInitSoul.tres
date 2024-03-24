@@ -1,14 +1,11 @@
-[gd_resource type="Resource" load_steps=7 format=2]
+[gd_resource type="Resource" load_steps=4 format=2]
 
-[ext_resource path="res://entities/soul/fighter.tres" type="Resource" id=1]
+[ext_resource path="res://entities/member/keshi/keshiPocket.tres" type="Resource" id=1]
 [ext_resource path="res://entities/action/attack.tres" type="Resource" id=2]
-[ext_resource path="res://entities/action/stanch.tres" type="Resource" id=3]
 [ext_resource path="res://entities/soul/soul.gd" type="Script" id=4]
-[ext_resource path="res://entities/action/heal.tres" type="Resource" id=5]
-[ext_resource path="res://entities/action/contemplation.tres" type="Resource" id=6]
 
 [resource]
 script = ExtResource( 4 )
-name = "Keshi Init Soul"
+name = "ACT"
 description = "Ruff"
-options = [ ExtResource( 2 ), ExtResource( 1 ), ExtResource( 5 ), ExtResource( 3 ), ExtResource( 6 ) ]
+options = [ ExtResource( 2 ), ExtResource( 1 ) ]

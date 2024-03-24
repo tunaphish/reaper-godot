@@ -87,11 +87,16 @@ func createOptionlabels(options):
 	for option in options:
 		if option is Action: 
 			optionLabels.append(option.name + " " + str(option.staminaCost) + "SP " + str(option.magicCost) + "MP")
+		elif option is Array and option[0] is Item: #item 
+			optionLabels.append(option[0].name+ " " + str(option[1]) + "/" + str(option[0].maxCharges) )
+			pass
 		elif option is Soul:
 			optionLabels.append(option.name)
 		elif option is Actor:
 			optionLabels.append(option.name)
 		elif option is Option: 
+			optionLabels.append(option.name)
+		elif option is Pocket:
 			optionLabels.append(option.name)
 		elif option is Array: # AOE 
 			var label = ""
