@@ -127,7 +127,6 @@ func receiveDamage(value):
 	if newTickingHealth > getHealth():
 		updateHealth(-(newTickingHealth-health)) 
 
-
 func getFlow():
 	return flow
 
@@ -135,3 +134,11 @@ signal flowUpdated(value)
 func setFlow(value: int):
 	flow = value
 	emit_signal("flowUpdated", value)
+
+func getEmotionValue(emotionKey: int): #EmotionKey
+	var emotionValue = emotionalState.get(emotionKey, 0)
+	if covenants.get(CovenantKey.DECISIVENESS) == CovenantState.ACTIVE:
+		emotionValue = floor(emotionValue/2)
+	elif covenants.get(CovenantKey.DECISIVENESS) == CovenantState.BROKEN:
+		emotionValue = floor(emotionValue*2)
+	return min(emotionValue, 5)

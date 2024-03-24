@@ -19,7 +19,9 @@ maxMagic = 100
 state = 0
 flow = 0
 soul = ExtResource( 3 )
+pocket = ExtResource( 4 )
 emotionalState = {
 }
-pocket = ExtResource( 4 )
+covenants = {
+}
 avatar = ExtResource( 2 )

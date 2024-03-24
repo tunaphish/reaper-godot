@@ -36,10 +36,15 @@ var timer: float = 0
 var doubtOptions = []
 var doubtName = ""
 var menuTimer
-
+var individualMenuTimer = 0
 
 const TICK = .25 #4 ticks per second
 func _process(delta):
+	if menuOptions.size() == 0:
+		caster = null # hacky? solution to reset caster 
+	# delta based functions need to happen before tick check
+	checkDecisivenessVow(delta)
+
 	if menuTimer != null:
 		menuTimer += delta
 
@@ -66,14 +71,14 @@ func _process(delta):
 		updateStats(actor)
 
 	for actor in getActors():
-		if actor.state != State.CASTING and actor.stamina > actor.maxStamina - min(actor.emotionalState.get(EmotionKey.EXCITED, 0)*10, 50) :
+		if actor.state != State.CASTING and actor.stamina > actor.maxStamina - actor.getEmotionValue(EmotionKey.EXCITED) * 10 :
 			caster = actor
 			action = ATTACK_ACTION
 			targets = [selectRandomItem(getActors())] 
 
 
 func updateStats(actor):
-	var envyDot = min(actor.emotionalState.get(EmotionKey.ENVY, 0)*1, 5)
+	var envyDot = actor.getEmotionValue(EmotionKey.ENVY)
 	if actor.state != State.DEAD:
 		actor.receiveDamage(envyDot)
 
@@ -82,7 +87,7 @@ func updateStats(actor):
 	elif actor.state == State.COUNTER:
 		actor.updateStamina(-1)
 	elif (actor.state != State.GUARD and actor.state != State.DEAD and actor.state != State.CASTING):
-		if actor.emotionalState.get(EmotionKey.ANXIETY, 0) > 0 and menuOptions.size() > 0 and caster == actor: 
+		if actor.getEmotionValue(EmotionKey.ANXIETY) > 0 and menuOptions.size() > 0 and caster == actor: 
 			actor.updateStamina(-menuOptions.size())
 		else:
 			actor.updateStamina(actor.staminaRegenRate)
@@ -157,18 +162,6 @@ func consumeItem(queuedItem, queuedCaster, queuedTargets):
 		emit_signal("actionExecuted", itemResource)
 		itemExecutions.call(itemExecution, queuedCaster, target, metadata) #potential for metadata
 	
-signal vowMade()
-signal vowStopped()
-#signal vowBroken()
-func toggleCovenant(queuedCovenant, queuedCaster): 
-	clearSelections()
-	var covenantState = queuedCaster.covenants.get(queuedCovenant.covenantKey, CovenantState.INACTIVE)
-	if covenantState == CovenantState.INACTIVE: 
-		queuedCaster.covenants[queuedCovenant.covenantKey] = CovenantState.ACTIVE
-		emit_signal("vowMade")
-	elif covenantState == CovenantState.ACTIVE: 
-		queuedCaster.covenants[queuedCovenant.covenantKey] = CovenantState.INACTIVE
-		emit_signal("vowStopped")
 
 var NON_EXHAUSTABLE_STATES = [State.ACTION, State.CASTING]
 signal actorDied()
@@ -197,9 +190,14 @@ func clearSelections():
 	covenant = null 
 	multiTargets = []
 	while menuOptions.size() > 0:
-		menuOptions.pop_back()
-		emit_signal("menuOptionsPopped")
+		popMenuOption()
 		yield(get_tree().create_timer(0.1), "timeout")
+
+
+func popMenuOption():
+	individualMenuTimer = 0
+	menuOptions.pop_back()
+	emit_signal("menuOptionsPopped")
 
 
 func getActors(): 
@@ -222,24 +220,26 @@ func openInitialMenu(memberEntity: Resource):
 
 signal menuOptionsAppended(options, title, caster)
 func appendMenuOptions(initOptions, title):
+	individualMenuTimer = 0 
 	var unfilteredOptions = initOptions.duplicate()
 	
-	# Filtered used items
-	# TODO: filter broken covenants
 	var options = []
 	for option in unfilteredOptions:
 		if option is Array and option[0] is Item:
 			if option[1] > 0:
 				options.append(option)
+		elif option is Covenant and caster:
+			if caster.covenants.get(option.covenantKey, CovenantState.INACTIVE) != CovenantState.BROKEN:
+				options.append(option)
 		else:
 			options.append(option)
 
-	if  min(caster.emotionalState.get(EmotionKey.DOUBT, 0)*0.1, 0.5) > randf():
+	if  caster.getEmotionValue(EmotionKey.DOUBT) * 0.1 > randf():
 		doubtOptions = options
 		doubtName = name
 		options = DOUBT_OPTIONS
 		title = "Are you sure?"	
-	if min(caster.emotionalState.get(EmotionKey.CONFUSION, 0)*0.1, 0.5) > randf():
+	if caster.getEmotionValue(EmotionKey.CONFUSION) * 0.1 > randf():
 		options.shuffle()
 	menuOptions.append(options)
 	emit_signal("menuOptionsAppended", options, title, caster)
@@ -310,3 +310,28 @@ func selectRandomItem(array: Array):
         return null  
     var random_index = randi() % array.size()
     return array[random_index]
+
+
+signal vowMade()
+signal vowStopped()
+signal vowBroken()
+func toggleCovenant(queuedCovenant, queuedCaster): 
+	clearSelections()
+	var covenantState = queuedCaster.covenants.get(queuedCovenant.covenantKey, CovenantState.INACTIVE)
+	if covenantState == CovenantState.INACTIVE: 
+		queuedCaster.covenants[queuedCovenant.covenantKey] = CovenantState.ACTIVE
+		emit_signal("vowMade")
+	elif covenantState == CovenantState.ACTIVE: 
+		queuedCaster.covenants[queuedCovenant.covenantKey] = CovenantState.INACTIVE
+		emit_signal("vowStopped")
+
+
+func checkDecisivenessVow(delta: float):
+	if caster == null or caster.covenants.get(CovenantKey.DECISIVENESS) != CovenantState.ACTIVE:
+		individualMenuTimer = 0
+		return
+	individualMenuTimer += delta 
+	if individualMenuTimer > 1.0: 
+		caster.covenants[CovenantKey.DECISIVENESS] = CovenantState.BROKEN
+		clearSelections()
+		emit_signal("vowBroken")

@@ -14,10 +14,10 @@ func setup(initLabelText, initActor):
 	return self
 
 func _ready():
-	panicBar.max_value = randi() % (int(min(actor.emotionalState.get(EmotionKey.PANIC, 0)*1, 5))+1)
+	panicBar.max_value = randi() % (int(actor.getEmotionValue(EmotionKey.PANIC))+1)
 	if panicBar.max_value > 0: 
 		panicBar.visible = true
-	var shakeLevel = str(min(actor.emotionalState.get(EmotionKey.ANGER, 0)*10, 50))
+	var shakeLevel = str(actor.getEmotionValue(EmotionKey.PANIC)*10)
 	label.bbcode_text = "[shake rate=25 level=%s]%s[/shake]" % [shakeLevel, labelText]
 
 func _process(delta):

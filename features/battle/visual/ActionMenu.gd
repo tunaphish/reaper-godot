@@ -3,6 +3,7 @@ extends Control
 const EmotionKey = preload("res://entities/emotion/emotion.gd").EmotionKey
 const ActionButton = preload("res://features/battle/visual/ActionButton.tscn")
 onready var popup = $Popup
+onready var modal = $Modal
 onready var container = $Popup/VStack
 onready var header = $Popup/VStack/Header
 onready var selectSound = $Select
@@ -12,16 +13,16 @@ onready var petrifiedFilter = $Popup/PetrifiedFilter
 var options: Array #String Array
 var title: String
 var actor: Actor
+var battle
 
 var petrifiedCounter = 0
 
-signal menuClosed()
 signal id_pressed(id)
-
-func setup(initOptions, initTitle, initActor):
+func setup(initOptions, initTitle, initActor, initBattle):
 	options = initOptions
 	title = initTitle
 	actor = initActor
+	battle = initBattle
 	return self
 
 
@@ -31,25 +32,22 @@ func _ready():
 		var option = options[index] 
 		var actionButton = ActionButton.instance().setup(option, actor)
 		actionButton.connect("pressed", self, "onPressed", [index])	
+		modal.connect("pressed", self, "onModalPressed")
 		container.add_child(actionButton)
 
-	popup.connect("popup_hide", self, "_on_PopupMenu_popup_hide")
 	petrifiedFilter.connect("pressed", self, "onPetrifiedFilterPressed")
 	
-	petrifiedCounter = randi() % (int(min(actor.emotionalState.get(EmotionKey.PETRIFIED, 0)*1, 5))+1)
+	petrifiedCounter = randi() % (int(actor.getEmotionValue(EmotionKey.PETRIFIED))+1)
 	petrifiedFilter.visible = petrifiedCounter > 0
-
-	popup.popup()
 	selectSound.play()
-
-
-func _on_PopupMenu_popup_hide():
-	emit_signal("menuClosed")
-	queue_free()
 
 
 func onPressed(id):
 	emit_signal("id_pressed", id)
+
+
+func onModalPressed():
+	battle.popMenuOption()
 
 
 func onPetrifiedFilterPressed():
