@@ -326,6 +326,7 @@ func toggleCovenant(queuedCovenant, queuedCaster):
 		emit_signal("vowStopped")
 
 
+# Currently doesn't twerk with enemies 
 func checkDecisivenessVow(delta: float):
 	if caster == null or caster.covenants.get(CovenantKey.DECISIVENESS) != CovenantState.ACTIVE:
 		individualMenuTimer = 0
