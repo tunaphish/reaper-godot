@@ -37,6 +37,7 @@ var doubtOptions = []
 var doubtName = ""
 var menuTimer
 var individualMenuTimer = 0
+var staminaFromVitalityCovenant = {}
 
 const TICK = .25 #4 ticks per second
 func _process(delta):
@@ -91,6 +92,9 @@ func updateStats(actor):
 			actor.updateStamina(-menuOptions.size())
 		else:
 			actor.updateStamina(actor.staminaRegenRate)
+			if actor.covenants.get(CovenantKey.VITALITY) == CovenantState.ACTIVE:
+				actor.updateStamina(1)
+				staminaFromVitalityCovenant[actor.name] = staminaFromVitalityCovenant.get(actor.name, 0) + 1
 	if (actor.getTickingHealth() > 0):
 		actor.tickHealth()
 	setState(actor)
@@ -128,6 +132,9 @@ func queueAction():
 	menuTimer = null
 	caster.setState(action.queueState)
 	caster.setQueuedAction(action)
+	if action.isMagicalAction():
+		breakVitalityVow(caster)
+		return
 	clearSelections()
 
 
@@ -332,18 +339,27 @@ func toggleCovenant(queuedCovenant, queuedCaster):
 
 
 func checkDecisivenessVow(delta: float):
-	if caster == null or caster.covenants.get(CovenantKey.DECISIVENESS, CovenantState.INACTIVE) != CovenantState.ACTIVE:
+	if caster == null:
 		individualMenuTimer = 0
 		return
 	individualMenuTimer += delta 
 	if individualMenuTimer > 1.0: 
-		caster.covenants[CovenantKey.DECISIVENESS] = CovenantState.BROKEN
-		clearSelections()
-		emit_signal("vowBroken")
+		breakVow(CovenantKey.DECISIVENESS)
+
 
 func breakCommitmentVow():
-	if caster.covenants.get(CovenantKey.COMMITMENT) != CovenantState.ACTIVE:
+	breakVow(CovenantKey.COMMITMENT)
+
+
+func breakVitalityVow(actor: Resource):
+	breakVow(CovenantKey.VITALITY)
+	var staminaLost = -staminaFromVitalityCovenant.get(actor.name, 0)*2
+	actor.updateStamina(staminaLost)
+
+
+func breakVow(covenantKey: int):
+	if caster.covenants.get(covenantKey) != CovenantState.ACTIVE:
 		return 
-	caster.covenants[CovenantKey.COMMITMENT] = CovenantState.BROKEN
+	caster.covenants[covenantKey] = CovenantState.BROKEN
 	clearSelections()
 	emit_signal("vowBroken")

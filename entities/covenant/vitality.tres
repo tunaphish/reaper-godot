@@ -4,8 +4,8 @@
 
 [resource]
 script = ExtResource( 1 )
-name = ""
-covenant = ""
-reward = ""
-punishment = ""
-castTimeInMs = 1000
+name = "Vitality"
+covenantKey = 2
+vow = "I will not use magic"
+reward = "I will receive additional stamina"
+punishment = "I will give back all the stamina I've received times two"
