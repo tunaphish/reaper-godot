@@ -5,7 +5,7 @@
 [ext_resource path="res://entities/action/sweep.tres" type="Resource" id=3]
 [ext_resource path="res://entities/action/attack.tres" type="Resource" id=4]
 [ext_resource path="res://entities/action/shadow_strike.tres" type="Resource" id=5]
-[ext_resource path="res://entities/covenant/decisiveness.tres" type="Resource" id=6]
+[ext_resource path="res://entities/covenant/commitment.tres" type="Resource" id=6]
 
 [resource]
 script = ExtResource( 1 )

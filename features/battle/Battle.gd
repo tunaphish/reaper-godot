@@ -101,7 +101,12 @@ func queueAction():
 	for member in battleEntity.party:
 		if member.state == State.ACTION:
 			if !action.isMagicalAction():
-				flow = min(member.flow + 1, 3)
+				flow = member.flow + 1
+				if member.covenants.get(CovenantKey.COMMITMENT) == CovenantState.ACTIVE:
+					flow = flow + 1
+				elif member.covenants.get(CovenantKey.COMMITMENT) == CovenantState.BROKEN:
+					flow = 0
+				flow = min(flow, 3)
 			else: 
 				flow = member.flow
 	caster.setFlow(flow)
@@ -326,9 +331,8 @@ func toggleCovenant(queuedCovenant, queuedCaster):
 		emit_signal("vowStopped")
 
 
-# Currently doesn't twerk with enemies 
 func checkDecisivenessVow(delta: float):
-	if caster == null or caster.covenants.get(CovenantKey.DECISIVENESS) != CovenantState.ACTIVE:
+	if caster == null or caster.covenants.get(CovenantKey.DECISIVENESS, CovenantState.INACTIVE) != CovenantState.ACTIVE:
 		individualMenuTimer = 0
 		return
 	individualMenuTimer += delta 
@@ -336,3 +340,10 @@ func checkDecisivenessVow(delta: float):
 		caster.covenants[CovenantKey.DECISIVENESS] = CovenantState.BROKEN
 		clearSelections()
 		emit_signal("vowBroken")
+
+func breakCommitmentVow():
+	if caster.covenants.get(CovenantKey.COMMITMENT) != CovenantState.ACTIVE:
+		return 
+	caster.covenants[CovenantKey.COMMITMENT] = CovenantState.BROKEN
+	clearSelections()
+	emit_signal("vowBroken")
