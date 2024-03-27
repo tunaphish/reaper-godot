@@ -31,7 +31,6 @@ var caster
 var action
 var item
 var covenant
-var timer: float = 0
 
 var doubtOptions = []
 var doubtName = ""
@@ -39,13 +38,11 @@ var menuTimer
 var individualMenuTimer = 0
 var staminaFromVitalityCovenant = {}
 
-const TICK = .25 #4 ticks per second
+var timer: float = 0
+const TICK = .333 #3 ticks per second
 func _process(delta):
 	if menuOptions.size() == 0:
 		caster = null # hacky? solution to reset caster 
-	# delta based functions need to happen before tick check
-	checkDecisivenessVow(delta)
-
 	if menuTimer != null:
 		menuTimer += delta
 
@@ -63,7 +60,7 @@ func _process(delta):
 		toggleCovenant(covenant, caster)
 
 	if (caster and action and targets):
-		queueAction()
+		queueAction(caster, action, targets)
 	
 	if (caster and item and targets):
 		consumeItem(item, caster, targets)
@@ -72,6 +69,7 @@ func _process(delta):
 		updateStats(actor)
 
 	for actor in getActors():
+		checkDecisivenessVow(actor, caster)
 		if actor.state != State.CASTING and actor.stamina > actor.maxStamina - actor.getEmotionValue(EmotionKey.EXCITED) * 10 :
 			caster = actor
 			action = ATTACK_ACTION
@@ -100,11 +98,12 @@ func updateStats(actor):
 	setState(actor)
 
 
-func queueAction():
+func queueAction(queuedCaster, queuedAction, queuedTarget):
+	clearSelections()
 	var flow = 0 
 	for member in battleEntity.party:
 		if member.state == State.ACTION:
-			if !action.isMagicalAction():
+			if !queuedAction.isMagicalAction():
 				flow = member.flow + 1
 				if member.covenants.get(CovenantKey.COMMITMENT) == CovenantState.ACTIVE:
 					flow = flow + 1
@@ -113,29 +112,28 @@ func queueAction():
 				flow = min(flow, 3)
 			else: 
 				flow = member.flow
-	caster.setFlow(flow)
+	queuedCaster.setFlow(flow)
 
 	var magicCost 
 	match flow:
-		0: magicCost = action.magicCost
-		1: magicCost = int(action.magicCost * 0.75)
-		2: magicCost = int(action.magicCost * 0.50)
+		0: magicCost = queuedAction.magicCost
+		1: magicCost = int(queuedAction.magicCost * 0.75)
+		2: magicCost = int(queuedAction.magicCost * 0.50)
 		3: magicCost = 0
-	caster.updateStamina(-action.staminaCost)
-	caster.updateMagic(-magicCost)
-	if magicCost > caster.magic:
-		caster.receiveDamage(magicCost-caster.magic)
+	queuedCaster.updateStamina(-queuedAction.staminaCost)
+	queuedCaster.updateMagic(-magicCost)
+	if magicCost > queuedCaster.magic:
+		queuedCaster.receiveDamage(magicCost-queuedCaster.magic)
 	
-	var actionTimer = get_tree().create_timer(action.castTimeInMs/1000.0)
+	var actionTimer = get_tree().create_timer(queuedAction.castTimeInMs/1000.0)
 	var metadata = { "menuTimer": menuTimer, "menusNavigated": menuOptions.size() }	
-	actionTimer.connect("timeout", self, "executeAction", [action, caster, targets, metadata])
+	actionTimer.connect("timeout", self, "executeAction", [queuedAction, queuedCaster, queuedTarget, metadata])
 	menuTimer = null
-	caster.setState(action.queueState)
-	caster.setQueuedAction(action)
-	# if action.isMagicalAction():
-	# 	breakVitalityVow(caster)
-	# 	return
-	clearSelections()
+	queuedCaster.setState(queuedAction.queueState)
+	queuedCaster.setQueuedAction(queuedAction)
+	if queuedAction.isMagicalAction():
+		breakVitalityVow(queuedCaster)
+		return
 
 
 signal actionExecuted(action)
@@ -159,8 +157,8 @@ func executeAction(queuedAction, queuedCaster, queuedTargets, metadata):
 
 	for target in queuedTargets: 
 		yield(get_tree().create_timer(0.3), "timeout")
-		emit_signal("actionExecuted", queuedAction)
 		actionExections.call(actionExecution, queuedCaster, target, metadata) 
+		emit_signal("actionExecuted", queuedAction)
 
 func consumeItem(queuedItem, queuedCaster, queuedTargets):
 	clearSelections()
@@ -171,8 +169,8 @@ func consumeItem(queuedItem, queuedCaster, queuedTargets):
 	var metadata = {}
 	for target in queuedTargets: 
 		yield(get_tree().create_timer(0.3), "timeout")
-		emit_signal("actionExecuted", itemResource)
 		itemExecutions.call(itemExecution, queuedCaster, target, metadata) #potential for metadata
+		emit_signal("actionExecuted", itemResource)
 	
 
 var NON_EXHAUSTABLE_STATES = [State.ACTION, State.CASTING]
@@ -338,28 +336,29 @@ func toggleCovenant(queuedCovenant, queuedCaster):
 		emit_signal("vowStopped")
 
 
-func checkDecisivenessVow(delta: float):
-	if caster == null:
+func checkDecisivenessVow(actor: Resource, queuedCaster: Resource):
+	if queuedCaster == null:
 		individualMenuTimer = 0
 		return
-	individualMenuTimer += delta 
-	if individualMenuTimer > 1.0: 
-		breakVow(CovenantKey.DECISIVENESS)
+	if queuedCaster == actor:
+		individualMenuTimer += TICK
+		if individualMenuTimer > 1.0: 
+			breakVow(CovenantKey.DECISIVENESS, actor)
 
 
-func breakCommitmentVow():
-	breakVow(CovenantKey.COMMITMENT)
+func breakCommitmentVow(actor: Resource):
+	breakVow(CovenantKey.COMMITMENT, actor)
 
 
 func breakVitalityVow(actor: Resource):
-	breakVow(CovenantKey.VITALITY)
+	breakVow(CovenantKey.VITALITY, actor)
 	var staminaLost = -staminaFromVitalityCovenant.get(actor.name, 0)*2
 	actor.updateStamina(staminaLost)
 
 
-func breakVow(covenantKey: int):
-	if caster.covenants.get(covenantKey) != CovenantState.ACTIVE:
+func breakVow(covenantKey: int, actor: Resource):
+	if actor.covenants.get(covenantKey) != CovenantState.ACTIVE:
 		return 
-	caster.covenants[covenantKey] = CovenantState.BROKEN
+	actor.covenants[covenantKey] = CovenantState.BROKEN
 	clearSelections()
 	emit_signal("vowBroken")

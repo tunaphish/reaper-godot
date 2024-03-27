@@ -48,7 +48,7 @@ func onPressed(id):
 
 func onModalPressed():
 	battle.popMenuOption()
-	battle.breakCommitmentVow()
+	battle.breakCommitmentVow(actor)
 
 
 func onPetrifiedFilterPressed():

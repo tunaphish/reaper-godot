@@ -6,14 +6,14 @@
 [resource]
 script = ExtResource( 1 )
 name = "Ava"
-health = 300
-maxHealth = 300
+health = 100
+maxHealth = 100
 tickingHealth = 0
 stamina = 0.0
-maxStamina = 300
-staminaRegenRate = 3
-magic = 300
-maxMagic = 300
+maxStamina = 100
+staminaRegenRate = 1
+magic = 100
+maxMagic = 100
 state = 0
 flow = 0
 emotionalState = {
