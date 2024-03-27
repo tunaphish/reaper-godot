@@ -1,7 +1,9 @@
 extends Control
 
+const Actor = preload("res://features/battle/visual/Actor.tscn")
+
 onready var background = $Background
-onready var actor = $Actor
+onready var actors = $Actors
 onready var foreground = $Foreground
 
 var battle: Battle 
@@ -12,30 +14,16 @@ func setup(initBattle: Battle):
 	return self
 
 func _ready():
-	var enemy = battle.enemies[0] 
 	background.texture = battle.background
 	foreground.texture = battle.foreground
-	actor.texture = enemy.sprite
-	connect("mouse_entered", self, "onMouseEntered")
-	connect("mouse_exited", self, "onMouseExited")
-	enemy.connect("healthUpdated", self, "onHealthUpdated")
-	enemy.connect("tickingHealthUpdated", self, "onTickingHealthUpdated")
 
-func onHealthUpdated(value):
-	if (value < 0):
-		shakeSprite()
-
-func onTickingHealthUpdated(value):
-	if (value > 0):
-		shakeSprite()
-
-func shakeSprite(duration = 0.03, magnitude = 10, frequency = 10):
-	var shakeTween = create_tween()
-	var initPosition = actor.position
-	for i in frequency:
-		var randomVector2 = Vector2(rand_range(-magnitude, magnitude), rand_range(-magnitude, magnitude))
-		shakeTween.tween_property(actor, "position", initPosition + randomVector2, duration)
-	shakeTween.tween_property(actor, "position", initPosition, duration)
+	for i in range(battle.enemies.size()):
+		var enemy = battle.enemies[i]
+		var actor = Actor.instance().setup(Vector2(i*100-100, 0), enemy)
+		actors.add_child(actor)
+	
+	# connect("mouse_entered", self, "onMouseEntered")
+	# connect("mouse_exited", self, "onMouseExited")
 
 func onMouseEntered():
 	isHover = true
@@ -43,16 +31,17 @@ func onMouseEntered():
 func onMouseExited():
 	isHover = false
 		
-func _process(delta):
-	_moveSpriteParallax(background, 50, 20, delta)
-	_moveSpriteParallax(actor, 75, 40, delta)
-	_moveSpriteParallax(foreground, 100, 60, delta)
+# Below handles parallax
+# func _process(delta):
+# 	_moveSpriteParallax(background, 50, 20, delta)
+# 	_moveSpriteParallax(actor, 75, 40, delta)
+# 	_moveSpriteParallax(foreground, 100, 60, delta)
 
-const origin = Vector2(230,230)	
-func _moveSpriteParallax(sprite, speed, maxLength, delta):
-	var targetPosition = origin+(-(get_local_mouse_position()-origin).normalized()*maxLength) if isHover else origin
-	var direction = (targetPosition-sprite.position).normalized() if isHover else (origin - sprite.position).normalized()
-	var movement = direction * speed * delta
+# const origin = Vector2(230,230)	
+# func _moveSpriteParallax(sprite, speed, maxLength, delta):
+# 	var targetPosition = origin+(-(get_local_mouse_position()-origin).normalized()*maxLength) if isHover else origin
+# 	var direction = (targetPosition-sprite.position).normalized() if isHover else (origin - sprite.position).normalized()
+# 	var movement = direction * speed * delta
 	
-	if sprite.position.distance_to(targetPosition) > 5:
-		sprite.position += movement
+# 	if sprite.position.distance_to(targetPosition) > 5:
+# 		sprite.position += movement

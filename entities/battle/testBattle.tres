@@ -1,16 +1,18 @@
-[gd_resource type="Resource" load_steps=8 format=2]
+[gd_resource type="Resource" load_steps=10 format=2]
 
 [ext_resource path="res://entities/battle/battle.gd" type="Script" id=1]
 [ext_resource path="res://entities/member/keshi/keshi.tres" type="Resource" id=2]
 [ext_resource path="res://entities/member/elise/elise.tres" type="Resource" id=3]
 [ext_resource path="res://entities/member/eji/eji.tres" type="Resource" id=4]
-[ext_resource path="res://entities/enemy/boss/boss.tres" type="Resource" id=5]
+[ext_resource path="res://entities/enemy/yun/yun.tres" type="Resource" id=5]
 [ext_resource path="res://assets/backgrounds/apothecary.png" type="Texture" id=6]
 [ext_resource path="res://assets/foregrounds/apothecary.png" type="Texture" id=7]
+[ext_resource path="res://entities/enemy/estelle/estelle.tres" type="Resource" id=8]
+[ext_resource path="res://entities/enemy/ava/ava.tres" type="Resource" id=9]
 
 [resource]
 script = ExtResource( 1 )
 party = [ ExtResource( 4 ), ExtResource( 2 ), ExtResource( 3 ) ]
-enemies = [ ExtResource( 5 ) ]
+enemies = [ ExtResource( 5 ), ExtResource( 9 ), ExtResource( 8 ) ]
 background = ExtResource( 6 )
 foreground = ExtResource( 7 )

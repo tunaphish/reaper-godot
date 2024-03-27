@@ -132,9 +132,9 @@ func queueAction():
 	menuTimer = null
 	caster.setState(action.queueState)
 	caster.setQueuedAction(action)
-	if action.isMagicalAction():
-		breakVitalityVow(caster)
-		return
+	# if action.isMagicalAction():
+	# 	breakVitalityVow(caster)
+	# 	return
 	clearSelections()
 
 

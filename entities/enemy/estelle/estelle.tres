@@ -1,11 +1,11 @@
 [gd_resource type="Resource" load_steps=3 format=2]
 
-[ext_resource path="res://entities/enemy/boss/apothecary.png" type="Texture" id=1]
-[ext_resource path="res://entities/enemy/enemy.gd" type="Script" id=2]
+[ext_resource path="res://entities/enemy/enemy.gd" type="Script" id=1]
+[ext_resource path="res://entities/enemy/estelle/estelle.png" type="Texture" id=2]
 
 [resource]
-script = ExtResource( 2 )
-name = "Boss"
+script = ExtResource( 1 )
+name = "Estelle"
 health = 300
 maxHealth = 300
 tickingHealth = 0
@@ -20,4 +20,6 @@ emotionalState = {
 0: 0,
 1: 0
 }
-sprite = ExtResource( 1 )
+covenants = {
+}
+sprite = ExtResource( 2 )
